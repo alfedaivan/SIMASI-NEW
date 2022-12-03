@@ -13,7 +13,7 @@ class BencanaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.bencana.index');
     }
 
     /**

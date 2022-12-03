@@ -37,7 +37,9 @@
         @include('admin.components.sidebar')
 
         <!-- Main Content -->
-        @yield('content')
+        <div class="content-wrapper">
+            @yield('content')
+        </div>
 
         @include('admin.components.footer')
     </div>
