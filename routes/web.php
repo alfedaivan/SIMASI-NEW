@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BencanaController;
+use App\Http\Controllers\PoskoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::get('/', function () {
 
 Route::resource('dashboard', DashboardController::class);
 Route::resource('bencana', BencanaController::class);
+Route::resource('posko', PoskoController::class);

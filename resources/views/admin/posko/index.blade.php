@@ -7,12 +7,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Bencana</h1>
+                <h1>Posko</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Bencana</li>
+                    <li class="breadcrumb-item active"><a href="#">Bencana</a></li>
+                    <li class="breadcrumb-item active">Posko</li>
                 </ol>
             </div>
         </div>
@@ -25,10 +26,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h3 class="card-title">List Bencana</h3>
+                        <h3 class="card-title">List Posko</h3>
                         <div class="float-sm-right">
                             <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Bencana</h3>
+                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Posko</h3>
                             </a>
                         </div>
                     </div>
@@ -47,24 +48,14 @@
                                     <form>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="exampleInputNama">Nama Bencana</label>
+                                                <label for="exampleInputNama">Nama Posko</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label for="exampleInputPosko">Total Posko</label>
+                                                <label for="exampleInputPosko">Lokasi</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="exampleInputPengungsi">Total Pengungsi</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Pengungsi">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="exampleInputKorban">Total Korban</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Korban">
                                             </div>
 
                                             <div class="form-check">
@@ -90,12 +81,9 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Waktu</th>
                                     <th>Lokasi</th>
-                                    <th>Total Posko</th>
+                                    <th>TRC</th>
                                     <th>Total Pengungsi</th>
-                                    <th>Total Korban</th>
-                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -105,12 +93,9 @@
                                     <td>All others</td>
                                     <td>All others</td>
                                     <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
                                     <td>
                                         <a href="#" class="btn btn-primary" title="Tampil Posko">
-                                            <i class="fas fa-home"></i>
+                                            <i class="fas fa-users"></i>
                                         </a>
                                         <a href="#" class="btn btn-warning" title="Edit Bencana" style="width: 44px;">
                                             <svg style="width:24px;height:24px" viewBox="0 0 24 24">

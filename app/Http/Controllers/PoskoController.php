@@ -13,7 +13,7 @@ class PoskoController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.posko.index');
     }
 
     /**
