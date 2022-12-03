@@ -27,10 +27,46 @@
                     <div class="card-header justify-content-between">
                         <h3 class="card-title">List Bencana</h3>
                         <div class="float-sm-right">
-                            <a href="#" class="btn btn-success">
+                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
                                 <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Bencana</h3>
                             </a>
                         </div>
+                    </div>
+
+                    <div class="modal fade" id="modal-default">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Default Modal</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- form start -->
+                                    <form>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="exampleInputText">Nama Bencana</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body ">
