@@ -42,6 +42,7 @@
         </div>
 
         @include('admin.components.footer')
+        @include('sweetalert::alert')
     </div>
 
     <!-- jQuery -->

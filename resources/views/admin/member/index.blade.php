@@ -44,35 +44,44 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- form start -->
-                                    <form>
+                                    <form action="{{ route('member.create') }}" method="POST">
+                                        @csrf
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="namaDepan">Nama depan</label>
                                                 <input type="text" class="form-control" id="namaDepan"
-                                                    placeholder="Masukan nama depan">
+                                                    placeholder="Masukan nama depan" name="namaDepan"
+                                                    required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="namaBelakang">Nama belakang</label>
                                                 <input type="text" class="form-control" id="namaBelakang"
-                                                    placeholder="Masukan nama depan">
+                                                    placeholder="Masukan nama belakang" name="namaBelakang"
+                                                    required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="email">Email</label>
                                                 <input type="email" class="form-control" id="email"
-                                                    placeholder="Masukan email">
+                                                    placeholder="Masukan email" name="email" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="namaBelakang">Peran</label>
-                                                <input type="text" class="form-control" id="namaBelakang"
-                                                    placeholder="Masukan nama depan">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password"
+                                                    placeholder="Masukan password" name="password" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="password">Konfirmasi Password</label>
+                                                <input type="password" class="form-control" id="password_confirm"
+                                                    placeholder="Konfirmasi password" name="password_confirm" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="position-option">Peran</label>
-                                                <select class="form-control" id="position-option" name="position_id">
+                                                <select class="form-control" id="peran" name="peran" required>
                                                     @foreach ($role as $peran)
                                                     <option value="{{ $peran->id }}">{{ $peran->name }}
                                                     </option>
@@ -84,7 +93,8 @@
                                         <!-- /.card-body -->
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary" id="button"
+                                                >Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -165,7 +175,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($data as $member)
+                                @foreach ($data as $member)
 
                                 <tr>
                                     <td>{{$member->fullName}}</td>
@@ -196,7 +206,13 @@
 
                             </tbody>
                         </table>
+                     
+                        <br/>
+                        {{ $data->links() }}
+                        <br/>
+
                     </div>
+                    
                     <!-- /.card-body -->
                 </div>
             </div>

@@ -34,4 +34,5 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
+Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
 

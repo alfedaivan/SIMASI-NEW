@@ -6,6 +6,9 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
@@ -24,5 +27,27 @@ class MemberController extends Controller
             'data' => $users,
             'role' => $roles,
         ]);
+    }
+
+    public function createMember(Request $request){
+        // $this->validate($request, [
+        //     'name' => 'required|min:3|max:50',
+        //     'email' => 'email',
+        //     'password' => 'min:6|required_with:password_confirmation|same:password_confirm',
+        //     'password_confirm' => 'min:6'
+        //     ]);
+        // $request->validated();
+        $addMember = new User;
+        $role = Role::findOrFail($request->peran);
+        $addMember->firstname = $request->namaDepan;
+        $addMember->lastname = $request->namaBelakang;
+        $addMember->email = $request->email;
+        $addMember->email_verified_at = now();
+        $addMember->password = Hash::make('password');
+        $addMember->remember_token = Str::random(10);
+        $addMember->save();
+        $addMember->assignRole($role);
+        Alert::success('Success', 'Member berhasil ditambahkan');
+        return back();
     }
 }
