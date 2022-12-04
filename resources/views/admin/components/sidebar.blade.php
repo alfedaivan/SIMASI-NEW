@@ -43,6 +43,7 @@
                         </p>
                     </a>
                 </li>
+                @role('pusdalop')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-window-restore"></i>
@@ -59,11 +60,12 @@
                         </p>
                     </a>
                 </li>
+                @endrole
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Admin
+                            Member
                         </p>
                     </a>
                 </li>

@@ -16,13 +16,22 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
+        $pusdalop = User::create([
+            'name' => 'Tim Pusdalop',
+            'email' => 'pusdalop@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ]);
-        $user->assignRole('writer','admin');
+        $pusdalop->assignRole('pusdalop');
+
+        $trc = User::create([
+            'name' => 'Tim TRC',
+            'email' => 'trc@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+        $trc->assignRole('trc');
     }
 }
