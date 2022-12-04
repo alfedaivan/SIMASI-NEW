@@ -81,4 +81,9 @@ class DashboardController extends Controller
     {
         //
     }
+
+    function login (Request $req)
+    {
+        return User::where('email',$req->input('email'));
+    }
 }
