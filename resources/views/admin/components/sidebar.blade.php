@@ -21,7 +21,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{auth()->user()->name}}</a>
+                        <a href="#" class="d-block">{{auth()->user()->lastname}}</a>
                     </div>
                 </div>
                 <!-- Dahsboard -->
@@ -62,7 +62,7 @@
                 </li>
                 @endrole
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url('/member')}}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Member

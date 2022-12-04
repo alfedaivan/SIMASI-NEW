@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BencanaController;
 use App\Http\Controllers\PoskoController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
 
 /*
@@ -32,3 +33,5 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
+Route::resource('member', MemberController::class);
+
