@@ -80,31 +80,34 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama</th>
                                     <th>Lokasi</th>
                                     <th>TRC</th>
-                                    <th>Total Pengungsi</th>
+                                    <th>Pengungsi</th>
+                                    <th>Waktu Dibuat</th>
+                                    <th>Waktu Update</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>1</td>
                                     <td>Other browsers</td>
                                     <td>All others</td>
                                     <td>All others</td>
                                     <td>All others</td>
+                                    <td>All others</td>
+                                    <td>All others</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary" title="Tampil Posko">
-                                            <i class="fas fa-users"></i>
+                                        <a href="#" class="btn btn-primary mt-1" title="Tampil Pengungsi">
+                                            Pengungsi
                                         </a>
-                                        <a href="#" class="btn btn-warning" title="Edit Bencana" style="width: 44px;">
-                                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                                <path fill="#fff" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                            </svg>
-
+                                        <a href="#" class="btn btn-warning mt-1" title="Edit Bencana" style="color: #fff;">
+                                            Edit
                                         </a>
-                                        <a href="#" class="btn btn-danger" title="Hapus Bencana">
-                                            <i class="fas fa-trash"></i>
+                                        <a href="#" class="btn btn-danger mt-1" title="Hapus Bencana">
+                                            Hapus
                                         </a>
                                     </td>
                                 </tr>

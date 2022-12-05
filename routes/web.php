@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BencanaController;
 use App\Http\Controllers\PoskoController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PengungsiController;
+
 use App\Http\Controllers\LoginController;
 
 /*
@@ -24,7 +26,7 @@ Route::get('', function () {
         'title' => 'Silahkan login terlebih dahulu'
     ]);
 });
-Route::get('/login',[LoginController::class, 'index'])->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -34,5 +36,6 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
-Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
+Route::resource('pengungsi', PengungsiController::class);
 
+Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');

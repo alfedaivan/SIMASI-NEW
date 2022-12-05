@@ -7,12 +7,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Bencana</h1>
+                <h1>Pengungsi Posko (Nama Posko)</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Bencana</li>
+                    <li class="breadcrumb-item active"><a href="#">Bencana</a></li>
+                    <li class="breadcrumb-item active"><a href="#">Posko</a></li>
+                    <li class="breadcrumb-item active">Pengungsi</li>
                 </ol>
             </div>
         </div>
@@ -24,11 +26,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+
                     <div class="card-header justify-content-between">
-                        <h3 class="card-title">List Bencana</h3>
+                        <h3 class="card-title">List Posko</h3>
                         <div class="float-sm-right">
                             <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                <h3 class="card-title"> Tambah Bencana</h3>
+                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Posko</h3>
                             </a>
                         </div>
                     </div>
@@ -47,24 +50,14 @@
                                     <form>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="exampleInputNama">Nama Bencana</label>
+                                                <label for="exampleInputNama">Nama Posko</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label for="exampleInputPosko">Total Posko</label>
+                                                <label for="exampleInputPosko">Lokasi</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="exampleInputPengungsi">Total Pengungsi</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Pengungsi">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="exampleInputKorban">Total Korban</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Korban">
                                             </div>
 
                                             <div class="form-check">
@@ -84,6 +77,7 @@
                         </div>
                         <!-- /.modal-dialog -->
                     </div>
+
                     <!-- /.card-header -->
                     <div class="card-body ">
                         <table id="example2" class="table table-bordered table-hover">
@@ -91,13 +85,11 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Waktu</th>
                                     <th>Lokasi</th>
-                                    <th>Posko</th>
+                                    <th>TRC</th>
                                     <th>Pengungsi</th>
-                                    <th>Korban</th>
+                                    <th>Waktu Dibuat</th>
                                     <th>Waktu Update</th>
-                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -110,15 +102,9 @@
                                     <td>All others</td>
                                     <td>All others</td>
                                     <td>All others</td>
-                                    <td>All others</td>
                                     <td>
-                                        <!-- pakai if else -->
-                                        <span class="badge badge-success">Berjalan</span>
-                                        <span class="badge badge-danger">Selesai</span>
-                                    </td>
-                                    <td>
-                                        <a href="{{url('/posko')}}" class="btn btn-primary mt-1" title="Tampil Posko">
-                                            Posko
+                                        <a href="#" class="btn btn-primary mt-1" title="Tampil Pengungsi">
+                                            Pengungsi
                                         </a>
                                         <a href="#" class="btn btn-warning mt-1" title="Edit Bencana" style="color: #fff;">
                                             Edit
