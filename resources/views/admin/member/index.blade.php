@@ -7,12 +7,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Member</h1>
+                <h1>Anggota</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Member</li>
+                    <li class="breadcrumb-item active">Anggota</li>
                 </ol>
             </div>
         </div>
@@ -25,10 +25,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h3 class="card-title">List Member</h3>
+                        <h3 class="card-title">List Anggota</h3>
                         <div class="float-sm-right">
                             <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Member</h3>
+                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Anggota</h3>
                             </a>
                         </div>
                     </div>
