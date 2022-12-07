@@ -65,7 +65,7 @@
                     <a href="{{url('/member')}}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Member
+                            Anggota
                         </p>
                     </a>
                 </li>

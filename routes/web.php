@@ -39,3 +39,5 @@ Route::resource('member', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
+Route::match(['get','post'],'/edit/{id}', [MemberController::class, 'edit']);
+
