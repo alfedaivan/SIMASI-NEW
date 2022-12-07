@@ -182,20 +182,19 @@
                                             <div class="form-group">
                                                 <label for="namaBelakang">Nama belakang</label>
                                                 <input type="text" class="form-control" id="namaBelakang"
-                                                    placeholder="Masukan nama belakang" name="namaBelakang"  value="{{ $detail->lastname }}" required>
+                                                    placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="email">Email</label>
                                                 <input type="email" class="form-control" id="email"
-                                                    placeholder="Masukan email" name="email"  value="{{ $detail->email }}" required>
-
+                                                    placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="position-option">Peran</label>
                                                 <select class="form-control" id="peran" name="peran" required>
-                                                <option selected disabled hidden value="{{$detail->idRole}}">
+                                                <option selected value="{{ $detail->idRole }}" hidden>
                                                     {{ $detail->namaPeran }}
                                                     </option>
                                                     @foreach ($role as $peran)
