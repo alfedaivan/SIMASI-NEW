@@ -37,5 +37,7 @@ Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
+Route::get('pengungsi/keluarga', [PengungsiController::class, 'keluarga']);
+
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
