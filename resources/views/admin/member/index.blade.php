@@ -195,6 +195,9 @@
                                             <div class="form-group">
                                                 <label for="position-option">Peran</label>
                                                 <select class="form-control" id="peran" name="peran" required>
+                                                <option selected disabled hidden value="{{$detail->idRole}}">
+                                                    {{ $detail->namaPeran }}
+                                                    </option>
                                                     @foreach ($role as $peran)
                                                     <option value="{{ $peran->id }}">{{ $peran->name }}
                                                     </option>
