@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>SIMASI</title>
 
@@ -27,7 +28,17 @@
     <link rel="stylesheet" href="{{url('/assets/template/plugins/daterangepicker/daterangepicker.css')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{url('/assets/template/plugins/summernote/summernote-bs4.min.css')}}">
-
+    
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script> -->
+    
+  <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+  
+    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

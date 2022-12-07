@@ -101,7 +101,7 @@
                         @endif
                     </div>
                     <!-- /.card-header -->
-                   
+
                     <div class="card-body ">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
@@ -140,9 +140,7 @@
                                             </svg>
 
                                         </a>
-                                        <a href="#" class="btn btn-danger" title="Hapus Bencana">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        <button class="btn btn-danger" onclick="deleteConfirmation({{$member->idAdmin}})"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -160,82 +158,115 @@
                 </div>
                 @foreach ($data as $detail)
                 <div class="modal fade" id="modal-edit-{{ $detail->idAdmin }}">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Edit Member</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- form start -->
-                                    <form action="{{ url('/edit/'.$detail->idAdmin) }}" method="post" enctype="multipart/form-data">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Member</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- form start -->
+                                <form action="{{ url('/edit/'.$detail->idAdmin) }}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="namaDepan">Nama depan</label>
-                                                <input type="text" class="form-control" id="namaDepan"
-                                                    placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}"  required>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="namaDepan">Nama depan</label>
+                                            <input type="text" class="form-control" id="namaDepan"
+                                                placeholder="Masukan nama depan" name="namaDepan"
+                                                value="{{ $detail->firstname }}" required>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="namaBelakang">Nama belakang</label>
-                                                <input type="text" class="form-control" id="namaBelakang"
-                                                    placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="namaBelakang">Nama belakang</label>
+                                            <input type="text" class="form-control" id="namaBelakang"
+                                                placeholder="Masukan nama belakang" name="namaBelakang"
+                                                value="{{ $detail->lastname }}" required>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email"
-                                                    placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" id="email"
+                                                placeholder="Masukan email" name="email" value="{{ $detail->email }}"
+                                                required>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="position-option">Peran</label>
-                                                <select class="form-control" id="peran" name="peran" required>
+                                        <div class="form-group">
+                                            <label for="position-option">Peran</label>
+                                            <select class="form-control" id="peran" name="peran" required>
                                                 <option selected value="{{ $detail->idRole }}" hidden>
                                                     {{ $detail->namaPeran }}
-                                                    </option>
-                                                    @foreach ($role as $peran)
-                                                    <option value="{{ $peran->id }}">{{ $peran->name }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                                </option>
+                                                @foreach ($role as $peran)
+                                                <option value="{{ $peran->id }}">{{ $peran->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                        </div>
-                                        
-                                        <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Perbarui</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                                    </div>
+                                </form>
                             </div>
-                            <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-dialog -->
+                        <!-- /.modal-content -->
                     </div>
+                    <!-- /.modal-dialog -->
+                </div>
             </div>
             @endforeach
         </div>
     </div>
 
-    <script>
-    function checkEmail() {
+    <script type="text/javascript">
+    function deleteConfirmation(id) {
+        swal.fire({
+            title: "Hapus?",
+            icon: 'question',
+            text: "Apakah Anda yakin?",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Iya, hapus!",
+            cancelButtonText: "Batal!",
+            reverseButtons: !0
+        }).then(function (e) {
 
-        jQuery.ajax({
-            url: "check_availability.php",
-            data: 'username=' + $("#username").val(),
-            type: "POST",
-            success: function(data) {
-                $("#check-username").html(data);
-            },
-            error: function() {}
-        });
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{url('/delete')}}/" + id,
+                    data: {_token: CSRF_TOKEN},
+                    dataType: 'JSON',
+                    success: function (results) {
+                        if (results.success === true) {
+                            swal.fire("Berhasil!", results.message, "success");
+                            // refresh page after 2 seconds
+                            setTimeout(function(){
+                                location.reload();
+                            },2000);
+                        } else {
+                            swal.fire("Gagal!", results.message, "error");
+                        }
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function (dismiss) {
+            return false;
+        })
     }
-    </script>
-
+</script>
+   
 </section>
 
 @endsection()

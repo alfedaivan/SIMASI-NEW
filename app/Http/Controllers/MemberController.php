@@ -48,7 +48,7 @@ class MemberController extends Controller
             $addMember->remember_token = Str::random(10);
             $addMember->save();
             $addMember->assignRole($role);
-            Alert::success('Success', 'Member berhasil ditambahkan');
+            Alert::success('Success', 'Data berhasil ditambahkan');
             return back();
         }
         return back();
@@ -71,7 +71,7 @@ class MemberController extends Controller
             $member->email = $request->email;
             $member->update();
             $member->syncRoles($role);
-            Alert::success('Success', 'Member berhasil diubah');
+            Alert::success('Success', 'Data berhasil diubah');
             return redirect()->back();
         }
         return redirect()->back();
@@ -98,5 +98,29 @@ class MemberController extends Controller
     public function update(User $user)
     {
         //
+    }
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id){
+        $delete = User::destroy($id);
+
+        // check data deleted or not
+        if ($delete == 1) {
+            $success = true;
+            $message = "Data berhasil dihapus";
+        } else {
+            $success = true;
+            $message = "Data gagal dihapus";
+        }
+
+        //  return response
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
     }
 }
