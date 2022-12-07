@@ -50,33 +50,20 @@
                                             <div class="form-group">
                                                 <label for="namaDepan">Nama depan</label>
                                                 <input type="text" class="form-control" id="namaDepan"
-                                                    placeholder="Masukan nama depan" name="namaDepan"
-                                                    required>
+                                                    placeholder="Masukan nama depan" name="namaDepan" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="namaBelakang">Nama belakang</label>
                                                 <input type="text" class="form-control" id="namaBelakang"
-                                                    placeholder="Masukan nama belakang" name="namaBelakang"
-                                                    required>
+                                                    placeholder="Masukan nama belakang" name="namaBelakang" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="email">Email</label>
                                                 <input type="email" class="form-control" id="email"
                                                     placeholder="Masukan email" name="email" required>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input type="password" class="form-control" id="password"
-                                                    placeholder="Masukan password" name="password" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="password">Konfirmasi Password</label>
-                                                <input type="password" class="form-control" id="password_confirm"
-                                                    placeholder="Konfirmasi password" name="password_confirm" required>
                                             </div>
 
                                             <div class="form-group">
@@ -93,8 +80,7 @@
                                         <!-- /.card-body -->
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary" id="button"
-                                                >Submit</button>
+                                            <button type="submit" class="btn btn-primary" id="button">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -102,63 +88,20 @@
                             <!-- /.modal-content -->
                         </div>
                         <!-- /.modal-dialog -->
+                    </div>
+                    <div class="container mt-2">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                     </div>
                     <!-- /.card-header -->
-                    <div class="modal fade" id="modal-edit">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Edit Member</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- form start -->
-                                    <form>
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="exampleInputNama">Nama Bencana</label>
-                                                <input type="text" class="form-control" id="exampleInputnama"
-                                                    placeholder="Masukan Nama Bencana">
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <label for="exampleInputPosko">Total Posko</label>
-                                                <input type="text" class="form-control" id="exampleInputnama"
-                                                    placeholder="Masukan Total Posko">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="exampleInputPengungsi">Total Pengungsi</label>
-                                                <input type="text" class="form-control" id="exampleInputnama"
-                                                    placeholder="Masukan Total Pengungsi">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="exampleInputKorban">Total Korban</label>
-                                                <input type="text" class="form-control" id="exampleInputnama"
-                                                    placeholder="Masukan Total Korban">
-                                            </div>
-
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
-
-                                        <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- /.modal-content -->
-                        </div>
-                        <!-- /.modal-dialog -->
-                    </div>
+                   
                     <div class="card-body ">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
@@ -186,11 +129,11 @@
                                     <!-- <td>All others</td>
                                     <td>All others</td> -->
                                     <td>
-                                        <a href="#" class="btn btn-primary" title="Tampil Posko">
+                                        <!-- <a href="#" class="btn btn-primary" title="Tampil Posko">
                                             <i class="fas fa-home"></i>
-                                        </a>
+                                        </a> -->
                                         <a href="#" class="btn btn-warning" title="Edit Bencana" style="width: 44px;"
-                                            data-toggle="modal" data-target="#modal-edit">
+                                            data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
                                             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                                 <path fill="#fff"
                                                     d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
@@ -206,18 +149,93 @@
 
                             </tbody>
                         </table>
-                     
-                        <br/>
+
+                        <br />
                         {{ $data->links() }}
-                        <br/>
+                        <br />
 
                     </div>
-                    
+
                     <!-- /.card-body -->
                 </div>
+                @foreach ($data as $detail)
+                <div class="modal fade" id="modal-edit-{{ $detail->idAdmin }}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Edit Member</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- form start -->
+                                    <form action="{{ url('/edit/'.$detail->idAdmin) }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="namaDepan">Nama depan</label>
+                                                <input type="text" class="form-control" id="namaDepan"
+                                                    placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}"  required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="namaBelakang">Nama belakang</label>
+                                                <input type="text" class="form-control" id="namaBelakang"
+                                                    placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" id="email"
+                                                    placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="position-option">Peran</label>
+                                                <select class="form-control" id="peran" name="peran" required>
+                                                <option selected value="{{ $detail->idRole }}" hidden>
+                                                    {{ $detail->namaPeran }}
+                                                    </option>
+                                                    @foreach ($role as $peran)
+                                                    <option value="{{ $peran->id }}">{{ $peran->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Perbarui</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
             </div>
+            @endforeach
         </div>
     </div>
+
+    <script>
+    function checkEmail() {
+
+        jQuery.ajax({
+            url: "check_availability.php",
+            data: 'username=' + $("#username").val(),
+            type: "POST",
+            success: function(data) {
+                $("#check-username").html(data);
+            },
+            error: function() {}
+        });
+    }
+    </script>
+
 </section>
 
 @endsection()
