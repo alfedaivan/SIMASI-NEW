@@ -7,12 +7,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Member</h1>
+                <h1>Anggota</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Member</li>
+                    <li class="breadcrumb-item active">Anggota</li>
                 </ol>
             </div>
         </div>
@@ -25,10 +25,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h3 class="card-title">List Member</h3>
+                        <h3 class="card-title">List Anggota</h3>
                         <div class="float-sm-right">
                             <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Member</h3>
+                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Anggota</h3>
                             </a>
                         </div>
                     </div>
@@ -99,6 +99,7 @@
                     </div>
                     <!-- /.card-header -->
 
+
                     <div class="card-body ">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
@@ -128,9 +129,7 @@
                                             </svg>
 
                                         </a>
-                                        <a href="#" class="btn btn-danger" title="Hapus Bencana">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        <button class="btn btn-danger" onclick="deleteConfirmation({{$member->idAdmin}})"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -159,67 +158,106 @@
                             <div class="modal-body">
                                 <!-- form start -->
                                 <form action="{{ url('/edit/'.$detail->idAdmin) }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="namaDepan">Nama depan</label>
-                                            <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}" required>
-                                        </div>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit Member</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- form start -->
+                                                <form action="{{ url('/edit/'.$detail->idAdmin) }}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="namaDepan">Nama depan</label>
+                                                            <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="namaDepan">Nama depan</label>
+                                                            <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}" required>
+                                                        </div>
 
-                                        <div class="form-group">
-                                            <label for="namaBelakang">Nama belakang</label>
-                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
-                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="namaBelakang">Nama belakang</label>
+                                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="namaBelakang">Nama belakang</label>
+                                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
+                                                        </div>
 
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
-                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="email">Email</label>
+                                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="email">Email</label>
+                                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
+                                                        </div>
 
-                                        <div class="form-group">
-                                            <label for="position-option">Peran</label>
-                                            <select class="form-control" id="peran" name="peran" required>
-                                                <option selected value="{{ $detail->idRole }}" hidden>
-                                                    {{ $detail->namaPeran }}
-                                                </option>
-                                                @foreach ($role as $peran)
-                                                <option value="{{ $peran->id }}">{{ $peran->name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="position-option">Peran</label>
+                                                            <select class="form-control" id="peran" name="peran" required>
+                                                                <option selected value="{{ $detail->idRole }}" hidden>
+                                                                    {{ $detail->namaPeran }}
+                                                                </option>
+                                                                @foreach ($role as $peran)
+                                                                <option value="{{ $peran->id }}">{{ $peran->name }}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
 
+                                                    </div>
+
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
                                     </div>
-
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Perbarui</button>
-                                    </div>
-                                </form>
+                                    <!-- /.modal-dialog -->
                             </div>
                         </div>
-                        <!-- /.modal-content -->
+                        @endforeach
                     </div>
-                    <!-- /.modal-dialog -->
                 </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
 
-    <script>
-        function checkEmail() {
+                <script>
+                    function checkEmail() {
+                        <
+                        script type = "text/javascript" >
+                            function deleteConfirmation(id) {
+                                swal.fire({
+                                        title: "Hapus?",
+                                        icon: 'question',
+                                        text: "Apakah Anda yakin?",
+                                        type: "warning",
+                                        showCancelButton: !0,
+                                        confirmButtonText: "Iya, hapus!",
+                                        cancelButtonText: "Batal!",
+                                        reverseButtons: !0
+                                    }).then(function(e) {
 
-            jQuery.ajax({
-                url: "check_availability.php",
-                data: 'username=' + $("#username").val(),
-                type: "POST",
-                success: function(data) {
-                    $("#check-username").html(data);
-                },
-                error: function() {}
-            });
-        }
-    </script>
+                                            if (e.value === true) {
+                                                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                                                jQuery.ajax({
+                                                    url: "check_availability.php",
+                                                    data: 'username=' + $("#username").val(),
+                                                    type: "POST",
+                                                    success: function(data) {
+                                                        $("#check-username").html(data);
+                                                    },
+                                                    error: function() {}
+                                                });
+                                            }
+                </script>
 
 </section>
 

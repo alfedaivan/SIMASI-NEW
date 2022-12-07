@@ -42,4 +42,5 @@ Route::get('pengungsi/keluarga', [PengungsiController::class, 'keluarga']);
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
 Route::match(['get','post'],'/edit/{id}', [MemberController::class, 'edit']);
+Route::post('delete/{id}',[MemberController::class, 'delete']);
 
