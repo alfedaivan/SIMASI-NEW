@@ -172,7 +172,7 @@
                             </div>
                             <div class="modal-body">
                                 <!-- form start -->
-                                <form action="{{ url('/edit/'.$detail->idAdmin) }}" method="post"
+                                <form action="{{ url('/member/edit/'.$detail->idAdmin) }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">

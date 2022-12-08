@@ -189,7 +189,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- form start -->
-                                                <form action="{{ url('/edit/'.$detail->idBencana) }}" method="post"
+                                                <form action="{{ url('/bencana/edit/'.$detail->idBencana) }}" method="post"
                                                     enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="card-body">

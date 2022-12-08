@@ -40,10 +40,13 @@ Route::resource('pengungsi', PengungsiController::class);
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
 Route::match(['get','post'],'/edit/{id}', [MemberController::class, 'edit']);
-Route::post('delete/{id}',[MemberController::class, 'delete']);
+Route::post('member/delete/{id}',[MemberController::class, 'delete']);
 
 Route::post('bencana/create', [BencanaController::class, 'createBencana'])->name('bencana.create');
-Route::match(['get','post'],'/edit/{id}', [BencanaController::class, 'edit']);
+Route::match(['get','post'],'bencana/edit/{id}', [BencanaController::class, 'edit']);
 Route::post('delete/{id}',[BencanaController::class, 'delete']);
+
+Route::post('posko/create', [PoskoController::class, 'createPosko'])->name('posko.create');
+
 
 
