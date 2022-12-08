@@ -142,7 +142,9 @@
                                             </svg>
 
                                         </a>
-                                        <button class="btn btn-danger" onclick="deleteConfirmation({{$member->idAdmin}})"><i class="fas fa-trash"></i></button>
+                                        <button class="btn btn-danger"
+                                            onclick="deleteConfirmation({{$member->idAdmin}})"><i
+                                                class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -236,7 +238,7 @@
             confirmButtonText: "Iya, hapus!",
             cancelButtonText: "Batal!",
             reverseButtons: !0
-        }).then(function (e) {
+        }).then(function(e) {
 
             if (e.value === true) {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -244,15 +246,17 @@
                 $.ajax({
                     type: 'POST',
                     url: "{{url('/delete')}}/" + id,
-                    data: {_token: CSRF_TOKEN},
+                    data: {
+                        _token: CSRF_TOKEN
+                    },
                     dataType: 'JSON',
-                    success: function (results) {
+                    success: function(results) {
                         if (results.success === true) {
                             swal.fire("Berhasil!", results.message, "success");
                             // refresh page after 2 seconds
-                            setTimeout(function(){
+                            setTimeout(function() {
                                 location.reload();
-                            },2000);
+                            }, 2000);
                         } else {
                             swal.fire("Gagal!", results.message, "error");
                         }
@@ -263,12 +267,12 @@
                 e.dismiss;
             }
 
-        }, function (dismiss) {
+        }, function(dismiss) {
             return false;
         })
     }
-</script>
-   
+    </script>
+
 </section>
 
 @endsection()

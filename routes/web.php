@@ -42,3 +42,8 @@ Route::post('member/create', [MemberController::class, 'createMember'])->name('m
 Route::match(['get','post'],'/edit/{id}', [MemberController::class, 'edit']);
 Route::post('delete/{id}',[MemberController::class, 'delete']);
 
+Route::post('bencana/create', [BencanaController::class, 'createBencana'])->name('bencana.create');
+Route::match(['get','post'],'/edit/{id}', [BencanaController::class, 'edit']);
+Route::post('delete/{id}',[BencanaController::class, 'delete']);
+
+
