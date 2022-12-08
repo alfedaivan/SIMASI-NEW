@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bencana;
+use Illuminate\Support\Facades\DB;
 
 class BencanaController extends Controller
 {
@@ -13,7 +15,14 @@ class BencanaController extends Controller
      */
     public function index()
     {
-        return view('admin.bencana.index');
+        $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"),'bencana.id','nama','lokasi', 'status', 'posko_id as posko', 'pengungsi_id as pengungsi', 'updated_at as waktuUpdate')
+            // ->leftJoin('posko AS p', 'bencana.posko_id', '=', 'p.id')
+            ->orderBy('bencana.tanggal', 'desc')
+            ->paginate(5);
+        return view('admin.bencana.index', [
+            'data' => $bencana,
+            // 'role' => $roles,
+        ]);
     }
 
     /**

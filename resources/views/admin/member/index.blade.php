@@ -106,6 +106,7 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>Peran</th>
@@ -118,9 +119,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $member)
+                                @foreach ($data as $key => $member)
 
                                 <tr>
+                                    <td>{{ $data->firstItem() + $key  }}</td>
                                     <td>{{$member->fullName}}</td>
                                     <td>{{$member->email}}</td>
                                     <td>{{$member->namaPeran}}</td>

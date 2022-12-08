@@ -111,18 +111,29 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach ($data as $key => $bencana)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Other browsers</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
+                                    <td>{{ $data->firstItem() + $key }}</td>
+                                    <td>{{ $bencana->nama }}</td>
+                                    <td>{{ $bencana->waktu }}</td>
+                                    <td>{{ $bencana->lokasi }}</td>
+                                    <td>{{ $bencana->posko }}</td>
+                                    <td>{{ $bencana->pengungsi }}</td>
+                                    <td>{{ $bencana->pengungsi }}</td>
+                                    <td>{{ $bencana->waktuUpdate }}</td>
+                                    <!-- <td>All others</td> -->
                                     <td>
+                                        <?php
+                                            $value = $bencana->status;
+                                            if($value == 1){
+                                                $value = 'Berjalan';
+                                            }else if($value == 0){
+                                                $value = 'Selesai';
+                                            }
+                                            // if()
+                                        ?>
                                         <!-- pakai if else -->
-                                        <span class="badge badge-success">Berjalan</span>
+                                        <span class="badge badge-success"><?php echo $value;?></span>
                                         <!-- <span class="badge badge-danger">Selesai</span> -->
                                     </td>
                                     <td>
@@ -149,9 +160,15 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        <br />
+                        {{ $data->links() }}
+                        <br />
                     </div>
+
+                    
                     <!-- /.card-body -->
                 </div>
             </div>
