@@ -86,6 +86,7 @@
                         </div>
                         <!-- /.modal-dialog -->
                     </div>
+
                     <div class="container mt-2">
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -228,7 +229,7 @@
                     </div>
                 </div>
 
-                <script>
+                <!-- <script>
                     function checkEmail() {
                         <
                         script type = "text/javascript" >
@@ -257,7 +258,7 @@
                                                     error: function() {}
                                                 });
                                             }
-                </script>
+                </script> -->
 
 </section>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\BencanaController;
 use App\Http\Controllers\PoskoController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PengungsiController;
+use App\Http\Controllers\PengungsiKeluargaController;
 
 use App\Http\Controllers\LoginController;
 
@@ -37,10 +38,10 @@ Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
-Route::get('pengungsi/keluarga', [PengungsiController::class, 'keluarga']);
+Route::get('/pengungsi/keluarga', 'App\Http\Controllers\PengungsiController@showKeluarga');
+
 
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
-Route::match(['get','post'],'/edit/{id}', [MemberController::class, 'edit']);
-Route::post('delete/{id}',[MemberController::class, 'delete']);
-
+Route::match(['get', 'post'], '/edit/{id}', [MemberController::class, 'edit']);
+Route::post('delete/{id}', [MemberController::class, 'delete']);

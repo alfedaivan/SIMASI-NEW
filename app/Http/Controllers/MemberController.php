@@ -15,7 +15,7 @@ class MemberController extends Controller
     public function index()
     {
         $users = User::select(DB::raw("concat(users.firstname,' ',users.lastname) as fullName"), 'users.firstname', 'users.lastname', 'users.email', 'users.id AS idAdmin', 'mr.role_id', 'r.id as idRole', 'r.name as namaPeran')
-        // ->leftJoin('posko AS p', 'users.posko_id','=','p.id')
+            // ->leftJoin('posko AS p', 'users.posko_id','=','p.id')
             ->leftJoin('model_has_roles as mr', 'users.id', '=', 'mr.model_id')
             ->leftJoin('roles AS r', 'mr.role_id', '=', 'r.id')
             ->paginate(5);
@@ -56,11 +56,6 @@ class MemberController extends Controller
 
     public function edit(Request $request, $id)
     {
-        // $request->validate([
-        //     'namaDepan' => ['required', 'max:50'],
-        //     'namaBelakang' => ['required', 'max:50'],
-        //     'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
-        // ]);
 
         $role = Role::where('id', $request->peran)->first();
         $member = User::where('id', $id)->first();
@@ -75,7 +70,6 @@ class MemberController extends Controller
             return redirect()->back();
         }
         return redirect()->back();
-
     }
 
     /**
@@ -99,13 +93,14 @@ class MemberController extends Controller
     {
         //
     }
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function delete($id){
+    public function delete($id)
+    {
         $delete = User::destroy($id);
 
         // check data deleted or not
