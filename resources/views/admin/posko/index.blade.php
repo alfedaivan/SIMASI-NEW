@@ -146,7 +146,10 @@
                                     <td>{{ $posko->nama }}</td>
                                     <td>{{ $posko->lokasi}}</td>
                                     <td>{{ $posko->fullName}}</td>
-                                    <td>23 orang</td>
+                                    <td>
+                                        23 Orang
+                                        <a href="{{url('/pengungsi')}}" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
+                                    </td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     <td>
@@ -155,10 +158,6 @@
                                                 <i class="fas fa-bars"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-lg" role="menu">
-                                                <!-- <a href="#" class="dropdown-item " data-toggle="modal" data-target="#modal-detail" title="Detail Pengungsi">
-                                                    <i class="fas fa-eye mr-1"></i> Detail
-                                                </a>
-                                                <div class="dropdown-divider"></div> -->
                                                 <a href="#" class="dropdown-item " title="Edit Pengungsi" data-toggle="modal" data-target="#modal-edit-{{$posko->idPosko}}">
                                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
                                                         <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
@@ -234,9 +233,6 @@
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
-                                        <a href="#" class="btn btn-danger btn-sm" title="Hapus Posko">
-                                            Hapus
-                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach

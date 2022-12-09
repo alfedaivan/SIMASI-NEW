@@ -97,7 +97,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body ">
-                        <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
+                        <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#tambah" style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Bencana
                         </a>
 
@@ -123,24 +123,27 @@
                                     <td>{{ $bencana->nama }}</td>
                                     <td>{{ $bencana->waktu }}</td>
                                     <td>{{ $bencana->lokasi }}</td>
-                                    <td>{{ $bencana->posko }}</td>
+                                    <!-- <td>{{ $bencana->posko }}</td> -->
+                                    <td class="">
+                                        20 Posko
+                                        <a href="{{url('/posko')}}" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Posko </a>
+                                    </td>
                                     <td>{{ $bencana->pengungsi }}</td>
                                     <td>{{ $bencana->pengungsi }}</td>
                                     <td>{{ $bencana->waktuUpdate }}</td>
                                     <!-- <td>All others</td> -->
                                     <td>
-                                        <?php
-                                        $value = $bencana->status;
-                                        if ($value == 1) {
-                                            $value = 'Berjalan';
-                                        } else if ($value == 0) {
-                                            $value = 'Selesai';
-                                        }
-                                        // if()
-                                        ?>
-                                        <!-- pakai if else -->
+                                        @if($bencana->status == 1)
+                                        @php
+                                        $value = 'Berjalan'
+                                        @endphp
                                         <span class="badge badge-success"><?php echo $value; ?></span>
-                                        <!-- <span class="badge badge-danger">Selesai</span> -->
+                                        @else
+                                        @php
+                                        $value = 'Selesai'
+                                        @endphp
+                                        <span class="badge badge-danger">Selesai</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="btn-group">
@@ -165,9 +168,9 @@
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
-                                        <a href="#" class="btn btn-danger btn-sm" title="Hapus Pengungsi">
+                                        <!-- <a href="#" class="btn btn-danger btn-sm" title="Hapus Pengungsi">
                                             Hapus
-                                        </a>
+                                        </a> -->
                                     </td>
                                 </tr>
                                 @endforeach

@@ -18,14 +18,28 @@ class PoskoController extends Controller
      */
     public function index()
     {
-        $posko = Posko::select(DB::raw("concat('Prov. ',provinsi,', Kota ',kota,', Kec. ',kecamatan,', Ds. ',kelurahan,', Daerah ',detail,' ') as lokasi"), 'posko.id as idPosko', 'nama', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'detail', DB::raw("concat(u.firstname,' ',u.lastname) as fullName"), 'u.created_at', 'u.updated_at')
+        $posko = Posko::select(
+            DB::raw("concat('Prov. ',provinsi,', Kota ',kota,', Kec. ',
+            kecamatan,', Ds. ',kelurahan,', Daerah ',detail,' ') 
+        as lokasi"),
+            'posko.id as idPosko',
+            'nama',
+            'provinsi',
+            'kota',
+            'kecamatan',
+            'kelurahan',
+            'detail',
+            DB::raw("concat(u.firstname,' ',u.lastname) as fullName"),
+            'u.created_at',
+            'u.updated_at'
+        )
             ->leftJoin('users AS u', 'posko.trc_id', '=', 'u.id')
             ->orderBy('u.id', 'desc')
             ->paginate(5);
         $trc = User::select(DB::raw("concat(firstname,' ',lastname) as fullName"), 'users.id as idAdmin', 'lastname')
             ->join('model_has_roles as mr', 'mr.model_id', '=', 'users.id')
             ->join('roles as r', 'r.id', '=', 'mr.role_id')
-            ->where('r.id', 5)
+            ->where('r.id', 2)
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('posko')
