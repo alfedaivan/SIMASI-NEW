@@ -31,7 +31,7 @@ class MemberController extends Controller
 
     public function createMember(Request $request)
     {
-        if (auth()->user()->hasAnyRole(['pusdalop', 'trc'])) {
+        if (auth()->user()->hasAnyRole(['pusdalop'])) {
             $request->validate([
                 'namaDepan' => ['required', 'max:50'],
                 'namaBelakang' => ['required', 'max:50'],
@@ -65,7 +65,7 @@ class MemberController extends Controller
         $role = Role::where('id', $request->peran)->first();
         $member = User::where('id', $id)->first();
 
-        if (auth()->user()->hasAnyRole(['pusdalop', 'trc'])) {
+        if (auth()->user()->hasAnyRole(['pusdalop'])) {
             $member->firstname = $request->namaDepan;
             $member->lastname = $request->namaBelakang;
             $member->email = $request->email;
@@ -99,28 +99,32 @@ class MemberController extends Controller
     {
         //
     }
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function delete($id){
-        $delete = User::destroy($id);
+    public function delete($id)
+    {
+        if (auth()->user()->hasAnyRole(['pusdalop'])) {
+            $delete = User::destroy($id);
 
-        // check data deleted or not
-        if ($delete == 1) {
-            $success = true;
-            $message = "Data berhasil dihapus";
-        } else {
-            $success = true;
-            $message = "Data gagal dihapus";
+            // check data deleted or not
+            if ($delete == 1) {
+                $success = true;
+                $message = "Data berhasil dihapus";
+            } else {
+                $success = true;
+                $message = "Data gagal dihapus";
+            }
+
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
         }
-
-        //  return response
-        return response()->json([
-            'success' => $success,
-            'message' => $message,
-        ]);
+        return back();
     }
 }

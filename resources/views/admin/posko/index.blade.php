@@ -57,7 +57,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputNama">Nama Posko</label>
                                                 <input type="text" class="form-control" id="exampleInputnama"
-                                                    name="namaPosko" placeholder="Masukan nama posko" required>
+                                                    name="nama" placeholder="Masukan nama posko" required>
                                             </div>
 
                                             <div class="form-group">
@@ -92,7 +92,7 @@
 
                                             <div class="form-group">
                                                 <label for="trc">TRC</label>
-                                                <select class="form-control" id="trc" name="trc" required>
+                                                <select class="form-control" id="trc_id" name="trc_id" required>
                                                     <option selected value="" hidden>Pilih TRC</option>
                                                     @foreach ($getTrc as $trc)
                                                     <option value="{{ $trc->idAdmin }}">{{ $trc->fullName }}</option>
@@ -115,6 +115,19 @@
                         <!-- /.modal-dialog -->
                     </div>
                     <!-- /.card-header -->
+
+                    <div class="container mt-3">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+
                     <div class="card-body ">
                         <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default"
                             style="font-size: 14px;">
@@ -140,7 +153,7 @@
                                     <td>{{ $data->firstItem() + $key  }}</td>
                                     <td>{{ $posko->nama }}</td>
                                     <td>{{ $posko->lokasi}}</td>
-                                    <td>{{ $posko->firstname}}</td>
+                                    <td>{{ $posko->fullName}}</td>
                                     <td>23 orang</td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
@@ -185,14 +198,14 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- form start -->
-                                                <form action="{{ url('/edit/'.$detail->idBencana) }}" method="post"
+                                                <form action="{{ url('posko/edit/'.$detail->idPosko) }}" method="post"
                                                     enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="card-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputNama">Nama Posko</label>
                                                             <input type="text" class="form-control"
-                                                                id="exampleInputnama" name="namaPosko"
+                                                                id="exampleInputnama" name="nama"
                                                                 placeholder="Masukan nama posko"
                                                                 value="{{$detail->nama}}" required>
                                                         </div>
@@ -232,6 +245,19 @@
                                                             <input type="text" class="form-control"
                                                                 id="exampleInputnama" placeholder="Masukan detail"
                                                                 name="detail" value="{{$detail->detail}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="trc">TRC</label>
+                                                            <select class="form-control" id="trc" name="trc_id"
+                                                                required>
+                                                                <option selected value="{{ $detail->idAdmin }}" hidden>{{ $detail->fullName }}</option>
+                                                                @foreach ($getTrc as $trc)
+                                                                <option value="{{ $trc->idAdmin }}">{{ $trc->fullName }}
+                                                                </option>
+                                                                <!-- <option value="0">Selesai</option> -->
+                                                                @endforeach
+                                                            </select>
                                                         </div>
 
                                                     </div>
