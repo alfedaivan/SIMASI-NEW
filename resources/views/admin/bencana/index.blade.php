@@ -50,42 +50,36 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- form start -->
-                                    <form>
+                                    <form action="{{ route('bencana.create') }}" method="post">
+                                        @csrf
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="exampleInputNama">Nama Bencana</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
+                                                <input type="text" class="form-control" id="exampleInputnama" name="namaBencana" placeholder="Masukan nama bencana" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Waktu Kejadian</label>
-                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                                                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
-                                                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                    </div>
-                                                </div>
+                                                <label for="exampleInputPosko">Tanggal</label>
+                                                <input type="date" class="form-control" id="exampleInputnama" placeholder="Masukan tanggal" name="tanggal" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Textarea</label>
-                                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <label for="exampleInputPosko">Total Posko</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                                <label for="exampleInputPengungsi">Waktu</label>
+                                                <input type="time" class="form-control" id="exampleInputnama" placeholder="Masukan waktu" name="waktu" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="exampleInputPengungsi">Total Pengungsi</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Pengungsi">
+                                                <label for="exampleInputKorban">Lokasi</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan lokasi" name="lokasi" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="exampleInputKorban">Total Korban</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Korban">
+                                                <label for="status">Status</label>
+                                                <select class="form-control" id="status" name="status" required>
+                                                    <option selected value="" hidden>Pilih status</option>
+                                                    <option value="1">Berjalan</option>
+                                                    <option value="0">Selesai</option>
+                                                </select>
                                             </div>
 
                                         </div>
@@ -102,8 +96,8 @@
                         <!-- /.modal-dialog -->
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive">
-                        <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#tambah" style="font-size: 14px;">
+                    <div class="card-body ">
+                        <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Bencana
                         </a>
 
@@ -123,86 +117,51 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($data as $key => $bencana)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Other browsers</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
+                                    <td>{{ $data->firstItem() + $key }}</td>
+                                    <td>{{ $bencana->nama }}</td>
+                                    <td>{{ $bencana->waktu }}</td>
+                                    <td>{{ $bencana->lokasi }}</td>
+                                    <td>{{ $bencana->posko }}</td>
+                                    <td>{{ $bencana->pengungsi }}</td>
+                                    <td>{{ $bencana->pengungsi }}</td>
+                                    <td>{{ $bencana->waktuUpdate }}</td>
+                                    <!-- <td>All others</td> -->
                                     <td>
+                                        <?php
+                                        $value = $bencana->status;
+                                        if ($value == 1) {
+                                            $value = 'Berjalan';
+                                        } else if ($value == 0) {
+                                            $value = 'Selesai';
+                                        }
+                                        // if()
+                                        ?>
                                         <!-- pakai if else -->
-                                        <span class="badge badge-success">Berjalan</span>
+                                        <span class="badge badge-success"><?php echo $value; ?></span>
                                         <!-- <span class="badge badge-danger">Selesai</span> -->
                                     </td>
                                     <td>
-                                        <a href="{{url('/posko')}}" class="btn btn-primary btn-sm" title="Tampil Posko">
-                                            Posko
-                                        </a>
-                                        <a href="#edit" class="btn btn-warning btn-sm" title="Edit Bencana" data-toggle="modal" data-target="#edit" style="color:#fff;">
-                                            Edit
-                                        </a>
-                                        <div class="modal fade" id="edit">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Tambah Bencana</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <!-- form start -->
-                                                        <form>
-                                                            <div class="card-body">
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputNama">Nama Bencana</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Waktu Kejadian</label>
-                                                                    <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                                                                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
-                                                                        <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Textarea</label>
-                                                                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                                                </div>
-
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputPosko">Total Posko</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputPengungsi">Total Pengungsi</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Pengungsi">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputKorban">Total Korban</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Korban">
-                                                                </div>
-
-                                                            </div>
-                                                            <!-- /.card-body -->
-
-                                                            <div class="card-footer">
-                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                                <i class="fas fa-bars"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-lg" role="menu">
+                                                <!-- <a href="#" class="dropdown-item " data-toggle="modal" data-target="#modal-detail" title="Detail Pengungsi">
+                                                    <i class="fas fa-eye mr-1"></i> Detail
+                                                </a>
+                                                <div class="dropdown-divider"></div> -->
+                                                <a href="#" class="dropdown-item " title="Edit Bencana" data-toggle="modal" data-target="#modal-edit-{{$bencana->idBencana}}">
+                                                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                                                        <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                                    </svg>
+                                                    Edit
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$bencana->idBencana}})">
+                                                    <i class="fas fa-trash mr-1"></i> Hapus
+                                                </a>
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
@@ -211,14 +170,136 @@
                                         </a>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                                @endforeach
+                                @foreach ($data as $detail)
+                                <div class="modal fade" id="modal-edit-{{$detail->idBencana}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Ubah Bencana</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- form start -->
+                                                <form action="{{ url('/bencana/edit/'.$detail->idBencana) }}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputNama">Nama Bencana</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" name="namaBencana" placeholder="Masukan nama bencana" value="{{$detail->nama}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPosko">Tanggal</label>
+                                                            <input type="date" class="form-control" id="exampleInputnama" placeholder="Masukan tanggal" name="tanggal" value="{{$detail->tgl}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPengungsi">Waktu</label>
+                                                            <input type="time" class="form-control" id="exampleInputnama" placeholder="Masukan waktu" name="waktu" value="{{$detail->time}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputKorban">Lokasi</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan lokasi" name="lokasi" value="{{$detail->lokasi}}" required>
+                                                        </div>
+
+                                                        <?php
+                                                        $value = $detail->status;
+                                                        if ($value == 1) {
+                                                            $value = 'Berjalan';
+                                                        } else if ($value == 0) {
+                                                            $value = 'Selesai';
+                                                        }
+                                                        // if()
+                                                        ?>
+
+                                                        <div class="form-group">
+                                                            <label for="status">Status</label>
+                                                            <select class="form-control" id="status" name="status" required>
+                                                                <option selected value="{{$detail->status}}" hidden>
+                                                                    <?php echo $value;  ?></option>
+                                                                <option value="1">Berjalan</option>
+                                                                <option value="0">Selesai</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
                     </div>
-                    <!-- /.card-body -->
+                    @endforeach
+                    </tbody>
+                    </table>
+                    <br />
+                    {{ $data->links() }}
+                    <br />
                 </div>
+
+
+                <!-- /.card-body -->
             </div>
         </div>
     </div>
+    </div>
+
+    <script type="text/javascript">
+        function deleteConfirmation(id) {
+            swal.fire({
+                title: "Hapus?",
+                icon: 'question',
+                text: "Apakah Anda yakin?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Iya, hapus!",
+                cancelButtonText: "Batal!",
+                reverseButtons: !0
+            }).then(function(e) {
+
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{url('/delete')}}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                swal.fire("Berhasil!", results.message, "success");
+                                // refresh page after 2 seconds
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            } else {
+                                swal.fire("Gagal!", results.message, "error");
+                            }
+                        }
+                    });
+
+                } else {
+                    e.dismiss;
+                }
+
+            }, function(dismiss) {
+                return false;
+            })
+        }
+    </script>
+
 </section>
 
 

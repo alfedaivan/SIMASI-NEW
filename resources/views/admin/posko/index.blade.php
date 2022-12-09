@@ -12,7 +12,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="#">Bencana</a></li>
+                    <li class="breadcrumb-item active"><a href="/bencana">Bencana</a></li>
                     <li class="breadcrumb-item active">Posko</li>
                 </ol>
             </div>
@@ -50,27 +50,50 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- form start -->
-                                    <form>
+                                    <form action="{{ route('posko.create') }}" method="POST">
+                                        @csrf
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="exampleInputNama">Nama Posko</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <label for="exampleInputPosko">Lokasi</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                                <input type="text" class="form-control" id="exampleInputnama" name="nama" placeholder="Masukan nama posko" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="exampleSelectBorder">Pilih TRC</label>
-                                                <select class="custom-select form-control-border" id="exampleSelectBorder">
-                                                    <option>Value 1</option>
-                                                    <option>Value 2</option>
-                                                    <option>Value 3</option>
+                                                <label for="exampleInputProvinsi">Provinsi</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan provinsi" name="provinsi" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputKota">Kota</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan kota" name="kota" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputKec">Kecamatan</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan kecamatan" name="kecamatan" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputKel">Kelurahan</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan kelurahan" name="kelurahan" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputDetail">Detail</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan detail" name="detail" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="trc">TRC</label>
+                                                <select class="form-control" id="trc_id" name="trc_id" required>
+                                                    <option selected value="" hidden>Pilih TRC</option>
+                                                    @foreach ($getTrc as $trc)
+                                                    <option value="{{ $trc->idAdmin }}">{{ $trc->fullName }}</option>
+                                                    <!-- <option value="0">Selesai</option> -->
+                                                    @endforeach
                                                 </select>
                                             </div>
+
                                         </div>
                                         <!-- /.card-body -->
 
@@ -85,7 +108,20 @@
                         <!-- /.modal-dialog -->
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive">
+
+                    <div class="container mt-3">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="card-body ">
                         <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Posko
                         </a>
@@ -104,64 +140,35 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($data as $key => $posko)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Other browsers</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
-                                    <td>All others</td>
+                                    <td>{{ $data->firstItem() + $key  }}</td>
+                                    <td>{{ $posko->nama }}</td>
+                                    <td>{{ $posko->lokasi}}</td>
+                                    <td>{{ $posko->fullName}}</td>
+                                    <td>23 orang</td>
+                                    <td>{{ $posko->created_at}}</td>
+                                    <td>{{ $posko->updated_at}}</td>
                                     <td>
-                                        <a href="{{url('/pengungsi')}}" class="btn btn-primary btn-sm" title="Tampil Pengungsi">
-                                            Pengungsi
-                                        </a>
-                                        <a href="#edit" class="btn btn-warning btn-sm" title="Edit Posko" data-toggle="modal" data-target="#edit" style="color:#fff;">
-                                            Edit
-                                        </a>
-
-                                        <div class="modal fade" id="edit">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Posko</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <!-- form start -->
-                                                        <form>
-                                                            <div class="card-body">
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputNama">Nama Posko</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
-                                                                </div>
-
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputPosko">Lokasi</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleSelectBorder">Pilih TRC</label>
-                                                                    <select class="custom-select form-control-border" id="exampleSelectBorder">
-                                                                        <option>Value 1</option>
-                                                                        <option>Value 2</option>
-                                                                        <option>Value 3</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /.card-body -->
-
-                                                            <div class="card-footer">
-                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                                <i class="fas fa-bars"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-lg" role="menu">
+                                                <!-- <a href="#" class="dropdown-item " data-toggle="modal" data-target="#modal-detail" title="Detail Pengungsi">
+                                                    <i class="fas fa-eye mr-1"></i> Detail
+                                                </a>
+                                                <div class="dropdown-divider"></div> -->
+                                                <a href="#" class="dropdown-item " title="Edit Pengungsi" data-toggle="modal" data-target="#modal-edit-{{$posko->idPosko}}">
+                                                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                                                        <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                                    </svg>
+                                                    Edit
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi">
+                                                    <i class="fas fa-trash mr-1"></i> Hapus
+                                                </a>
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
@@ -232,8 +239,83 @@
                                         </a>
                                     </td>
                                 </tr>
+                                @endforeach
+                                @foreach ($data as $detail)
+                                <div class="modal fade" id="modal-edit-{{$detail->idPosko}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Ubah Posko</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- form start -->
+                                                <form action="{{ url('posko/edit/'.$detail->idPosko) }}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputNama">Nama Posko</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" name="nama" placeholder="Masukan nama posko" value="{{$detail->nama}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputProvinsi">Provinsi</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan provinsi" name="provinsi" value="{{$detail->provinsi}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputKota">Kota</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan kota" name="kota" value="{{$detail->kota}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputKec">Kecamatan</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan kecamatan" name="kecamatan" value="{{$detail->kecamatan}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputKel">Kelurahan</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan kelurahan" name="kelurahan" value="{{$detail->kelurahan}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputDetail">Detail</label>
+                                                            <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan detail" name="detail" value="{{$detail->detail}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="trc">TRC</label>
+                                                            <select class="form-control" id="trc" name="trc_id" required>
+                                                                <option selected value="{{ $detail->idAdmin }}" hidden>{{ $detail->fullName }}</option>
+                                                                @foreach ($getTrc as $trc)
+                                                                <option value="{{ $trc->idAdmin }}">{{ $trc->fullName }}
+                                                                </option>
+                                                                <!-- <option value="0">Selesai</option> -->
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                @endforeach
                             </tbody>
                         </table>
+                        <br />
+                        {{ $data->links() }}
+                        <br />
+
                     </div>
                     <!-- /.card-body -->
                 </div>
