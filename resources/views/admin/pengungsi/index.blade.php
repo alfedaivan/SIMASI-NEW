@@ -49,7 +49,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Default Modal</h4>
+                                    <h4 class="modal-title">Tambah Pengungsi</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -59,20 +59,58 @@
                                     <form>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="exampleInputNama">Nama Posko</label>
+                                                <label for="exampleInputNama">Nama Pengungsi</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputNama">Kepala Keluarga</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label for="exampleInputPosko">Lokasi</label>
+                                                <label for="exampleInputPosko">RT/RW</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
                                             </div>
 
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                            <div class="form-group">
+                                                <label for="exampleInputPosko">Desa</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
                                             </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputPosko">Kecamatan</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputPosko">Alamat</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="trc">Jenis Kelamin</label>
+                                                <select class="form-control" id="trc" name="trc_id" required>
+                                                    <option>Laki - Laki</option>
+                                                    <option>Perempuan</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputPosko">Umur</label>
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="trc">Status</label>
+                                                <select class="form-control" id="trc" name="trc_id" required>
+                                                    <option>Masuk</option>
+                                                    <option>Keluar</option>
+                                                </select>
+                                            </div>
+
+
                                         </div>
                                         <!-- /.card-body -->
 
@@ -100,9 +138,7 @@
                                     <th>Nama</th>
                                     <th>Kepala Keluarga</th>
                                     <th>No Telepon</th>
-                                    <th>RT/RW</th>
-                                    <th>Desa</th>
-                                    <th>Kecamatan</th>
+                                    <th>Alamat</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Umur</th>
                                     <th>Status</th>
@@ -115,8 +151,6 @@
                                     <td>Bejo</td>
                                     <td>Bejo Senior</td>
                                     <td>081234567891</td>
-                                    <td>01/02</td>
-                                    <td>Bululawang</td>
                                     <td>Malang</td>
                                     <td>Laki-Laki</td>
                                     <td>30</td>
@@ -125,6 +159,7 @@
                                         <span class="badge badge-success">Di Posko</span>
                                         <!-- <span class="badge badge-danger">Keluar</span> -->
                                     </td>
+
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
@@ -135,7 +170,7 @@
                                                     <i class="fas fa-eye mr-1"></i> Detail
                                                 </a>
                                                 <div class="dropdown-divider"></div> -->
-                                                <a href="#" class="dropdown-item " title="Edit Pengungsi">
+                                                <a href="#" class="dropdown-item " title="Edit Bencana" data-toggle="modal" data-target="#modal-edit">
                                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
                                                         <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                                                     </svg>
@@ -146,7 +181,58 @@
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
                                             </div>
+                                            <!-- /.modal-dialog -->
                                         </div>
+                                        <!-- <a href="#" class="btn btn-danger btn-sm" title="Hapus Pengungsi">
+                                            Hapus
+                                        </a> -->
+                                    </td>
+
+                                    <div class="modal fade" id="modal-edit">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Edit Posko</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- form start -->
+                                                    <form>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputNama">Nama Posko</label>
+                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputPosko">Lokasi</label>
+                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleSelectBorder">Pilih TRC</label>
+                                                                <select class="custom-select form-control-border" id="exampleSelectBorder">
+                                                                    <option>Value 1</option>
+                                                                    <option>Value 2</option>
+                                                                    <option>Value 3</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.card-body -->
+
+                                                        <div class="card-footer">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -158,5 +244,7 @@
         </div>
     </div>
 </section>
+
+@include('admin.pengungsi.logKeluarMasuk')
 
 @endsection()

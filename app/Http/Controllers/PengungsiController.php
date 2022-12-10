@@ -81,4 +81,13 @@ class PengungsiController extends Controller
     {
         //
     }
+
+    // show filter keluarga
+    public function showKeluarga()
+    {
+        return view('admin.pengungsi.listKeluarga');
+    }
+    // show filter balita
+    // show filter lansia
+    // show filter sakit
 }

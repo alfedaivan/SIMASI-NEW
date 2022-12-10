@@ -6,6 +6,7 @@ use App\Http\Controllers\BencanaController;
 use App\Http\Controllers\PoskoController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PengungsiController;
+use App\Http\Controllers\PengungsiKeluargaController;
 
 use App\Http\Controllers\LoginController;
 
@@ -37,18 +38,17 @@ Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
+Route::get('/pengungsi/keluarga', 'App\Http\Controllers\PengungsiController@showKeluarga');
+
+
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
-Route::match(['get','post'],'member/edit/{id}', [MemberController::class, 'edit']);
-Route::post('member/delete/{id}',[MemberController::class, 'delete']);
+Route::match(['get', 'post'], 'member/edit/{id}', [MemberController::class, 'edit']);
+Route::post('member/delete/{id}', [MemberController::class, 'delete']);
 
 Route::post('bencana/create', [BencanaController::class, 'createBencana'])->name('bencana.create');
-Route::match(['get','post'],'bencana/edit/{id}', [BencanaController::class, 'edit']);
-Route::post('delete/{id}',[BencanaController::class, 'delete']);
+Route::match(['get', 'post'], 'bencana/edit/{id}', [BencanaController::class, 'edit']);
+Route::post('delete/{id}', [BencanaController::class, 'delete']);
 
 Route::post('posko/create', [PoskoController::class, 'createPosko'])->name('posko.create');
-Route::match(['get','post'],'posko/edit/{id}', [PoskoController::class, 'edit']);
-
-
-
-
+Route::match(['get', 'post'], 'posko/edit/{id}', [PoskoController::class, 'edit']);

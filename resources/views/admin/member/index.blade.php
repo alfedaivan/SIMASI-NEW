@@ -49,20 +49,17 @@
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="namaDepan">Nama depan</label>
-                                                <input type="text" class="form-control" id="namaDepan"
-                                                    placeholder="Masukan nama depan" name="namaDepan" required>
+                                                <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="namaBelakang">Nama belakang</label>
-                                                <input type="text" class="form-control" id="namaBelakang"
-                                                    placeholder="Masukan nama belakang" name="namaBelakang" required>
+                                                <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email"
-                                                    placeholder="Masukan email" name="email" required>
+                                                <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" required>
 
                                             </div>
 
@@ -89,6 +86,7 @@
                         </div>
                         <!-- /.modal-dialog -->
                     </div>
+
                     <div class="container mt-2">
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -101,6 +99,7 @@
                         @endif
                     </div>
                     <!-- /.card-header -->
+
 
                     <div class="card-body ">
                         <table id="example2" class="table table-bordered table-hover">
@@ -126,25 +125,14 @@
                                     <td>{{$member->fullName}}</td>
                                     <td>{{$member->email}}</td>
                                     <td>{{$member->namaPeran}}</td>
-                                    <!-- <td>All others</td> -->
-                                    <!-- <td>All others</td> -->
-                                    <!-- <td>All others</td>
-                                    <td>All others</td> -->
                                     <td>
-                                        <!-- <a href="#" class="btn btn-primary" title="Tampil Posko">
-                                            <i class="fas fa-home"></i>
-                                        </a> -->
-                                        <a href="#" class="btn btn-warning" title="Edit Bencana" style="width: 44px;"
-                                            data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
+                                        <a href="#" class="btn btn-warning" title="Edit Bencana" style="width: 44px;" data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
                                             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                                <path fill="#fff"
-                                                    d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                                <path fill="#fff" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                                             </svg>
 
                                         </a>
-                                        <button class="btn btn-danger"
-                                            onclick="deleteConfirmation({{$member->idAdmin}})"><i
-                                                class="fas fa-trash"></i></button>
+                                        <button class="btn btn-danger" onclick="deleteConfirmation({{$member->idAdmin}})"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -172,29 +160,30 @@
                             </div>
                             <div class="modal-body">
                                 <!-- form start -->
-                                <form action="{{ url('/member/edit/'.$detail->idAdmin) }}" method="post"
-                                    enctype="multipart/form-data">
+                                <form action="{{ url('/member/edit/'.$detail->idAdmin) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="namaDepan">Nama depan</label>
-                                            <input type="text" class="form-control" id="namaDepan"
-                                                placeholder="Masukan nama depan" name="namaDepan"
-                                                value="{{ $detail->firstname }}" required>
+                                            <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="namaBelakang">Nama belakang</label>
-                                            <input type="text" class="form-control" id="namaBelakang"
-                                                placeholder="Masukan nama belakang" name="namaBelakang"
-                                                value="{{ $detail->lastname }}" required>
+                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="namaBelakang">Nama belakang</label>
+                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email"
-                                                placeholder="Masukan email" name="email" value="{{ $detail->email }}"
-                                                required>
+                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
                                         </div>
 
                                         <div class="form-group">
@@ -228,49 +217,49 @@
     </div>
 
     <script type="text/javascript">
-    function deleteConfirmation(id) {
-        swal.fire({
-            title: "Hapus?",
-            icon: 'question',
-            text: "Apakah Anda yakin?",
-            type: "warning",
-            showCancelButton: !0,
-            confirmButtonText: "Iya, hapus!",
-            cancelButtonText: "Batal!",
-            reverseButtons: !0
-        }).then(function(e) {
+        function deleteConfirmation(id) {
+            swal.fire({
+                title: "Hapus?",
+                icon: 'question',
+                text: "Apakah Anda yakin?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Iya, hapus!",
+                cancelButtonText: "Batal!",
+                reverseButtons: !0
+            }).then(function(e) {
 
-            if (e.value === true) {
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                $.ajax({
-                    type: 'POST',
-                    url: "{{url('/delete')}}/" + id,
-                    data: {
-                        _token: CSRF_TOKEN
-                    },
-                    dataType: 'JSON',
-                    success: function(results) {
-                        if (results.success === true) {
-                            swal.fire("Berhasil!", results.message, "success");
-                            // refresh page after 2 seconds
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        } else {
-                            swal.fire("Gagal!", results.message, "error");
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{url('/delete')}}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                swal.fire("Berhasil!", results.message, "success");
+                                // refresh page after 2 seconds
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            } else {
+                                swal.fire("Gagal!", results.message, "error");
+                            }
                         }
-                    }
-                });
+                    });
 
-            } else {
-                e.dismiss;
-            }
+                } else {
+                    e.dismiss;
+                }
 
-        }, function(dismiss) {
-            return false;
-        })
-    }
+            }, function(dismiss) {
+                return false;
+            })
+        }
     </script>
 
 </section>
