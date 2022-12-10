@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bencana;
+use App\Models\Posko;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,14 +17,19 @@ class BencanaController extends Controller
      */
     public function index()
     {
-        $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 'nama', 'lokasi', 'status', 'posko_id as posko', 'pengungsi_id as pengungsi', 'updated_at as waktuUpdate')
-        // ->leftJoin('posko AS p', 'bencana.posko_id', '=', 'p.id')
+        $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 'bencana.nama as namaBencana', 'lokasi', 'status',  'bencana.pengungsi_id as pengungsi', 'bencana.updated_at as waktuUpdate', 'p.bencana_id as poskoCana')
+            ->leftJoin('posko AS p', 'bencana.id', '=', 'p.bencana_id')
             ->orderBy('bencana.tanggal', 'desc')
+            ->distinct()
             ->paginate(5);
-        return view('admin.bencana.index', [
-            'data' => $bencana,
-            // 'role' => $roles,
-        ]);
+
+        $getPosko = Posko::select('posko.id as idPosko', 'posko.bencana_id')
+        ->join('bencana as b','posko.bencana_id','=','b.id')
+        ->get();
+        $countPosko = $getPosko->count();
+
+        return view('admin.bencana.index', ['data'=>$bencana],['ttlPosko'=>$countPosko]);
+        
     }
 
     /**

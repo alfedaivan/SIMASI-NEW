@@ -53,4 +53,6 @@ Route::post('delete/{id}', [BencanaController::class, 'delete']);
 Route::post('posko/create', [PoskoController::class, 'createPosko'])->name('posko.create');
 Route::match(['get', 'post'], 'posko/edit/{id}', [PoskoController::class, 'edit']);
 Route::post('posko/{id}', [PoskoController::class, 'delete']);
+Route::get('/listPosko/{id}', [PoskoController::class, 'index']);
+
 

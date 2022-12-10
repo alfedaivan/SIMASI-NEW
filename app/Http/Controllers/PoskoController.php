@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posko;
 use App\Models\User;
+use App\Models\Bencana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,24 +18,28 @@ class PoskoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         $posko = Posko::select(
             DB::raw("concat('Prov. ',provinsi,', Kota ',kota,', Kec. ',
             kecamatan,', Ds. ',kelurahan,', Daerah ',detail,' ') 
         as lokasi"),
             'posko.id as idPosko',
-            'nama',
+            'posko.nama as namaPosko',
             'provinsi',
             'kota',
             'kecamatan',
             'kelurahan',
             'detail',
+            'bencana_id',
+            'b.id as idBencana',
             DB::raw("concat(u.firstname,' ',u.lastname) as fullName"),'u.id as idAdmin',
             'u.created_at',
             'u.updated_at'
         )
             ->leftJoin('users AS u', 'posko.trc_id', '=', 'u.id')
+            ->join('bencana as b','posko.bencana_id','=','b.id')
+            ->where('posko.bencana_id',$id)
             ->orderBy('u.id', 'desc')
             ->paginate(5);
         $trc = User::select(DB::raw("concat(firstname,' ',lastname) as fullName"), 'users.id as idAdmin', 'lastname')
@@ -74,8 +79,15 @@ class PoskoController extends Controller
             $addPosko->kelurahan = $request->kelurahan;
             $addPosko->detail = $request->detail;
             $addPosko->trc_id = $request->trc_id;
+            $addPosko->bencana_id = $request->idBencana;
             $addPosko->pengungsi_id = $request->pengungsi;
             $addPosko->save();
+
+            // $idPosko = Posko::where('bencana_id', $request->idBencana)->first()->value('id');
+            // $bencana = Bencana::where('id', $request->idBencana)->first();
+            // $bencana->posko_id = $idPosko;
+            // $bencana->update();
+
             Alert::success('Success', 'Data berhasil ditambahkan');
             return back();
         }

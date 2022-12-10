@@ -117,16 +117,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach ($data as $key => $bencana)
                                 <tr>
                                     <td>{{ $data->firstItem() + $key }}</td>
-                                    <td>{{ $bencana->nama }}</td>
+                                    <td>{{ $bencana->namaBencana }}</td>
                                     <td>{{ $bencana->waktu }}</td>
                                     <td>{{ $bencana->lokasi }}</td>
                                     <!-- <td>{{ $bencana->posko }}</td> -->
-                                    <td class="">
-                                        20 Posko
-                                        <a href="{{url('/posko')}}" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Posko </a>
+                                    <td>
+                                        <?php
+                                            if ($bencana->poskoCana == null){
+                                                echo 0 .' Tempat';
+                                            }else{
+                                                echo $ttlPosko .' Tempat';
+                                            }
+                                        ?>
+                                        </br>
+                                        <a href="{{url('/listPosko')}}/<?php echo $bencana->idBencana;?>" class="btn btn-primary btn-xs" title="Lihat posko"><i class="fas fa-eye"></i> Posko </a>
                                     </td>
                                     <td>{{ $bencana->pengungsi }}</td>
                                     <td>{{ $bencana->pengungsi }}</td>
