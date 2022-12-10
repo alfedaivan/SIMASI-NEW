@@ -101,7 +101,7 @@ class PoskoController extends Controller
             // 'trc' => ['required', 'max:50'],
             // 'namaBelakang' => ['required', 'max:50'],
             'nama' => ['string', 'unique:posko'],
-            'trc_id' => ['string', 'unique:posko'],
+            // 'trc_id' => ['string', 'unique:posko'],
         ]);
         // $role = Role::where('id', $request->peran)->first();
         $posko = Posko::where('id', $id)->first();
