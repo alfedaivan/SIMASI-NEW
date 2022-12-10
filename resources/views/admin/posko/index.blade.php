@@ -53,6 +53,9 @@
                                     <form action="{{ route('posko.create') }}" method="POST">
                                         @csrf
                                         <div class="card-body">
+                                            @foreach ($data as $getId)
+                                            <input type="text" class="form-control" id="exampleInputnama" name="idBencana" value="{{$getId->idBencana}}" hidden>
+                                            @endforeach
                                             <div class="form-group">
                                                 <label for="exampleInputNama">Nama Posko</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" name="nama" placeholder="Masukan nama posko" required>
@@ -143,7 +146,7 @@
                                 @foreach($data as $key => $posko)
                                 <tr>
                                     <td>{{ $data->firstItem() + $key  }}</td>
-                                    <td>{{ $posko->nama }}</td>
+                                    <td>{{ $posko->namaPosko }}</td>
                                     <td>{{ $posko->lokasi}}</td>
                                     <td>{{ $posko->fullName}}</td>
                                     <td>
@@ -165,72 +168,9 @@
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi">
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$posko->idPosko}})">
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        <div class="modal fade" id="edit">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Tambah Bencana</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <!-- form start -->
-                                                        <form>
-                                                            <div class="card-body">
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputNama">Nama Bencana</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Waktu Kejadian</label>
-                                                                    <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                                                                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
-                                                                        <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Textarea</label>
-                                                                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                                                </div>
-
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputPosko">Total Posko</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputPengungsi">Total Pengungsi</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Pengungsi">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputKorban">Total Korban</label>
-                                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Korban">
-                                                                </div>
-
-                                                            </div>
-                                                            <!-- /.card-body -->
-
-                                                            <div class="card-footer">
-                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
                                             <!-- /.modal-dialog -->
                                         </div>
                                     </td>
@@ -253,7 +193,7 @@
                                                     <div class="card-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputNama">Nama Posko</label>
-                                                            <input type="text" class="form-control" id="exampleInputnama" name="nama" placeholder="Masukan nama posko" value="{{$detail->nama}}" required>
+                                                            <input type="text" class="form-control" id="exampleInputnama" name="nama" placeholder="Masukan nama posko" value="{{$detail->namaPosko}}" required>
                                                         </div>
 
                                                         <div class="form-group">
@@ -283,7 +223,7 @@
 
                                                         <div class="form-group">
                                                             <label for="trc">TRC</label>
-                                                            <select class="form-control" id="trc" name="trc_id" required>
+                                                            <select class="form-control" id="trc_id" name="trc_id" required>
                                                                 <option selected value="{{ $detail->idAdmin }}" hidden>{{ $detail->fullName }}</option>
                                                                 @foreach ($getTrc as $trc)
                                                                 <option value="{{ $trc->idAdmin }}">{{ $trc->fullName }}
@@ -318,6 +258,53 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function deleteConfirmation(id) {
+            swal.fire({
+                title: "Hapus?",
+                icon: 'question',
+                text: "Apakah Anda yakin?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Iya, hapus!",
+                cancelButtonText: "Batal!",
+                reverseButtons: !0
+            }).then(function(e) {
+
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{url('/posko')}}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                swal.fire("Berhasil!", results.message, "success");
+                                // refresh page after 2 seconds
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            } else {
+                                swal.fire("Gagal!", results.message, "error");
+                            }
+                        }
+                    });
+
+                } else {
+                    e.dismiss;
+                }
+
+            }, function(dismiss) {
+                return false;
+            })
+        }
+    </script>
+
 </section>
 
 @endsection()
