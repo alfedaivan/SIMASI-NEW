@@ -165,10 +165,9 @@
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi">
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$posko->idPosko}})">
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
-                                            </div>
                                             <!-- /.modal-dialog -->
                                         </div>
                                         <div class="modal fade" id="edit">
@@ -283,7 +282,7 @@
 
                                                         <div class="form-group">
                                                             <label for="trc">TRC</label>
-                                                            <select class="form-control" id="trc" name="trc_id" required>
+                                                            <select class="form-control" id="trc_id" name="trc_id" required>
                                                                 <option selected value="{{ $detail->idAdmin }}" hidden>{{ $detail->fullName }}</option>
                                                                 @foreach ($getTrc as $trc)
                                                                 <option value="{{ $trc->idAdmin }}">{{ $trc->fullName }}
@@ -318,6 +317,53 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function deleteConfirmation(id) {
+            swal.fire({
+                title: "Hapus?",
+                icon: 'question',
+                text: "Apakah Anda yakin?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Iya, hapus!",
+                cancelButtonText: "Batal!",
+                reverseButtons: !0
+            }).then(function(e) {
+
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{url('/posko')}}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                swal.fire("Berhasil!", results.message, "success");
+                                // refresh page after 2 seconds
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            } else {
+                                swal.fire("Gagal!", results.message, "error");
+                            }
+                        }
+                    });
+
+                } else {
+                    e.dismiss;
+                }
+
+            }, function(dismiss) {
+                return false;
+            })
+        }
+    </script>
+
 </section>
 
 @endsection()

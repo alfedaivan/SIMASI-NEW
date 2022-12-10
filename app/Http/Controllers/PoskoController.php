@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 // use Spatie\Permission\Models\ModelHasRoles;
 
 class PoskoController extends Controller
@@ -29,7 +30,7 @@ class PoskoController extends Controller
             'kecamatan',
             'kelurahan',
             'detail',
-            DB::raw("concat(u.firstname,' ',u.lastname) as fullName"),
+            DB::raw("concat(u.firstname,' ',u.lastname) as fullName"),'u.id as idAdmin',
             'u.created_at',
             'u.updated_at'
         )
@@ -39,7 +40,7 @@ class PoskoController extends Controller
         $trc = User::select(DB::raw("concat(firstname,' ',lastname) as fullName"), 'users.id as idAdmin', 'lastname')
             ->join('model_has_roles as mr', 'mr.model_id', '=', 'users.id')
             ->join('roles as r', 'r.id', '=', 'mr.role_id')
-            ->where('r.id', 2)
+            ->where('r.id', 5)
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('posko')
@@ -111,11 +112,10 @@ class PoskoController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        $posko = Posko::where('id', $id)->first();
         $request->validate([
-            // 'trc' => ['required', 'max:50'],
-            // 'namaBelakang' => ['required', 'max:50'],
-            'nama' => ['string', 'unique:posko'],
-            // 'trc_id' => ['string', 'unique:posko'],
+            // Akan melakukan validasi kecuali punyanya sendiri
+            'nama' => ['string', Rule::unique('posko')->ignore($id)],
         ]);
         // $role = Role::where('id', $request->peran)->first();
         $posko = Posko::where('id', $id)->first();
@@ -149,14 +149,26 @@ class PoskoController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        if (auth()->user()->hasAnyRole(['pusdalop'])) {
+            $delete = Posko::destroy($id);
+
+            // check data deleted or not
+            if ($delete == 1) {
+                $success = true;
+                $message = "Data berhasil dihapus";
+            } else {
+                $success = true;
+                $message = "Data gagal dihapus";
+            }
+
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
+        }
+        return back();
     }
 }
