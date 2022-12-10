@@ -53,9 +53,11 @@
                                     <form action="{{ route('posko.create') }}" method="POST">
                                         @csrf
                                         <div class="card-body">
-                                            @foreach ($data as $getId)
-                                            <input type="text" class="form-control" id="exampleInputnama" name="idBencana" value="{{$getId->idBencana}}" hidden>
-                                            @endforeach
+                                            <!-- @foreach ($data as $getId) -->
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="exampleInputnama" name="idBencana" value="{{$getId->idBencana}}" hidden>
+                                            </div>
+                                            <!-- @endforeach -->
                                             <div class="form-group">
                                                 <label for="exampleInputNama">Nama Posko</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" name="nama" placeholder="Masukan nama posko" required>

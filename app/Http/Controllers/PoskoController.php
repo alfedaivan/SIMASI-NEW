@@ -51,10 +51,12 @@ class PoskoController extends Controller
                     ->from('posko')
                     ->whereRaw('users.id = posko.trc_id');
             })->get();
-        return view('admin.posko.index', [
-            'data' => $posko,
-            'getTrc' => $trc,
-        ]);
+
+        return view('admin.posko.index', ['data'=>$posko],['getTrc'=>$trc]);
+        // return view('admin.posko.index', [
+        //     'data' => $posko,
+        //     'getTrc' => $trc,
+        // ]);
     }
 
     /**

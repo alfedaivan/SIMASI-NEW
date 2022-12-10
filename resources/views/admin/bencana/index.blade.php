@@ -125,15 +125,7 @@
                                     <td>{{ $bencana->waktu }}</td>
                                     <td>{{ $bencana->lokasi }}</td>
                                     <!-- <td>{{ $bencana->posko }}</td> -->
-                                    <td>
-                                        <?php
-                                            if ($bencana->poskoCana == null){
-                                                echo 0 .' Tempat';
-                                            }else{
-                                                echo $ttlPosko .' Tempat';
-                                            }
-                                        ?>
-                                        </br>
+                                    <td>{{ $bencana->ttlPosko }} tempat</br>
                                         <a href="{{url('/listPosko')}}/<?php echo $bencana->idBencana;?>" class="btn btn-primary btn-xs" title="Lihat posko"><i class="fas fa-eye"></i> Posko </a>
                                     </td>
                                     <td>{{ $bencana->pengungsi }}</td>
@@ -199,7 +191,7 @@
                                                     <div class="card-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputNama">Nama Bencana</label>
-                                                            <input type="text" class="form-control" id="exampleInputnama" name="namaBencana" placeholder="Masukan nama bencana" value="{{$detail->nama}}" required>
+                                                            <input type="text" class="form-control" id="exampleInputnama" name="namaBencana" placeholder="Masukan nama bencana" value="{{$detail->namaBencana}}" required>
                                                         </div>
 
                                                         <div class="form-group">
