@@ -48,7 +48,7 @@ Route::post('member/delete/{id}', [MemberController::class, 'delete']);
 
 Route::post('bencana/create', [BencanaController::class, 'createBencana'])->name('bencana.create');
 Route::match(['get', 'post'], 'bencana/edit/{id}', [BencanaController::class, 'edit']);
-Route::post('delete/{id}', [BencanaController::class, 'delete']);
+Route::post('bencana/delete/{id}', [BencanaController::class, 'delete']);
 
 Route::post('posko/create', [PoskoController::class, 'createPosko'])->name('posko.create');
 Route::match(['get', 'post'], 'posko/edit/{id}', [PoskoController::class, 'edit']);

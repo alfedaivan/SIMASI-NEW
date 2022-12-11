@@ -121,10 +121,12 @@ class BencanaController extends Controller
     public function delete($id)
     {
         if (auth()->user()->hasAnyRole(['pusdalop'])) {
-            $delete = Bencana::destroy($id);
-
+            $getPosko = Posko::where('bencana_id',$id)->value('id');
+            $delBencana = Bencana::destroy($id);
+            $delPosko = Posko::destroy($getPosko);
+            
             // check data deleted or not
-            if ($delete == 1) {
+            if ($delBencana == 1 && $delPosko == 1) {
                 $success = true;
                 $message = "Data berhasil dihapus";
             } else {
