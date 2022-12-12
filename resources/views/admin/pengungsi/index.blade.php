@@ -13,8 +13,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="#">Bencana</a></li>
-                    <li class="breadcrumb-item active"><a href="#">Posko</a></li>
+                    <li class="breadcrumb-item active"><a href="/bencana">Bencana</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ url()->previous() }}">Posko</a></li>
                     <li class="breadcrumb-item active">Pengungsi</li>
                 </ol>
             </div>
@@ -142,24 +142,53 @@
                                     <th>Jenis Kelamin</th>
                                     <th>Umur</th>
                                     <th>Status</th>
+                                    <th>Kondisi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Bejo</td>
-                                    <td>Bejo Senior</td>
-                                    <td>081234567891</td>
-                                    <td>Malang</td>
-                                    <td>Laki-Laki</td>
-                                    <td>30</td>
+                                @foreach ($data as $key => $pengungsi)
+                                    <td>{{ $data->firstItem() + $key  }}</td>
+                                    <td>{{ $pengungsi->nama }}</td>
+                                    <td>{{ $pengungsi->namaKepala}}</td>
+                                    <td>{{ $pengungsi->telpon }}</td>
+                                    <td>{{ $pengungsi->lokasi }}</td>
                                     <td>
-                                        <!-- pakai if else -->
-                                        <span class="badge badge-success">Di Posko</span>
-                                        <!-- <span class="badge badge-danger">Keluar</span> -->
+                                        <?php
+                                            $gender =  $pengungsi->gender ;
+                                            if($gender == 0){
+                                                echo "Perempuan";
+                                            }else if($gender == 1){
+                                                echo "Laki-laki";
+                                            }
+                                        ?>
                                     </td>
-
+                                    <td>{{ $pengungsi->umur }}</td>
+                                    <td>
+                                    <?php
+                                            $statPos =  $pengungsi->statPos ;
+                                            if($statPos == 0){
+                                                echo "<span class='badge badge-danger'>Keluar</span>";
+                                            }else if($statPos == 1){
+                                                echo "<span class='badge badge-success'>Di Posko</span>";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td>
+                                    <?php
+                                            $kondisi =  $pengungsi->statKon;
+                                            if($kondisi == 0){
+                                                echo "Luka Ringan";
+                                            }else if($kondisi == 1){
+                                                echo "Luka Sedang";
+                                            }else if($kondisi == 2){
+                                                echo "Luka Berat";
+                                            }else if($kondisi == 3){
+                                                echo "Sehat";
+                                            }
+                                        ?>
+                                    </td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
@@ -235,6 +264,7 @@
                                     </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

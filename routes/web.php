@@ -55,4 +55,7 @@ Route::match(['get', 'post'], 'posko/edit/{id}', [PoskoController::class, 'edit'
 Route::post('posko/{id}', [PoskoController::class, 'delete']);
 Route::get('/listPosko/{id}', [PoskoController::class, 'index']);
 
+Route::get('/listPengungsi/{id}', [PengungsiController::class, 'index']);
+
+
 

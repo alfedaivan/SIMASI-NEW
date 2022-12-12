@@ -158,7 +158,7 @@
                                     <td>{{ $posko->fullName}}</td>
                                     <td>
                                         23 Orang
-                                        <a href="{{url('/pengungsi')}}" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
+                                        <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko;?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
