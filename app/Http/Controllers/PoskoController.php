@@ -20,6 +20,8 @@ class PoskoController extends Controller
      */
     public function index($id)
     {
+        // $getId = $request->id;
+        $getIdBencana = Bencana::where('id',$id)->value('id');
         $posko = Posko::select(
             DB::raw("concat('Prov. ',provinsi,', Kota ',kota,', Kec. ',
             kecamatan,', Ds. ',kelurahan,', Daerah ',detail,' ') 
@@ -42,6 +44,7 @@ class PoskoController extends Controller
             ->where('posko.bencana_id',$id)
             ->orderBy('u.id', 'desc')
             ->paginate(5);
+            
         $trc = User::select(DB::raw("concat(firstname,' ',lastname) as fullName"), 'users.id as idAdmin', 'lastname')
             ->join('model_has_roles as mr', 'mr.model_id', '=', 'users.id')
             ->join('roles as r', 'r.id', '=', 'mr.role_id')
@@ -51,10 +54,12 @@ class PoskoController extends Controller
                     ->from('posko')
                     ->whereRaw('users.id = posko.trc_id');
             })->get();
-        return view('admin.posko.index', [
-            'data' => $posko,
-            'getTrc' => $trc,
-        ]);
+
+        return view('admin.posko.index', ['data'=>$posko],['getTrc'=>$trc],['getId'=>$getIdBencana]);
+        // return view('admin.posko.index', [
+        //     'data' => $posko,
+        //     'getTrc' => $trc,
+        // ]);
     }
 
     /**
@@ -66,10 +71,9 @@ class PoskoController extends Controller
     {
         if (auth()->user()->hasAnyRole(['pusdalop'])) {
             $request->validate([
-                // 'trc' => ['required', 'max:50'],
                 // 'namaBelakang' => ['required', 'max:50'],
                 'nama' => ['string', 'unique:posko'],
-                'trc_id' => ['string', 'unique:posko'],
+                // 'trc_id' => ['string', 'unique:posko'],
             ]);
             $addPosko = new Posko;
             $addPosko->nama = $request->nama;

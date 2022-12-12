@@ -39,6 +39,7 @@
                         </div>
                     </div>
 
+                    <!-- Tambah posko -->
                     <div class="modal fade" id="modal-default">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -53,9 +54,12 @@
                                     <form action="{{ route('posko.create') }}" method="POST">
                                         @csrf
                                         <div class="card-body">
-                                            @foreach ($data as $getId)
-                                            <input type="text" class="form-control" id="exampleInputnama" name="idBencana" value="{{$getId->idBencana}}" hidden>
-                                            @endforeach
+                                            <!-- {{ request()->id }} -->
+                                            <div class="form-group">
+                                                <!-- <label for="exampleInputId">Nama Posko</label> -->
+                                                <input type="text" class="form-control" id="exampleInputnama" name="idBencana" value="{{request()->id}}" hidden required>
+                                            </div>
+
                                             <div class="form-group">
                                                 <label for="exampleInputNama">Nama Posko</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" name="nama" placeholder="Masukan nama posko" required>
@@ -94,6 +98,7 @@
                                                     <option value="{{ $trc->idAdmin }}">{{ $trc->fullName }}</option>
                                                     <!-- <option value="0">Selesai</option> -->
                                                     @endforeach
+                                                    <option value="">Kosongkan TRC</option>
                                                 </select>
                                             </div>
 
@@ -124,6 +129,7 @@
                         @endif
                     </div>
 
+                    <!-- Tabel Posko -->
                     <div class="card-body ">
                         <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Posko
@@ -133,6 +139,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    
                                     <th>Nama</th>
                                     <th>Lokasi</th>
                                     <th>TRC</th>
@@ -230,6 +237,7 @@
                                                                 </option>
                                                                 <!-- <option value="0">Selesai</option> -->
                                                                 @endforeach
+                                                                <option value="">Kosongkan TRC</option>
                                                             </select>
                                                         </div>
 
@@ -259,6 +267,7 @@
         </div>
     </div>
 
+    <!-- Confirmation Delete -->
     <script type="text/javascript">
         function deleteConfirmation(id) {
             swal.fire({
