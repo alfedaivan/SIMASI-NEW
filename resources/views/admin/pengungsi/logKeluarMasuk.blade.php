@@ -35,16 +35,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Bejo</td>
-                                    <td>Bejo Senior</td>
-                                    <td>081234567891</td>
-                                    <td>Malang</td>
-                                    <td>Laki-Laki</td>
-                                    <td>30</td>
-                                    <td>10/12/11</td>
+                            <tr>
+                            <?php $i = 0 ?>
+                                @foreach ($data as $pengungsi)
+                                    @if($pengungsi->statPos == 1)
+                                    <?php $i++?>
+                                    <td>{{ $i  }}</td>
+                                    <td>{{ $pengungsi->nama }}</td>
+                                    <td>{{ $pengungsi->namaKepala}}</td>
+                                    <td>{{ $pengungsi->telpon }}</td>
+                                    <td>{{ $pengungsi->lokasi }}</td>
+                                    <td>
+                                        <?php
+                                            $gender =  $pengungsi->gender ;
+                                            if($gender == 0){
+                                                echo "Perempuan";
+                                            }else if($gender == 1){
+                                                echo "Laki-laki";
+                                            }
+                                            ?>
+                                    </td>
+                                    <td>{{ $pengungsi->umur }}</td>
+                                    <td>{{ $pengungsi->tglMasuk }}</td>
                                 </tr>
+                                @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -68,8 +83,8 @@
                         </div>
                     </div>
 
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
+                      <!-- /.card-header -->
+                      <div class="card-body table-responsive p-0">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -84,16 +99,78 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Bejo</td>
-                                    <td>Bejo Senior</td>
-                                    <td>081234567891</td>
-                                    <td>Malang</td>
-                                    <td>Laki-Laki</td>
-                                    <td>30</td>
-                                    <td>10/12/21</td>
+                            <tr>
+                            <?php $j=0 ?>
+                                @foreach ($data as $keys => $pengungsi)
+                                    @if($pengungsi->statPos == 0)
+                                    <?php $j++?>
+                                    <td>{{ $j }}</td>
+                                    <td>{{ $pengungsi->nama }}</td>
+                                    <td>{{ $pengungsi->namaKepala}}</td>
+                                    <td>{{ $pengungsi->telpon }}</td>
+                                    <td>{{ $pengungsi->lokasi }}</td>
+                                    <td>
+                                        <?php
+                                            $gender =  $pengungsi->gender ;
+                                            if($gender == 0){
+                                                echo "Perempuan";
+                                            }else if($gender == 1){
+                                                echo "Laki-laki";
+                                            }
+                                            ?>
+                                    </td>
+                                    <td>{{ $pengungsi->umur }}</td>
+                                    <td>{{ $pengungsi->tglMasuk }}</td>
+
+                                    <div class="modal fade" id="modal-edit">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Edit Posko</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- form start -->
+                                                    <form>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputNama">Nama Posko</label>
+                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputPosko">Lokasi</label>
+                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleSelectBorder">Pilih TRC</label>
+                                                                <select class="custom-select form-control-border" id="exampleSelectBorder">
+                                                                    <option>Value 1</option>
+                                                                    <option>Value 2</option>
+                                                                    <option>Value 3</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.card-body -->
+
+                                                        <div class="card-footer">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    </td>
                                 </tr>
+                                @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
