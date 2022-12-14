@@ -71,6 +71,24 @@
                                                 </select>
                                             </div>
 
+                                            <!-- script form status keluarga -->
+                                            <script type="text/javascript">
+                                                var idForm_1 = document.getElementById('form_1');
+                                                var idForm_2 = document.getElementById('form_2')
+
+                                                function showDiv(select) {
+                                                    console.log(select);
+                                                    if (select.value == 'form_1') {
+                                                        idForm_1.style.display = "block";
+                                                        idForm_2.style.display = "none";
+                                                    } else {
+                                                        idForm_1.style.display = "none";
+                                                        idForm_2.style.display = "block";
+                                                    }
+                                                }
+                                            </script>
+                                            <!-- end -->
+
                                             <!-- jika pengungsi kepala keluarga sudah ditambahkan -->
                                             <div class="form-group" class="hidden" id="form_1">
                                                 <label for="exampleInputNama">Kepala Keluarga</label>
@@ -103,21 +121,7 @@
                                                 </div>
                                             </div>
 
-                                            <script type="text/javascript">
-                                                var idForm_1 = document.getElementById('form_1');
-                                                var idForm_2 = document.getElementById('form_2')
 
-                                                function showDiv(select) {
-                                                    console.log(select);
-                                                    if (select.value == 'form_1') {
-                                                        idForm_1.style.display = "block";
-                                                        idForm_2.style.display = "none";
-                                                    } else {
-                                                        idForm_1.style.display = "none";
-                                                        idForm_2.style.display = "block";
-                                                    }
-                                                }
-                                            </script>
 
 
                                             <div class="form-group">
