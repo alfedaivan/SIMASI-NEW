@@ -121,52 +121,6 @@
                                     </td>
                                     <td>{{ $pengungsi->umur }}</td>
                                     <td>{{ $pengungsi->tglMasuk }}</td>
-
-                                    <div class="modal fade" id="modal-edit">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Edit Posko</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- form start -->
-                                                    <form>
-                                                        <div class="card-body">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputNama">Nama Posko</label>
-                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
-                                                            </div>
-
-
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPosko">Lokasi</label>
-                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label for="exampleSelectBorder">Pilih TRC</label>
-                                                                <select class="custom-select form-control-border" id="exampleSelectBorder">
-                                                                    <option>Value 1</option>
-                                                                    <option>Value 2</option>
-                                                                    <option>Value 3</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.card-body -->
-
-                                                        <div class="card-footer">
-                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
                                     </td>
                                 </tr>
                                 @endif

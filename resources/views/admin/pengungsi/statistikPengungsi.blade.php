@@ -66,7 +66,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">List Pengungsi Bayi</h4>
+                <h4 class="modal-title">List Pengungsi Balita</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -76,33 +76,46 @@
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Kepala Keluarga</th>
-                            <th>No Telepon</th>
-                            <th>Alamat</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Umur</th>
-                            <th>Status</th>
+                        <th>No</th>
+                                    <th>Nama</th>
+                                    <!-- <th>Kepala Keluarga</th> -->
+                                    <!-- <th>No Telepon</th> -->
+                                    <th>Alamat</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Umur</th>
+                                    <th>Status</th>
+                                    <th>Kondisi</th>
+                                    <!-- <th>Aksi</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Bejo</td>
-                            <td>Bejo Senior</td>
-                            <td>081234567891</td>
-                            <td>Malang</td>
-                            <td>Laki-Laki</td>
-                            <td>30</td>
-                            <td>
-                                <!-- pakai if else -->
-                                <span class="badge badge-success">Di Posko</span>
-                                <!-- <span class="badge badge-danger">Keluar</span> -->
-                            </td>
-                            </td>
-                        </tr>
-                    </tbody>
+                            <tr>
+                            <?php $j=0 ?>
+                                @foreach ($data as $keys => $pengungsi)
+                                    @if($pengungsi->statPos == 0)
+                                    <?php $j++?>
+                                    <td>{{ $j }}</td>
+                                    <td>{{ $pengungsi->nama }}</td>
+                                    <td>{{ $pengungsi->namaKepala}}</td>
+                                    <td>{{ $pengungsi->telpon }}</td>
+                                    <td>{{ $pengungsi->lokasi }}</td>
+                                    <td>
+                                        <?php
+                                            $gender =  $pengungsi->gender ;
+                                            if($gender == 0){
+                                                echo "Perempuan";
+                                            }else if($gender == 1){
+                                                echo "Laki-laki";
+                                            }
+                                            ?>
+                                    </td>
+                                    <td>{{ $pengungsi->umur }}</td>
+                                    <td>{{ $pengungsi->tglMasuk }}</td>
+                                    </td>
+                                </tr>
+                                @endif
+                                @endforeach
+                            </tbody>
                 </table>
             </div>
         </div>
