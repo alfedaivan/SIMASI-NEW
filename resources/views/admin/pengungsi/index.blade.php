@@ -60,34 +60,65 @@
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="exampleInputNama">Nama Pengungsi</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Pengungsi">
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="sKeluarga">Status Keluarga</label>
+                                                <select class="form-control" id="sKeluarga" onchange="showDiv(this)">
+                                                    <option value="form_1" selected>Anggota Keluarga</option>
+                                                    <option value="form_2">Kepala Keluarga</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- jika pengungsi kepala keluarga sudah ditambahkan -->
+                                            <div class="form-group" class="hidden" id="form_1">
                                                 <label for="exampleInputNama">Kepala Keluarga</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
+                                                <select class="form-control" id="trc" name="trc_id" required>
+                                                    <option>Bejo</option>
+                                                    <option>Paijo</option>
+                                                </select>
                                             </div>
 
+                                            <!-- jika belum perlu menambahkan alamat -->
+                                            <div class="wrapper-kk" class="hidden" id="form_2" style="display:none;">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPosko">RT/RW</label>
+                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan RT/RW">
+                                                </div>
 
-                                            <div class="form-group">
-                                                <label for="exampleInputPosko">RT/RW</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                                <div class="form-group">
+                                                    <label for="exampleInputPosko">Desa</label>
+                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Desa">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputPosko">Kecamatan</label>
+                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Kecamatan">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputPosko">Alamat</label>
+                                                    <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Alamat">
+                                                </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="exampleInputPosko">Desa</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                            </div>
+                                            <script type="text/javascript">
+                                                var idForm_1 = document.getElementById('form_1');
+                                                var idForm_2 = document.getElementById('form_2')
 
-                                            <div class="form-group">
-                                                <label for="exampleInputPosko">Kecamatan</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                            </div>
+                                                function showDiv(select) {
+                                                    console.log(select);
+                                                    if (select.value == 'form_1') {
+                                                        idForm_1.style.display = "block";
+                                                        idForm_2.style.display = "none";
+                                                    } else {
+                                                        idForm_1.style.display = "none";
+                                                        idForm_2.style.display = "block";
+                                                    }
+                                                }
+                                            </script>
 
-                                            <div class="form-group">
-                                                <label for="exampleInputPosko">Alamat</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                            </div>
 
                                             <div class="form-group">
                                                 <label for="trc">Jenis Kelamin</label>
@@ -99,7 +130,17 @@
 
                                             <div class="form-group">
                                                 <label for="exampleInputPosko">Umur</label>
-                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
+                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Umur">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="trc">Kondisi</label>
+                                                <select class="form-control" id="trc" name="trc_id" required>
+                                                    <option>Sehat</option>
+                                                    <option>Luka Ringan</option>
+                                                    <option>Luka Sedang</option>
+                                                    <option>Luka Berat</option>
+                                                </select>
                                             </div>
 
                                             <div class="form-group">
@@ -141,14 +182,14 @@
                                     <th>Alamat</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Umur</th>
-                                    <th>Status</th>
                                     <th>Kondisi</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                @foreach ($data as $key => $pengungsi)
+                                    @foreach ($data as $key => $pengungsi)
                                     <td>{{ $data->firstItem() + $key  }}</td>
                                     <td>{{ $pengungsi->nama }}</td>
                                     <td>{{ $pengungsi->namaKepala}}</td>
@@ -156,37 +197,37 @@
                                     <td>{{ $pengungsi->lokasi }}</td>
                                     <td>
                                         <?php
-                                            $gender =  $pengungsi->gender ;
-                                            if($gender == 0){
-                                                echo "Perempuan";
-                                            }else if($gender == 1){
-                                                echo "Laki-laki";
-                                            }
+                                        $gender =  $pengungsi->gender;
+                                        if ($gender == 0) {
+                                            echo "Perempuan";
+                                        } else if ($gender == 1) {
+                                            echo "Laki-laki";
+                                        }
                                         ?>
                                     </td>
                                     <td>{{ $pengungsi->umur }}</td>
                                     <td>
-                                    <?php
-                                            $statPos =  $pengungsi->statPos ;
-                                            if($statPos == 0){
-                                                echo "<span class='badge badge-danger'>Keluar</span>";
-                                            }else if($statPos == 1){
-                                                echo "<span class='badge badge-success'>Di Posko</span>";
-                                            }
+                                        <?php
+                                        $kondisi =  $pengungsi->statKon;
+                                        if ($kondisi == 0) {
+                                            echo "Luka Ringan";
+                                        } else if ($kondisi == 1) {
+                                            echo "Luka Sedang";
+                                        } else if ($kondisi == 2) {
+                                            echo "Luka Berat";
+                                        } else if ($kondisi == 3) {
+                                            echo "Sehat";
+                                        }
                                         ?>
                                     </td>
                                     <td>
-                                    <?php
-                                            $kondisi =  $pengungsi->statKon;
-                                            if($kondisi == 0){
-                                                echo "Luka Ringan";
-                                            }else if($kondisi == 1){
-                                                echo "Luka Sedang";
-                                            }else if($kondisi == 2){
-                                                echo "Luka Berat";
-                                            }else if($kondisi == 3){
-                                                echo "Sehat";
-                                            }
+                                        <?php
+                                        $statPos =  $pengungsi->statPos;
+                                        if ($statPos == 0) {
+                                            echo "<span class='badge badge-danger'>Keluar</span>";
+                                        } else if ($statPos == 1) {
+                                            echo "<span class='badge badge-success'>Di Posko</span>";
+                                        }
                                         ?>
                                     </td>
                                     <td>

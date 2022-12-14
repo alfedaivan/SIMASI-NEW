@@ -8,10 +8,19 @@
     </ul>
 
     <!-- Right navbar links -->
+
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            @csrf
+            <a class="nav-link" href="javascript:;" onclick="document.getElementById('form1').submit();" title="Log Out">
+                <i class=" fas fa-power-off"></i>
             </a>
         </li>
     </ul>

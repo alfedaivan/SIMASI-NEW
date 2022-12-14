@@ -6,12 +6,12 @@
                 <div class="small-box bg-info">
                     <div class="inner">
                         <h3>150</h3>
-                        <p>Total Keluarga</p>
+                        <p>Total Kepala Keluarga</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <a href="#" class="small-box-footer">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-kkeluarga">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -53,13 +53,64 @@
                     <div class="icon">
                         <i class="fas fa-hospital"></i>
                     </div>
-                    <a href="#" class="small-box-footer">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
         </div>
     </div>
 </section>
+
+<!-- modal kepala keluarga -->
+<div class="modal fade" id="modal-kkeluarga">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Kepala Keluarga</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form start -->
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Kepala Keluarga</th>
+                            <th>No Telepon</th>
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur</th>
+                            <th>Kondisi</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Bejo Senior</td>
+                            <td>081234567891</td>
+                            <td>Malang</td>
+                            <td>Laki-Laki</td>
+                            <td>30</td>
+                            <td>Sehat</td>
+                            <td>
+                                <!-- pakai if else -->
+                                <span class="badge badge-success">Di Posko</span>
+                                <!-- <span class="badge badge-danger">Keluar</span> -->
+                            </td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- end -->
 
 <!-- modal bayi -->
 <div class="modal fade" id="modal-bayi">
@@ -83,6 +134,7 @@
                             <th>Alamat</th>
                             <th>Jenis Kelamin</th>
                             <th>Umur</th>
+                            <th>Kondisi</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -95,6 +147,7 @@
                             <td>Malang</td>
                             <td>Laki-Laki</td>
                             <td>30</td>
+                            <td>Sehat</td>
                             <td>
                                 <!-- pakai if else -->
                                 <span class="badge badge-success">Di Posko</span>
@@ -134,6 +187,7 @@
                             <th>Alamat</th>
                             <th>Jenis Kelamin</th>
                             <th>Umur</th>
+                            <th>Kondisi</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -146,6 +200,60 @@
                             <td>Malang</td>
                             <td>Laki-Laki</td>
                             <td>30</td>
+                            <td>Sehat</td>
+                            <td>
+                                <!-- pakai if else -->
+                                <span class="badge badge-success">Di Posko</span>
+                                <!-- <span class="badge badge-danger">Keluar</span> -->
+                            </td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- end -->
+
+<!-- modal sakit -->
+<div class="modal fade" id="modal-sakit">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Kondisi Sakit</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form start -->
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Kepala Keluarga</th>
+                            <th>No Telepon</th>
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur</th>
+                            <th>Kondisi</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Bejo</td>
+                            <td>Bejo Senior</td>
+                            <td>081234567891</td>
+                            <td>Malang</td>
+                            <td>Laki-Laki</td>
+                            <td>30</td>
+                            <td>Luka Berat</td>
                             <td>
                                 <!-- pakai if else -->
                                 <span class="badge badge-success">Di Posko</span>
