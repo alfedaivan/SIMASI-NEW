@@ -126,49 +126,7 @@
                 <!-- form start -->
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
-                        <tr>
-<<<<<<< HEAD
-                        <th>No</th>
-                                    <th>Nama</th>
-                                    <!-- <th>Kepala Keluarga</th> -->
-                                    <!-- <th>No Telepon</th> -->
-                                    <th>Alamat</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Umur</th>
-                                    <th>Status</th>
-                                    <th>Kondisi</th>
-                                    <!-- <th>Aksi</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr>
-                            <?php $j=0 ?>
-                                @foreach ($data as $keys => $pengungsi)
-                                    @if($pengungsi->statPos == 0)
-                                    <?php $j++?>
-                                    <td>{{ $j }}</td>
-                                    <td>{{ $pengungsi->nama }}</td>
-                                    <td>{{ $pengungsi->namaKepala}}</td>
-                                    <td>{{ $pengungsi->telpon }}</td>
-                                    <td>{{ $pengungsi->lokasi }}</td>
-                                    <td>
-                                        <?php
-                                            $gender =  $pengungsi->gender ;
-                                            if($gender == 0){
-                                                echo "Perempuan";
-                                            }else if($gender == 1){
-                                                echo "Laki-laki";
-                                            }
-                                            ?>
-                                    </td>
-                                    <td>{{ $pengungsi->umur }}</td>
-                                    <td>{{ $pengungsi->tglMasuk }}</td>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach
-                            </tbody>
-=======
+                        
                             <th>No</th>
                             <th>Nama</th>
                             <th>Kepala Keluarga</th>
@@ -198,7 +156,6 @@
                             </td>
                         </tr>
                     </tbody>
->>>>>>> 215ebff5e20df6bb29b8abdc62f1888efa56c9bc
                 </table>
             </div>
         </div>

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengungsi;
-use App\Models\Posko;
+use App\Models\KepalaKeluarga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PengungsiController extends Controller
 {
@@ -17,13 +18,14 @@ class PengungsiController extends Controller
     public function index($id)
     {
         $pengungsi = Pengungsi::select(
-            DB::raw("concat('Prov. ',pengungsi.provinsi,', Kota ',pengungsi.kota,',
-            Kec. ',pengungsi.kecamatan,', Ds. ',pengungsi.kelurahan,', 
-            Daerah ',pengungsi.detail,' ')
+            DB::raw("concat('Prov. ',kpl.provinsi,', Kota ',kpl.kota,',
+            Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
         as lokasi"),
             'pengungsi.nama',
             'pengungsi.id as idPengungsi',
-            'kplklg_id',
+            'kpl_id',
+            'statKel',
             'telpon',
             'gender',
             'umur',
@@ -36,12 +38,14 @@ class PengungsiController extends Controller
             'kpl.nama as namaKepala'
         )
             ->leftJoin('posko AS p', 'pengungsi.posko_id', '=', 'p.id')
-            ->leftJoin('kepala_keluarga as kpl','pengungsi.kplklg_id','=','kpl.id')
+            ->leftJoin('kepala_keluarga as kpl', 'pengungsi.kpl_id', '=', 'kpl.id')
             ->where('pengungsi.posko_id', $id)
-            ->orderBy('pengungsi.created_at', 'desc')
+            ->orderBy('kpl_id', 'desc')
             ->paginate(5);
 
-        return view('admin.pengungsi.index', ['data' => $pengungsi]);
+        $getKpl = KepalaKeluarga::all();
+
+        return view('admin.pengungsi.index', ['data' => $pengungsi], ['kpl'=>$getKpl]);
     }
 
     /**
@@ -49,9 +53,56 @@ class PengungsiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createPengungsi(Request $request)
     {
-        //
+        // $getDataKpl = 
+        if (auth()->user()->hasAnyRole(['pusdalop'])) {
+            // $request->validate([
+            //     // 'namaBelakang' => ['required', 'max:50'],
+            //     // 'nama' => ['string', 'unique:posko'],
+            //     // 'trc_id' => ['string', 'unique:posko'],
+
+            // ]);
+
+            $statKel = $request->statKel;
+
+            if ($statKel == 0) {
+                Pengungsi::create([
+                    'nama' => $request->nama,
+                    'telpon' => $request->telpon,
+                    'statKel' => $request->statKel,
+                    'gender' => $request->gender,
+                    'umur' => $request->umur,
+                    'statPos' => $request->statPos,
+                    'posko_id' => $request->posko_id,
+                    'statKon' => $request->statKon,
+                ]);
+                KepalaKeluarga::create([
+                    'nama' => $request->nama,
+                    'provinsi' => $request->provinsi,
+                    'kota' => $request->kota,
+                    'kecamatan' => $request->kecamatan,
+                    'kelurahan' => $request->kelurahan,
+                    'detail' => $request->detail,
+                ]);
+                    // 'kplklg_id' => $request->kpl,
+            } else {
+                Pengungsi::create([
+                    'nama' => $request->nama,
+                    'telpon' => $request->telpon,
+                    'statKel' => $request->statKel,
+                    'kpl_id' => $request->kpl,
+                    'gender' => $request->gender,
+                    'umur' => $request->umur,
+                    'statPos' => $request->statPos,
+                    'posko_id' => $request->posko_id,
+                    'statKon' => $request->statKon,
+                ]);
+            }
+            Alert::success('Success', 'Data berhasil ditambahkan');
+            return back();
+        }
+        return back();
     }
 
     /**
