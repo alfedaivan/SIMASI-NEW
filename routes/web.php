@@ -57,6 +57,8 @@ Route::get('/listPosko/{id}', [PoskoController::class, 'index']);
 
 Route::get('/listPengungsi/{id}', [PengungsiController::class, 'index']);
 Route::post('pengungsi/create', [PengungsiController::class, 'createPengungsi'])->name('pengungsi.create');
+Route::match(['get', 'post'], 'pengungsi/edit/{id}', [PengungsiController::class, 'edit']);
+
 
 
 

@@ -22,6 +22,9 @@ class PengungsiController extends Controller
             Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
             Daerah ',kpl.detail,' ')
         as lokasi"),
+        DB::raw("concat('Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokKel"),
             'pengungsi.nama',
             'pengungsi.id as idPengungsi',
             'kpl_id',
@@ -35,7 +38,12 @@ class PengungsiController extends Controller
             'pengungsi.created_at as tglMasuk',
             'p.id as idPosko',
             'kpl.id as idKepala',
-            'kpl.nama as namaKepala'
+            'kpl.nama as namaKepala',
+            'kpl.provinsi as provinsi',
+            'kpl.kota as kota',
+            'kpl.kecamatan as kecamatan',
+            'kpl.kelurahan as kelurahan',
+            'kpl.detail as detail',
         )
             ->leftJoin('posko AS p', 'pengungsi.posko_id', '=', 'p.id')
             ->leftJoin('kepala_keluarga as kpl', 'pengungsi.kpl_id', '=', 'kpl.id')
@@ -45,7 +53,46 @@ class PengungsiController extends Controller
 
         $getKpl = KepalaKeluarga::all();
 
-        return view('admin.pengungsi.index', ['data' => $pengungsi], ['kpl'=>$getKpl]);
+        $pengungsi2 = Pengungsi::select(
+            DB::raw("concat('Prov. ',kpl.provinsi,', Kota ',kpl.kota,',
+            Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokasi"),
+        DB::raw("concat('Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokKel"),
+            'pengungsi.nama',
+            'pengungsi.id as idPengungsi',
+            'kpl_id',
+            'statKel',
+            'telpon',
+            'gender',
+            'umur',
+            'statPos',
+            'pengungsi.posko_id as idPospeng',
+            'statKon',
+            'pengungsi.created_at as tglMasuk',
+            'p.id as idPosko',
+            'kpl.id as idKepala',
+            'kpl.nama as namaKepala',
+            'kpl.provinsi as provinsi',
+            'kpl.kota as kota',
+            'kpl.kecamatan as kecamatan',
+            'kpl.kelurahan as kelurahan',
+            'kpl.detail as detail',
+        )
+            ->leftJoin('posko AS p', 'pengungsi.posko_id', '=', 'p.id')
+            ->leftJoin('kepala_keluarga as kpl', 'pengungsi.kpl_id', '=', 'kpl.id')
+            ->where('pengungsi.posko_id', $id)
+            ->orderBy('kpl_id', 'desc')
+            ->paginate(5);
+
+        return view('admin.pengungsi.index', [
+            'data' => $pengungsi,
+            'datas' => $pengungsi,
+            'kpl' => $getKpl,
+        ]);
+        // return view('admin.pengungsi.index',['data' => $pengungsi],['kpl'=>$getKpl],['datas' => $pengungsi]);
     }
 
     /**
@@ -133,9 +180,58 @@ class PengungsiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $pengungsi= Pengungsi::where('id', $id)->first();
+        $kepalaKeluarga= KepalaKeluarga::where('id', $request->kpl)->first();
+
+        if (auth()->user()->hasAnyRole(['pusdalop'])) {
+            // $request->validate([
+            //     // 'namaBelakang' => ['required', 'max:50'],
+            //     // 'nama' => ['string', 'unique:posko'],
+            //     // 'trc_id' => ['string', 'unique:posko'],
+
+            // ]);
+
+            $statKel = $pengungsi->statKel;
+
+            if ($statKel == 0) {
+                $pengungsi->update([
+                    'nama' => $request->nama,
+                    'telpon' => $request->telpon,
+                    'statKel' => $request->statKel,
+                    'gender' => $request->gender,
+                    'umur' => $request->umur,
+                    'statPos' => $request->statPos,
+                    'posko_id' => $request->posko_id,
+                    'statKon' => $request->statKon,
+                ]);
+                $kepalaKeluarga->update([
+                    'nama' => $request->nama,
+                    'provinsi' => $request->provinsi,
+                    'kota' => $request->kota,
+                    'kecamatan' => $request->kecamatan,
+                    'kelurahan' => $request->kelurahan,
+                    'detail' => $request->detail,
+                ]);
+                    // 'kplklg_id' => $request->kpl,
+            } else {
+                $pengungsi->update([
+                    'nama' => $request->nama,
+                    'telpon' => $request->telpon,
+                    'statKel' => $request->statKel,
+                    'kpl_id' => $request->kpl,
+                    'gender' => $request->gender,
+                    'umur' => $request->umur,
+                    'statPos' => $request->statPos,
+                    'posko_id' => $request->posko_id,
+                    'statKon' => $request->statKon,
+                ]);
+            }
+            Alert::success('Success', 'Data berhasil diubah');
+            return back();
+        }
+        return back();
     }
 
     /**

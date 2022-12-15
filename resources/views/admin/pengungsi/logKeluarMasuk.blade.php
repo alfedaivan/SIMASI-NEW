@@ -36,11 +36,10 @@
                             </thead>
                             <tbody>
                             <tr>
-                            <?php $i = 0 ?>
+                           
                                 @foreach ($data as $pengungsi)
                                     @if($pengungsi->statPos == 1)
-                                    <?php $i++?>
-                                    <td>{{ $i  }}</td>
+                                    <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td>
                                     <td>{{ $pengungsi->nama }}</td>
                                     <td>{{ $pengungsi->namaKepala}}</td>
                                     <td>{{ $pengungsi->telpon }}</td>
@@ -62,6 +61,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <br />
+                        {{ $data->links() }}
+                        <br />
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -101,17 +103,16 @@
                             <tbody>
                             <tr>
                             <?php $j=0 ?>
-                                @foreach ($data as $keys => $pengungsi)
-                                    @if($pengungsi->statPos == 0)
-                                    <?php $j++?>
-                                    <td>{{ $j }}</td>
-                                    <td>{{ $pengungsi->nama }}</td>
-                                    <td>{{ $pengungsi->namaKepala}}</td>
-                                    <td>{{ $pengungsi->telpon }}</td>
-                                    <td>{{ $pengungsi->lokasi }}</td>
+                                @foreach ($datas as $keys => $pengungsis)
+                                    @if($pengungsis->statPos == 0)
+                                    <td>{{ ($datas->currentPage() - 1)  * $datas->links()->paginator->perPage() + $loop->iteration }}</td>
+                                    <td>{{ $pengungsis->nama }}</td>
+                                    <td>{{ $pengungsis->namaKepala}}</td>
+                                    <td>{{ $pengungsis->telpon }}</td>
+                                    <td>{{ $pengungsis->lokasi }}</td>
                                     <td>
                                         <?php
-                                            $gender =  $pengungsi->gender ;
+                                            $gender =  $pengungsis->gender ;
                                             if($gender == 0){
                                                 echo "Perempuan";
                                             }else if($gender == 1){
@@ -119,14 +120,17 @@
                                             }
                                             ?>
                                     </td>
-                                    <td>{{ $pengungsi->umur }}</td>
-                                    <td>{{ $pengungsi->tglMasuk }}</td>
+                                    <td>{{ $pengungsis->umur }}</td>
+                                    <td>{{ $pengungsis->tglMasuk }}</td>
                                     </td>
                                 </tr>
                                 @endif
                                 @endforeach
                             </tbody>
                         </table>
+                        <br />
+                        {{ $datas->links() }}
+                        <br />
                     </div>
                     <!-- /.card-body -->
                 </div>
