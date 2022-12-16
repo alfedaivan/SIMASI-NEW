@@ -14,11 +14,8 @@ class Pengungsi extends Model
     protected $fillable = [
         'nama',
         'telpon',
-        'provinsi',
-        'kota',
-        'kecamatan',
-        'kelurahan',
-        'detail',
+        'kpl_id',
+        'statKel',
         'gender',
         'umur',
         'statPos',

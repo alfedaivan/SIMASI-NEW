@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posko;
 use App\Models\User;
+use App\Models\Pengungsi;
 use App\Models\Bencana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,10 +38,15 @@ class PoskoController extends Controller
             'b.id as idBencana',
             DB::raw("concat(u.firstname,' ',u.lastname) as fullName"),'u.id as idAdmin',
             'u.created_at',
-            'u.updated_at'
+            'u.updated_at',
+            DB::raw('count(p.posko_id) as ttlPengungsi'),
         )
             ->leftJoin('users AS u', 'posko.trc_id', '=', 'u.id')
             ->join('bencana as b','posko.bencana_id','=','b.id')
+            ->leftJoin('pengungsi as p','posko.id','=','p.posko_id')
+            ->groupBy('lokasi','provinsi','kota','kecamatan','kelurahan','detail','posko.id'
+            ,'posko.nama','posko.bencana_id','b.id','u.firstname','u.lastname','u.id','u.created_at',
+            'u.updated_at')
             ->where('posko.bencana_id',$id)
             ->orderBy('u.id', 'desc')
             ->paginate(5);
@@ -55,8 +61,18 @@ class PoskoController extends Controller
                     ->whereRaw('users.id = posko.trc_id');
             })->get();
 
-        return view('admin.posko.index', ['data'=>$posko],
-        ['getTrc'=>$trc],['getId'=>$getIdBencana]);
+        $getTtlPengungsi = Pengungsi::select(DB::raw("count('posko_id') as ttlPengungsi"))
+        ->join('posko as p','pengungsi.posko_id','=','p.id')
+        ->paginate(5);
+        
+        // return view('admin.posko.index', ['data'=>$posko],
+        // ['getTrc'=>$trc],['getId'=>$getIdBencana],['ttlPengungsi'=>$getTtlPengungsi]);
+        return view('admin.posko.index', [
+            'data' => $posko,
+            'getTrc' => $trc,
+            'getId' => $getIdBencana,
+            'ttlPengungsi' => $getTtlPengungsi,
+        ]);
    
     }
 

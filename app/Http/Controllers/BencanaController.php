@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bencana;
 use App\Models\Posko;
+use App\Models\Pengungsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -21,13 +22,19 @@ class BencanaController extends Controller
         'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
         'bencana.nama as namaBencana', 'lokasi', 'status',  
         'bencana.pengungsi_id as pengungsi', 'bencana.updated_at as waktuUpdate', 'p.bencana_id',
-        DB::raw('count(p.bencana_id) as ttlPosko')
+        DB::raw('count(p.bencana_id) as ttlPosko'), DB::raw('count(peng.posko_id) as ttlPengungsi')
       )
             ->leftJoin('posko AS p', 'bencana.id', '=', 'p.bencana_id')
+            ->leftJoin('pengungsi as peng','p.id','=','peng.posko_id')
             ->orderBy('bencana.tanggal', 'desc')
             ->distinct()
             ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id','bencana.nama','lokasi','status','bencana.pengungsi_id','bencana.updated_at')
             ->paginate(5);
+
+        // $getTtlPengungsi = Pengungsi::select(DB::raw("count('posko_id') as ttlPengungsi"))
+        // ->join('posko as p','pengungsi.posko_id','=','p.id')
+        // ->join('bencana as b','p.bencana_id','=','b.id')
+        // ->paginate(5);
 
         return view('admin.bencana.index', ['data'=>$bencana]);
         

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pengungsi', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('statKel');
             $table->unsignedBigInteger('kplklg_id');
             $table->string('telpon');
             $table->string('provinsi');

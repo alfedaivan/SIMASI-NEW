@@ -36,11 +36,12 @@
                             </thead>
                             <tbody>
                             <tr>
-                            <?php $i = 0 ?>
+                           <?php $i=0;?>
                                 @foreach ($data as $pengungsi)
                                     @if($pengungsi->statPos == 1)
-                                    <?php $i++?>
-                                    <td>{{ $i  }}</td>
+                                    <?php $i++;?>
+                                    <!-- <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td> -->
+                                    <td>{{ $i }}</td>
                                     <td>{{ $pengungsi->nama }}</td>
                                     <td>{{ $pengungsi->namaKepala}}</td>
                                     <td>{{ $pengungsi->telpon }}</td>
@@ -62,6 +63,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <br />
+                        {{ $data->links() }}
+                        <br />
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -101,17 +105,17 @@
                             <tbody>
                             <tr>
                             <?php $j=0 ?>
-                                @foreach ($data as $keys => $pengungsi)
-                                    @if($pengungsi->statPos == 0)
-                                    <?php $j++?>
-                                    <td>{{ $j }}</td>
-                                    <td>{{ $pengungsi->nama }}</td>
-                                    <td>{{ $pengungsi->namaKepala}}</td>
-                                    <td>{{ $pengungsi->telpon }}</td>
-                                    <td>{{ $pengungsi->lokasi }}</td>
+                                @foreach ($data as $keys => $pengungsis)
+                                    @if($pengungsis->statPos == 0)
+                                    <?php $j++;?>
+                                    <td>{{ $j }}</th>
+                                    <td>{{ $pengungsis->nama }}</td>
+                                    <td>{{ $pengungsis->namaKepala}}</td>
+                                    <td>{{ $pengungsis->telpon }}</td>
+                                    <td>{{ $pengungsis->lokasi }}</td>
                                     <td>
                                         <?php
-                                            $gender =  $pengungsi->gender ;
+                                            $gender =  $pengungsis->gender ;
                                             if($gender == 0){
                                                 echo "Perempuan";
                                             }else if($gender == 1){
@@ -119,60 +123,17 @@
                                             }
                                             ?>
                                     </td>
-                                    <td>{{ $pengungsi->umur }}</td>
-                                    <td>{{ $pengungsi->tglMasuk }}</td>
-
-                                    <div class="modal fade" id="modal-edit">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Edit Posko</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- form start -->
-                                                    <form>
-                                                        <div class="card-body">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputNama">Nama Posko</label>
-                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Nama Bencana">
-                                                            </div>
-
-
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPosko">Lokasi</label>
-                                                                <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan Total Posko">
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label for="exampleSelectBorder">Pilih TRC</label>
-                                                                <select class="custom-select form-control-border" id="exampleSelectBorder">
-                                                                    <option>Value 1</option>
-                                                                    <option>Value 2</option>
-                                                                    <option>Value 3</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.card-body -->
-
-                                                        <div class="card-footer">
-                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
+                                    <td>{{ $pengungsis->umur }}</td>
+                                    <td>{{ $pengungsis->tglMasuk }}</td>
                                     </td>
                                 </tr>
                                 @endif
                                 @endforeach
                             </tbody>
                         </table>
+                        <br />
+                        {{ $data->links() }}
+                        <br />
                     </div>
                     <!-- /.card-body -->
                 </div>

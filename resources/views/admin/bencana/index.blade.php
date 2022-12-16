@@ -116,7 +116,6 @@
                                     <th>Lokasi</th>
                                     <th>Posko</th>
                                     <th>Pengungsi</th>
-                                    <th>Korban</th>
                                     <th>Waktu Update</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
@@ -136,8 +135,7 @@
                                             class="btn btn-primary btn-xs" title="Lihat posko"><i
                                                 class="fas fa-eye"></i> Posko </a>
                                     </td>
-                                    <td>{{ $bencana->pengungsi }}</td>
-                                    <td>{{ $bencana->pengungsi }}</td>
+                                    <td>{{ $bencana->ttlPengungsi }} orang</td>
                                     <td>{{ $bencana->waktuUpdate }}</td>
                                     <!-- <td>All others</td> -->
                                     <td>
