@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item active"><a href="/bencana">Bencana</a></li>
                     <li class="breadcrumb-item active">Posko</li>
                 </ol>
@@ -157,9 +157,13 @@
                                     <td>{{ $posko->lokasi}}</td>
                                     <td>{{ $posko->fullName}}</td>
                                     <td>
-                                        23 Orang
+                                    {{ $posko->ttlPengungsi}} orang
+                                    <!-- @foreach($ttlPengungsi as $ttl)
+                                    {{ $ttl->ttlPengungsi}}
+                                    @endforeach -->
                                         <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko;?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
+                                   
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     <td>
