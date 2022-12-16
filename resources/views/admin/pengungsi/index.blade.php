@@ -78,7 +78,7 @@
 
                                             <div class="form-group">
                                                 <label for="sKeluarga">Status Keluarga</label>
-                                                <select class="form-control" id="statKel" name="statKel" onchange="showDiv(this)">
+                                                <select class="form-control" id="statKel" name="statKel" onchange="showDivs(this)">
                                                     <option value = 0 >Kepala Keluarga</option>
                                                     <option value = 1 >Ibu</option>
                                                     <option value = 2 selected>Anak</option>
@@ -89,14 +89,14 @@
                                             // var idForm_1 = document.getElementById('form_1');
                                             // var idForm_2 = document.getElementById('form_2');
 
-                                            function showDiv(select) {
-                                                console.log(select);
-                                                if (select.value == 0) {
+                                            function showDivs(selects) {
+                                                console.log(selects);
+                                                if (selects.value == 0 ) {
                                                     document.getElementById("form_1").style.display = "none";
                                                     document.getElementById("form_2").style.display = "block";
                                                     // idForm_1.style.display = "block";
                                                     // idForm_2.style.display = "none";
-                                                } else if(select.value == 1 || select.value == 2) {
+                                                } else if(selects.value == 1 || selects.value == 2) {
                                                     document.getElementById("form_1").style.display = "block";
                                                     document.getElementById("form_2").style.display = "none";
                                                 }
@@ -293,7 +293,8 @@ if ($statPos == 0) {
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi">
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi"
+                                                onclick="deleteConfirmation({{$pengungsi->idPengungsi}})">
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
                                             </div>
@@ -362,20 +363,20 @@ if ($statPos == 0) {
                                             function showDiv(select) {
                                                 console.log(select);
                                                 if (select.value == 0) {
-                                                    document.getElementById("form_2").style.display = "none";
-                                                    document.getElementById("form_3").style.display = "block";
+                                                    document.getElementById("form_3").style.display = "none";
+                                                    document.getElementById("form_4").style.display = "block";
                                                     // idForm_1.style.display = "block";
                                                     // idForm_2.style.display = "none";
                                                 } else if(select.value == 1 || select.value == 2) {
-                                                    document.getElementById("form_2").style.display = "block";
-                                                    document.getElementById("form_3").style.display = "none";
+                                                    document.getElementById("form_3").style.display = "block";
+                                                    document.getElementById("form_4").style.display = "none";
                                                 }
                                             }
                                             </script>
                                             <!-- end -->
 
                                             <!-- jika pengungsi kepala keluarga sudah ditambahkan -->
-                                            <div class="form-group" id="form_2">
+                                            <div class="form-group" id="form_3">
                                                 <label for="kpl">Kepala Keluarga</label>
                                                 <select class="form-control" id="kpl" name="kpl" required>
                                                     <option selected value="{{$pengungsi->idKepala}}" hidden>{{$pengungsi->namaKepala}} {{ $pengungsi->lokKel}}</option>
@@ -387,7 +388,7 @@ if ($statPos == 0) {
                                             </div>
 
                                             <!-- jika belum perlu menambahkan alamat -->
-                                            <div class="wrapper-kk" class="hidden" id="form_3" style="display:none;">
+                                            <div class="wrapper-kk" class="hidden" id="form_4" style="display:none;">
                                                 <div class="form-group">
                                                     <label for="provinsi">Provinsi</label>
                                                     <input type="text" class="form-control" id="provinsi"
@@ -509,7 +510,54 @@ if ($statPos == 0) {
                 </div>
             </div>
         </div>
-    </div>                                             
+    </div>    
+    
+    <script type="text/javascript">
+    function deleteConfirmation(id) {
+        swal.fire({
+            title: "Hapus?",
+            icon: 'question',
+            text: "Apakah Anda yakin?",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Iya, hapus!",
+            cancelButtonText: "Batal!",
+            reverseButtons: !0
+        }).then(function(e) {
+
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{url('pengungsi/delete')}}/" + id,
+                    data: {
+                        _token: CSRF_TOKEN
+                    },
+                    dataType: 'JSON',
+                    success: function(results) {
+                        if (results.success === true) {
+                            swal.fire("Berhasil!", results.message, "success");
+                            // refresh page after 2 seconds
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            swal.fire("Gagal!", results.message, "error");
+                        }
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function(dismiss) {
+            return false;
+        })
+    }
+    </script>
+    
 </section>
 
 @include('admin.pengungsi.logKeluarMasuk')

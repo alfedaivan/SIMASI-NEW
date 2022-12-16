@@ -112,6 +112,14 @@ class PengungsiController extends Controller
             $statKel = $request->statKel;
 
             if ($statKel == 0) {
+                KepalaKeluarga::create([
+                    'nama' => $request->nama,
+                    'provinsi' => $request->provinsi,
+                    'kota' => $request->kota,
+                    'kecamatan' => $request->kecamatan,
+                    'kelurahan' => $request->kelurahan,
+                    'detail' => $request->detail,
+                ]);
                 Pengungsi::create([
                     'nama' => $request->nama,
                     'telpon' => $request->telpon,
@@ -121,14 +129,6 @@ class PengungsiController extends Controller
                     'statPos' => $request->statPos,
                     'posko_id' => $request->posko_id,
                     'statKon' => $request->statKon,
-                ]);
-                KepalaKeluarga::create([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
-                    'kota' => $request->kota,
-                    'kecamatan' => $request->kecamatan,
-                    'kelurahan' => $request->kelurahan,
-                    'detail' => $request->detail,
                 ]);
                     // 'kplklg_id' => $request->kpl,
             } else {
@@ -144,6 +144,15 @@ class PengungsiController extends Controller
                     'statKon' => $request->statKon,
                 ]);
             }
+            // $peng = Pengungsi::create($request->all());
+            $getIdKpl = KepalaKeluarga::select('id')->orderBy('id','desc')->value('id');
+            $getIdPeng = Pengungsi::select('id')->orderBy('id','desc')->first();
+            $getIdPeng->update([
+                'kpl_id'   => $getIdKpl,
+                //  'totalmoroso' => $Ingresos->deuda,
+            ]);
+        
+            // return Redirect::to('admin/ingresos');
             Alert::success('Success', 'Data berhasil ditambahkan');
             return back();
         }
@@ -244,15 +253,37 @@ class PengungsiController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        if (auth()->user()->hasAnyRole(['pusdalop'])) {
+            $getStatkel = Pengungsi::where('id',$id)->value('statKel');
+            // $statKel = $getIdKepala->statKel;
+            $getIdKepala = Pengungsi::where('id',$id)->value('kpl_id');
+            $getKepala = KepalaKeluarga::where('id',$getIdKepala)->value('id');
+
+            if($getStatkel == 0){
+                $delPengungsi = Pengungsi::destroy($id);
+                $delKepala = KepalaKeluarga::destroy($getKepala);
+            }else{
+                $delPengungsi = Pengungsi::destroy($id);
+            }
+           
+            // check data deleted or not
+            if ($delPengungsi == 1 || $delKepala == 1) {
+                $success = true;
+                $message = "Data berhasil dihapus";
+            } else {
+                $success = false;
+                $message = "Data gagal dihapus";
+            }
+
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
+        }
+        return back();
     }
 
     // show filter keluarga
