@@ -36,10 +36,12 @@
                             </thead>
                             <tbody>
                             <tr>
-                           
+                           <?php $i=0;?>
                                 @foreach ($data as $pengungsi)
                                     @if($pengungsi->statPos == 1)
-                                    <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td>
+                                    <?php $i++;?>
+                                    <!-- <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td> -->
+                                    <td>{{ $i }}</td>
                                     <td>{{ $pengungsi->nama }}</td>
                                     <td>{{ $pengungsi->namaKepala}}</td>
                                     <td>{{ $pengungsi->telpon }}</td>
@@ -103,9 +105,10 @@
                             <tbody>
                             <tr>
                             <?php $j=0 ?>
-                                @foreach ($datas as $keys => $pengungsis)
+                                @foreach ($data as $keys => $pengungsis)
                                     @if($pengungsis->statPos == 0)
-                                    <td>{{ ($datas->currentPage() - 1)  * $datas->links()->paginator->perPage() + $loop->iteration }}</td>
+                                    <?php $j++;?>
+                                    <td>{{ $j }}</th>
                                     <td>{{ $pengungsis->nama }}</td>
                                     <td>{{ $pengungsis->namaKepala}}</td>
                                     <td>{{ $pengungsis->telpon }}</td>
@@ -129,7 +132,7 @@
                             </tbody>
                         </table>
                         <br />
-                        {{ $datas->links() }}
+                        {{ $data->links() }}
                         <br />
                     </div>
                     <!-- /.card-body -->

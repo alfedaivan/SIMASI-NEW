@@ -8,7 +8,9 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Pengungsi Posko (Nama Posko)</h1>
+                @foreach ($getNama as $nm)
+                <h1>Pengungsi Posko ({{ $nm->nama }})</h1>
+                @endforeach
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -109,7 +111,7 @@
                                                     @foreach ($kpl as $kplk)
                                                     <option value="{{$kplk->id}}">{{$kplk->nama}} (Kec. {{$kplk->kecamatan}}, Kel. {{$kplk->kelurahan}}, {{ $kplk->detail }}) </option>
                                                     @endforeach
-                                                    <option value="">Kosongkan dahulu</option>
+                                                    <!-- <option value="">Kosongkan dahulu</option> -->
                                                 </select>
                                             </div>
 
@@ -380,7 +382,7 @@ if ($statPos == 0) {
                                                     @foreach ($kpl as $kplk)
                                                     <option value="{{$kplk->id}}" >{{$kplk->nama}} (Kec. {{$kplk->kecamatan}}, Kel. {{$kplk->kelurahan}}, {{$kplk->detail}}) </option>
                                                     @endforeach
-                                                    <option value="">Kosongkan dahulu</option>
+                                                    <!-- <option value="">Kosongkan dahulu</option> -->
                                                 </select>
                                             </div>
 
