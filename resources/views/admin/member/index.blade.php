@@ -102,6 +102,11 @@
 
 
                     <div class="card-body ">
+
+                        <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modal-default">
+                            <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Anggota</h3>
+                        </a>
+
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -125,14 +130,29 @@
                                     <td>{{$member->fullName}}</td>
                                     <td>{{$member->email}}</td>
                                     <td>{{$member->namaPeran}}</td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning" title="Edit Bencana" style="width: 44px;" data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
-                                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                                <path fill="#fff" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                            </svg>
 
-                                        </a>
-                                        <button class="btn btn-danger" onclick="deleteConfirmation({{$member->idAdmin}})"><i class="fas fa-trash"></i></button>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                                <i class="fas fa-bars"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-lg" role="menu" data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
+                                                <a href="#" class="dropdown-item " title="Edit Bencana" data-toggle="modal" data-target="#modal-edit">
+                                                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                                                        <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                                    </svg>
+                                                    Edit
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$member->idAdmin}})">
+                                                    <i class="fas fa-trash mr-1"></i> Hapus
+                                                </a>
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- <a href="#" class="btn btn-danger btn-sm" title="Hapus Pengungsi">
+                                            Hapus
+                                        </a> -->
                                     </td>
                                 </tr>
                                 @endforeach
