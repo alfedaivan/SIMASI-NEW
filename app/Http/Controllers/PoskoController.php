@@ -98,7 +98,6 @@ class PoskoController extends Controller
             $addPosko->detail = $request->detail;
             $addPosko->trc_id = $request->trc_id;
             $addPosko->bencana_id = $request->idBencana;
-            $addPosko->pengungsi_id = $request->pengungsi;
             $addPosko->save();
 
             // $idPosko = Posko::where('bencana_id', $request->idBencana)->first()->value('id');
@@ -158,7 +157,6 @@ class PoskoController extends Controller
             $posko->kelurahan = $request->kelurahan;
             $posko->detail = $request->detail;
             $posko->trc_id = $request->trc_id;
-            $posko->pengungsi_id = $request->pengungsi;
             $posko->update();
             // $member->syncRoles($role);
             Alert::success('Success', 'Data berhasil diubah');

@@ -66,7 +66,15 @@ class PengungsiController extends Controller
 
         $getNmPosko = Posko::select('nama')->where('id',$id)->get();
 
-        $getTtlKpl = $getKpl->count();
+        $getTtlKpl = $getKpl->count();   
+
+        // $getTtlKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
+        // DB::raw('count(peng.kpl_id) as ttlAnggota'))
+        // ->join('pengungsi as peng','kepala_keluarga.id','=','peng.kpl_id')
+        // ->join('posko as p','peng.posko_id','=','p.id')
+        // ->groupBy('kepala_keluarga.id','kepala_keluarga.nama')
+        // ->distinct()
+        // ->paginate(5);
 
         $getBalita = Pengungsi::where('umur','<',5)->get();
 

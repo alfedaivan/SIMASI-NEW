@@ -21,14 +21,14 @@ class BencanaController extends Controller
         $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 
         'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
         'bencana.nama as namaBencana', 'lokasi', 'status',  
-        'bencana.pengungsi_id as pengungsi', 'bencana.updated_at as waktuUpdate', 'p.bencana_id',
+        'bencana.updated_at as waktuUpdate', 'p.bencana_id',
         DB::raw('count(p.bencana_id) as ttlPosko'), DB::raw('count(peng.posko_id) as ttlPengungsi')
       )
             ->leftJoin('posko AS p', 'bencana.id', '=', 'p.bencana_id')
             ->leftJoin('pengungsi as peng','p.id','=','peng.posko_id')
             ->orderBy('bencana.tanggal', 'desc')
             ->distinct()
-            ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id','bencana.nama','lokasi','status','bencana.pengungsi_id','bencana.updated_at')
+            ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id','bencana.nama','lokasi','status','bencana.updated_at')
             ->paginate(5);
 
         // $getTtlPengungsi = Pengungsi::select(DB::raw("count('posko_id') as ttlPengungsi"))
@@ -136,8 +136,11 @@ class BencanaController extends Controller
             if ($delBencana == 1 && $delPosko == 1) {
                 $success = true;
                 $message = "Data berhasil dihapus";
-            } else {
+            } else if($delBencana == 1){
                 $success = true;
+                $message = "Data berhasil dihapus";
+            } else{
+                $success = false;
                 $message = "Data gagal dihapus";
             }
 

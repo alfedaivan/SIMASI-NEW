@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('detail');
             $table->unsignedBigInteger('trc_id')->nullable();
             $table->unsignedBigInteger('bencana_id')->nullable();
-            $table->unsignedBigInteger('pengungsi_id')->nullable();
-            $table->foreign('trc_id')->references('id')->on('users');
-            $table->foreign('bencana_id')->references('id')->on('bencana');
+            // $table->unsignedBigInteger('pengungsi_id')->nullable();
+            // $table->foreign('trc_id')->references('id')->on('users');
+            // $table->foreign('bencana_id')->references('id')->on('bencana');
             // $table->foreign('pengungsi_id')->references('id')->on('pengungsi');
             $table->timestamps();
         });
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('poskos');
+        Schema::dropIfExists('posko');
     }
 };
