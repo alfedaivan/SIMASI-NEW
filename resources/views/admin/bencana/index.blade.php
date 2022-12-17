@@ -115,14 +115,14 @@
                                     <th>Waktu</th>
                                     <th>Lokasi</th>
                                     <th>Posko</th>
-                                    <th>Pengungsi</th>
+                                    <!-- <th>Pengungsi</th> -->
                                     <th>Waktu Update</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                   
                                 @foreach ($data as $key => $bencana)
                                 <tr>
                                     <td>{{ $data->firstItem() + $key }}</td>
@@ -135,7 +135,11 @@
                                             class="btn btn-primary btn-xs" title="Lihat posko"><i
                                                 class="fas fa-eye"></i> Posko </a>
                                     </td>
-                                    <td>{{ $bencana->ttlPengungsi }} orang</td>
+                                    <!-- @foreach ($data2 as $bencana2) -->
+                                
+                                    <!-- <td>{{  $bencana->ttlPengungsi }} orang</td> -->
+                                
+                                <!-- @endforeach -->
                                     <td>{{ $bencana->waktuUpdate }}</td>
                                     <!-- <td>All others</td> -->
                                     <td>
@@ -183,8 +187,9 @@
                                             Hapus
                                         </a> -->
                                     </td>
-                                </tr>
                                 @endforeach
+                                </tr>
+                               
                                 @foreach ($data as $detail)
                                 <div class="modal fade" id="modal-edit-{{$detail->idBencana}}">
                                     <div class="modal-dialog">

@@ -97,8 +97,10 @@
                         <?php $k++;?>
                         <td>{{ $k }}</td>
                         <td>{{ $pengungsi->nama}}</td>
-                        <td>{{ $pengungsi->ttlAnggota }}</td>
-                        <td>{{ $pengungsi->lokasi }}</td>
+                        <td>{{ $jmlAnggota }}</td>
+                        @foreach($getAlamat as $alamat)
+                        <td>{{ $alamat->lokasi }}</td>
+                        @endforeach
                     </tr>
                     @endforeach
 
