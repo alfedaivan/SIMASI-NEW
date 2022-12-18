@@ -51,18 +51,6 @@ class BencanaController extends Controller
             ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id',
             'bencana.nama','lokasi','status','bencana.updated_at')
             ->paginate(5);
-        // $getTtlPengungsi = Pengungsi::select(DB::raw("count('posko_id') as ttlPengungsi"))
-        // ->join('posko as p','pengungsi.posko_id','=','p.id')
-        // ->join('bencana as b','p.bencana_id','=','b.id')
-        // ->paginate(5);
-        // $ttlPengungsi = Posko::select('*')
-        // //  DB::raw('count(peng.posko_id) as ttlPengungsi')
-        //     // ->join('posko AS p', 'pengungsi.posko_id', '=', 'p.id')
-        //     ->join('bencana as b','b.id','=','posko.bencana_id')
-        //     ->join('pengungsi as peng','posko.id','=','peng.posko_id')
-        //     // ->leftJoin('pengungsi as peng','p.id','=','peng.posko_id')
-        //     // ->orderBy('bencana.tanggal', 'desc')
-        //     ->get();
 
         $getTtlPengungsi = Posko::select('*')
         ->leftJoin('bencana as b','posko.bencana_id','=','b.id')
