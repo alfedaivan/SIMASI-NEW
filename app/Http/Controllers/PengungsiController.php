@@ -71,7 +71,7 @@ class PengungsiController extends Controller
 
         $dataKpl = Pengungsi::select('*', DB::raw('count(kpl_id) as ttlAnggota'))
         // ->join('kepala_keluarga as kp','kp.id','=','pengungsi.kpl_id')
-        ->where('pengungsi.kpl_id','=',$id)
+        ->where('pengungsi.posko_id','=',$id)
         ->where('pengungsi.statKel','=',0)
         ->groupBy('kpl_id','pengungsi.nama','statKel','telpon','gender','umur',
         'statPos','posko_id','statKon','pengungsi.created_at'
@@ -96,7 +96,7 @@ class PengungsiController extends Controller
 
         $getBalita = Pengungsi::select('*')
         ->where('umur','<',5)
-        ->where('pengungsi.kpl_id','=',$id)->get();  
+        ->where('pengungsi.posko_id','=',$id)->get();  
 
         // $getTtlKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
         // DB::raw('count(peng.kpl_id) as ttlAnggota'))
@@ -108,19 +108,19 @@ class PengungsiController extends Controller
 
         $getBalita = Pengungsi::select('*')
         ->where('umur','<',5)
-        ->where('pengungsi.kpl_id','=',$id)->get();
+        ->where('pengungsi.posko_id','=',$id)->get();
 
         $getTtlBalita = $getBalita->count();
 
         $getLansia =  Pengungsi::select('*')
         ->where('umur','>',60)
-        ->where('pengungsi.kpl_id','=',$id)->get();
+        ->where('pengungsi.posko_id','=',$id)->get();
 
         $getTtlLansia = $getLansia->count();
 
         $getSakit = Pengungsi::select('*')
         ->where('statKon','>',0)
-        ->where('pengungsi.kpl_id','=',$id)->get();
+        ->where('pengungsi.posko_id','=',$id)->get();
 
         $getTtlSakit = $getSakit->count();
 
