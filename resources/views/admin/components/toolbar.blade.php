@@ -18,10 +18,12 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-            @csrf
-            <a class="nav-link" href="javascript:;" onclick="document.getElementById('form1').submit();" title="Log Out">
-                <i class=" fas fa-power-off"></i>
-            </a>
+            <form id="form1" action="/logout" method="post">
+                @csrf
+                <a href="javascript:;" onclick="document.getElementById('form1').submit();" class="nav-link">
+                    <i class="nav-icon fas fa-power-off"></i>
+                </a>
+            </form>
         </li>
     </ul>
 </nav>
