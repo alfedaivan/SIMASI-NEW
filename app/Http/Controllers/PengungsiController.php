@@ -56,17 +56,47 @@ class PengungsiController extends Controller
 
         $getKpl = KepalaKeluarga::all();
 
-        $dataKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
-        DB::raw('count(p.kpl_id) as ttlAnggota'),DB::raw("concat('Prov. ',provinsi,', 
-        Kota ',kota,',Kec. ',kecamatan,', Ds. ',kelurahan,',Daerah ',detail,' ') as lokasi"))
-        ->join('pengungsi as p','kepala_keluarga.id','=','p.kpl_id')
-        ->groupBy('kepala_keluarga.id','kepala_keluarga.nama','lokasi')
-        ->distinct()
-        ->paginate(5);
+        // $dataKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
+        // DB::raw('count(p.kpl_id) as ttlAnggota'),DB::raw("concat('Prov. ',provinsi,', 
+        // Kota ',kota,',Kec. ',kecamatan,', Ds. ',kelurahan,',Daerah ',detail,' ') as lokasi"))
+        // ->join('pengungsi as p','kepala_keluarga.id','=','p.kpl_id')
+        // ->where('p.statKel','=',0)
+        // ->groupBy('kepala_keluarga.id','kepala_keluarga.nama','lokasi')
+        // ->distinct()
+        // ->paginate(5);
+
+        // $dataKpl = Pengungsi::select('nama')
 
         $getNmPosko = Posko::select('nama')->where('id',$id)->get();
 
-        $getTtlKpl = $getKpl->count();   
+        $dataKpl = Pengungsi::select('*', DB::raw('count(kpl_id) as ttlAnggota'))
+        // ->join('kepala_keluarga as kp','kp.id','=','pengungsi.kpl_id')
+        ->where('pengungsi.posko_id','=',$id)
+        ->where('pengungsi.statKel','=',0)
+        ->groupBy('kpl_id','pengungsi.nama','statKel','telpon','gender','umur',
+        'statPos','posko_id','statKon','pengungsi.created_at'
+        ,'pengungsi.updated_at','pengungsi.id',
+        )
+        ->get();  
+
+        $getJml = Pengungsi::select('*')
+        ->where('pengungsi.kpl_id','=',$id)
+        ->get();
+
+        $getAlamat = KepalaKeluarga::select('*',DB::raw("concat('Prov. ',
+        provinsi,', Kota ',kota,',
+        Kec. ',kecamatan,', Ds. ',kelurahan,',Daerah ',detail,' ')
+        as lokasi"))
+        ->where('kepala_keluarga.id','=',$id)
+        ->get();
+
+        $getJmlAnggota = $getJml->count();
+
+        $getTtlKpl = $dataKpl->count();
+
+        $getBalita = Pengungsi::select('*')
+        ->where('umur','<',5)
+        ->where('pengungsi.posko_id','=',$id)->get();  
 
         // $getTtlKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
         // DB::raw('count(peng.kpl_id) as ttlAnggota'))
@@ -76,23 +106,31 @@ class PengungsiController extends Controller
         // ->distinct()
         // ->paginate(5);
 
-        $getBalita = Pengungsi::where('umur','<',5)->get();
+        $getBalita = Pengungsi::select('*')
+        ->where('umur','<',5)
+        ->where('pengungsi.posko_id','=',$id)->get();
 
         $getTtlBalita = $getBalita->count();
 
-        $getLansia = Pengungsi::where('umur','>',60)->get();
+        $getLansia =  Pengungsi::select('*')
+        ->where('umur','>',60)
+        ->where('pengungsi.posko_id','=',$id)->get();
 
         $getTtlLansia = $getLansia->count();
 
-        $getSakit = Pengungsi::where('statKon','>',0)->get();
+        $getSakit = Pengungsi::select('*')
+        ->where('statKon','>',0)
+        ->where('pengungsi.posko_id','=',$id)->get();
 
-        $getTtlSakit = $getLansia->count();
+        $getTtlSakit = $getSakit->count();
 
         return view('admin.pengungsi.index', [
             'data' => $pengungsi,
             'kpl' => $getKpl,
             'dataKpl' => $dataKpl,
             'getNama' => $getNmPosko,
+            'jmlAnggota' => $getJmlAnggota,
+            'getAlamat' => $getAlamat,
             'ttlKpl' => $getTtlKpl,
             'ttlBalita' => $getTtlBalita,
             'ttlLansia' => $getTtlLansia,

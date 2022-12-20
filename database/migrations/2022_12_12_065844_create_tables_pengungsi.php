@@ -19,11 +19,6 @@ return new class extends Migration
             $table->string('statKel');
             $table->unsignedBigInteger('kpl_id');
             $table->string('telpon');
-            // $table->string('provinsi');
-            // $table->string('kota');
-            // $table->string('kecamatan');
-            // $table->string('kelurahan');
-            // $table->string('detail');
             $table->unsignedBigInteger('gender');
             $table->unsignedBigInteger('umur');
             $table->unsignedBigInteger('statPos');

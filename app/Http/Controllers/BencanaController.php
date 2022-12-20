@@ -22,21 +22,50 @@ class BencanaController extends Controller
         'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
         'bencana.nama as namaBencana', 'lokasi', 'status',  
         'bencana.updated_at as waktuUpdate', 'p.bencana_id',
-        DB::raw('count(p.bencana_id) as ttlPosko'), DB::raw('count(peng.posko_id) as ttlPengungsi')
+        DB::raw('count(p.bencana_id) as ttlPosko'),
+        //  DB::raw('count(p.id) as ttlPengungsi')
       )
-            ->leftJoin('posko AS p', 'bencana.id', '=', 'p.bencana_id')
-            ->leftJoin('pengungsi as peng','p.id','=','peng.posko_id')
+            ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
+            // ->join('pengungsi as peng','peng.posko_id','=','p.id')
             ->orderBy('bencana.tanggal', 'desc')
             ->distinct()
-            ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id','bencana.nama','lokasi','status','bencana.updated_at')
+            // ->where('peng.posko_id','=','p.id')
+            ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id',
+            'bencana.nama','lokasi','status','bencana.updated_at')
             ->paginate(5);
 
-        // $getTtlPengungsi = Pengungsi::select(DB::raw("count('posko_id') as ttlPengungsi"))
-        // ->join('posko as p','pengungsi.posko_id','=','p.id')
-        // ->join('bencana as b','p.bencana_id','=','b.id')
-        // ->paginate(5);
+            // $getIdBencana = Bencana::where('id',$bencana)->value('id');
 
-        return view('admin.bencana.index', ['data'=>$bencana]);
+            $bencana2 = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 
+        'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
+        'bencana.nama as namaBencana', 'lokasi', 'status',  
+        'bencana.updated_at as waktuUpdate', 'p.bencana_id',
+        DB::raw('count(p.bencana_id) as ttlPosko'),
+        //  DB::raw('count(p.id) as ttlPengungsi')
+      )
+            ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
+            // ->join('pengungsi as peng','peng.posko_id','=','p.id')
+            ->orderBy('bencana.tanggal', 'desc')
+            ->distinct()
+            ->where('p.bencana_id','=','b.id')
+            ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id',
+            'bencana.nama','lokasi','status','bencana.updated_at')
+            ->paginate(5);
+
+        $getTtlPengungsi = Posko::select('*')
+        ->leftJoin('bencana as b','posko.bencana_id','=','b.id')
+        ->join('pengungsi as p','posko.id','=','p.posko_id')
+        ->where('posko.bencana_id','=','b.id')
+        ->get();
+
+        $ttlPeng = $getTtlPengungsi->count(); 
+
+        // return view('admin.bencana.index', ['data'=>$bencana]);
+        return view('admin.bencana.index', [
+            'data2' => $bencana2,
+            'data' => $bencana,
+            'ttlPengungsi' => $ttlPeng,
+        ]);
         
     }
 
