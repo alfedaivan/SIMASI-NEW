@@ -63,7 +63,7 @@
                     <a href="{{url('/member')}}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Anggota
+                            Admin
                         </p>
                     </a>
                 </li>

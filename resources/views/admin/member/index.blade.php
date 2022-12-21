@@ -7,12 +7,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Anggota</h1>
+                <h1>Admin</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Anggota</li>
+                    <li class="breadcrumb-item active">Admin</li>
                 </ol>
             </div>
         </div>
@@ -25,19 +25,21 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h3 class="card-title">List Anggota</h3>
+                        <h3 class="card-title">List Admin</h3>
+                        @role('pusdalop')
                         <div class="float-sm-right">
-                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Anggota</h3>
+                                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
+                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Admin</h3>
                             </a>
                         </div>
+                        @endrole
                     </div>
 
                     <div class="modal fade" id="modal-default">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Tambah Member</h4>
+                                    <h4 class="modal-title">Tambah Admin</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -173,7 +175,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Edit Member</h4>
+                                <h4 class="modal-title">Edit Admin</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
