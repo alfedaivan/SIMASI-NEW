@@ -18,12 +18,12 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <form id="form1" action="/logout" method="post">
+        <form id="form1" action="/logout" method="post">
                 @csrf
                 <a href="javascript:;" onclick="document.getElementById('form1').submit();" class="nav-link">
                     <i class="nav-icon fas fa-power-off"></i>
                 </a>
-            </form>
+            </form>        
         </li>
     </ul>
 </nav>
