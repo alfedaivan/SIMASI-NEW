@@ -37,6 +37,7 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
+// Route::resource('search', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
 Route::get('/pengungsi/keluarga', 'App\Http\Controllers\PengungsiController@showKeluarga');
 
@@ -60,6 +61,11 @@ Route::post('pengungsi/create', [PengungsiController::class, 'createPengungsi'])
 Route::match(['get', 'post'], 'pengungsi/edit/{id}', [PengungsiController::class, 'edit']);
 Route::post('pengungsi/delete/{id}', [PengungsiController::class, 'delete']);
 
+//search
+Route::get("/search",[MemberController::class,'search'])->name('search');
+// Route::resource('search', MemberController::class);
+
+// Route::get("member",[MemberController::class,'index']);
 
 
 

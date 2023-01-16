@@ -15,18 +15,29 @@ class MemberController extends Controller
     public function index()
     {
         $users = User::select(DB::raw("concat(users.firstname,' ',users.lastname) as fullName"), 'users.firstname', 'users.lastname', 'users.email', 'users.id AS idAdmin', 'mr.role_id', 'r.id as idRole', 'r.name as namaPeran')
-            // ->leftJoin('posko AS p', 'users.posko_id','=','p.id')
             ->leftJoin('model_has_roles as mr', 'users.id', '=', 'mr.model_id')
             ->leftJoin('roles AS r', 'mr.role_id', '=', 'r.id')
+            ->orderBy('fullName', 'asc')
             ->paginate(5);
-        // 'posko' => Posko::select('posko.namaPosko')->paginate(5);
+
         $roles = Role::all();
-        // 'getRoles' => Role::select('roles.name')->paginate(5);
-        // return view('admin.member.index');
         return view('admin.member.index', [
             'data' => $users,
             'role' => $roles,
         ]);
+    }
+
+    public function search()
+    {
+        $filter = request()->query();
+        return User::select(DB::raw("concat(users.firstname,' ',users.lastname) as fullName"), 'users.firstname', 'users.lastname', 'users.email', 'users.id AS idAdmin', 'mr.role_id', 'r.id as idRole', 'r.name as namaPeran')
+            ->leftJoin('model_has_roles as mr', 'users.id', '=', 'mr.model_id')
+            ->leftJoin('roles AS r', 'mr.role_id', '=', 'r.id')
+            ->where('users.firstname', 'LIKE', "%{$filter['search']}%")
+            ->orWhere('users.lastname', 'LIKE', "%{$filter['search']}%")
+            ->orderBy('fullName', 'asc')
+            ->get();
+
     }
 
     public function createMember(Request $request)

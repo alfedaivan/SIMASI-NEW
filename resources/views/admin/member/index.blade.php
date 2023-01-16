@@ -26,15 +26,26 @@
                 <div class="card">
                     <div class="card-header justify-content-between">
                         <h3 class="card-title">List Admin</h3>
-                        @role('pusdalop')
-                        <div class="float-sm-right">
-                                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Admin</h3>
-                            </a>
+
+                        <div class="card-tools">
+                            <form id="search">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+
+                                    <input type="text" name="search" class="form-control float-right"
+                                        placeholder="Search" >
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        @endrole
                     </div>
 
+
+                    @role('pusdalop')
                     <div class="modal fade" id="modal-default">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -51,17 +62,20 @@
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="namaDepan">Nama depan</label>
-                                                <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" required>
+                                                <input type="text" class="form-control" id="namaDepan"
+                                                    placeholder="Masukan nama depan" name="namaDepan" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="namaBelakang">Nama belakang</label>
-                                                <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" required>
+                                                <input type="text" class="form-control" id="namaBelakang"
+                                                    placeholder="Masukan nama belakang" name="namaBelakang" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" required>
+                                                <input type="email" class="form-control" id="email"
+                                                    placeholder="Masukan email" name="email" required>
 
                                             </div>
 
@@ -88,7 +102,9 @@
                         </div>
                         <!-- /.modal-dialog -->
                     </div>
+                    @endrole
 
+                    <!-- List data -->
                     <div class="container mt-2">
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -108,8 +124,10 @@
                         <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modal-default">
                             <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Anggota</h3>
                         </a>
-
-                        <table id="example2" class="table table-bordered table-hover">
+                        
+                        <!-- <div id="search_list"></div> -->
+                       
+                        <table id="all_data" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -117,54 +135,57 @@
                                     <th>Email</th>
                                     <th>Peran</th>
                                     <th>Aksi</th>
-                                    <!-- <th>Total Posko</th>
-                                    <th>Total Pengungsi</th>
-                                    <th>Total Korban</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th> -->
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="result">
+
                                 @foreach ($data as $key => $member)
 
                                 <tr>
-                                    <td>{{ $data->firstItem() + $key  }}</td>
+                                    <td>{{$data->firstItem() + $key  }}</td>
                                     <td>{{$member->fullName}}</td>
                                     <td>{{$member->email}}</td>
                                     <td>{{$member->namaPeran}}</td>
 
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                data-toggle="dropdown" data-offset="-52">
                                                 <i class="fas fa-bars"></i>
                                             </button>
-                                            <div class="dropdown-menu dropdown-menu-lg" role="menu" data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
-                                                <a href="#" class="dropdown-item " title="Edit Bencana" data-toggle="modal" data-target="#modal-edit">
+                                            <div class="dropdown-menu dropdown-menu-lg" role="menu">
+                                                <!-- <a href="#" class="dropdown-item " data-toggle="modal" data-target="#modal-detail" title="Detail Pengungsi">
+                                                    <i class="fas fa-eye mr-1"></i> Detail
+                                                </a>
+                                                <div class="dropdown-divider"></div> -->
+                                                <a href="#" class="dropdown-item " title="Edit Bencana"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-edit-{{$member->idAdmin}}">
                                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
-                                                        <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                                        <path fill="currentColor"
+                                                            d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                                                     </svg>
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$member->idAdmin}})">
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi"
+                                                    onclick="deleteConfirmation({{$member->idAdmin}})">
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
                                             </div>
-                                            <!-- /.modal-dialog -->
+                                        
                                         </div>
-                                        <!-- <a href="#" class="btn btn-danger btn-sm" title="Hapus Pengungsi">
-                                            Hapus
-                                        </a> -->
                                     </td>
                                 </tr>
                                 @endforeach
 
                             </tbody>
                         </table>
+                   
 
                         <br />
                         {{ $data->links() }}
-                        <br />
+                        <br /> 
 
                     </div>
 
@@ -182,30 +203,29 @@
                             </div>
                             <div class="modal-body">
                                 <!-- form start -->
-                                <form action="{{ url('/member/edit/'.$detail->idAdmin) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ url('/member/edit/'.$detail->idAdmin) }}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="namaDepan">Nama depan</label>
-                                            <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}" required>
+                                            <input type="text" class="form-control" id="namaDepan"
+                                                placeholder="Masukan nama depan" name="namaDepan"
+                                                value="{{ $detail->firstname }}" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="namaBelakang">Nama belakang</label>
-                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="namaBelakang">Nama belakang</label>
-                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
+                                            <input type="text" class="form-control" id="namaBelakang"
+                                                placeholder="Masukan nama belakang" name="namaBelakang"
+                                                value="{{ $detail->lastname }}" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
+                                            <input type="email" class="form-control" id="email"
+                                                placeholder="Masukan email" name="email" value="{{ $detail->email }}"
+                                                required>
                                         </div>
 
                                         <div class="form-group">
@@ -233,56 +253,133 @@
                     </div>
                     <!-- /.modal-dialog -->
                 </div>
+                @endforeach
             </div>
-            @endforeach
+           
         </div>
     </div>
 
     <script type="text/javascript">
-        function deleteConfirmation(id) {
-            swal.fire({
-                title: "Hapus?",
-                icon: 'question',
-                text: "Apakah Anda yakin?",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonText: "Iya, hapus!",
-                cancelButtonText: "Batal!",
-                reverseButtons: !0
-            }).then(function(e) {
+    function deleteConfirmation(id) {
+        swal.fire({
+            title: "Hapus?",
+            icon: 'question',
+            text: "Apakah Anda yakin?",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Iya, hapus!",
+            cancelButtonText: "Batal!",
+            reverseButtons: !0
+        }).then(function(e) {
 
-                if (e.value === true) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{url('/delete')}}/" + id,
-                        data: {
-                            _token: CSRF_TOKEN
-                        },
-                        dataType: 'JSON',
-                        success: function(results) {
-                            if (results.success === true) {
-                                swal.fire("Berhasil!", results.message, "success");
-                                // refresh page after 2 seconds
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 2000);
-                            } else {
-                                swal.fire("Gagal!", results.message, "error");
-                            }
+                $.ajax({
+                    type: 'POST',
+                    url: "{{url('member/delete')}}/" + id,
+                    data: {
+                        _token: CSRF_TOKEN
+                    },
+                    dataType: 'JSON',
+                    success: function(results) {
+                        if (results.success === true) {
+                            swal.fire("Berhasil!", results.message, "success");
+                            // refresh page after 2 seconds
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            swal.fire("Gagal!", results.message, "error");
                         }
-                    });
+                    }
+                });
 
-                } else {
-                    e.dismiss;
-                }
+            } else {
+                e.dismiss;
+            }
 
-            }, function(dismiss) {
-                return false;
-            })
-        }
+        }, function(dismiss) {
+            return false;
+        })
+    }
     </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script>
+        let form = document.getElementById('search');
+        form.addEventListener('beforeinput', e => {
+            const formdata = new FormData(form);
+            let search = formdata.get('search');
+            let url = "{{ route('search', "search=") }}"+search
+
+            if(url === ""){
+                result;
+            }else{
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                let i;
+                let result = "";
+                if(data.length === 0)
+                {
+                    result+= 'Data kosong'
+                }
+                for(i = 0; i < data.length; i++)
+                {
+                    let user = data[i]
+                    result +=
+                    `<tr>
+                    <td>${i+1}</td>
+                                    <td>${user.fullName}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.namaPeran}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                data-toggle="dropdown" data-offset="-52">
+                                                <i class="fas fa-bars"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-lg" role="menu">
+                                                <!-- <a href="#" class="dropdown-item " data-toggle="modal" data-target="#modal-detail" title="Detail Pengungsi">
+                                                    <i class="fas fa-eye mr-1"></i> Detail
+                                                </a>
+                                                <div class="dropdown-divider"></div> -->
+                                                <a href="#" class="dropdown-item " title="Edit Bencana"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-edit-${user.idAdmin}">
+                                                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                                                        <path fill="currentColor"
+                                                            d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                                    </svg>
+                                                    Edit
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi"
+                                                    onclick="deleteConfirmation(${user.idAdmin})">
+                                                    <i class="fas fa-trash mr-1"></i> Hapus
+                                                </a>
+                                            </div>
+                                        
+                                        </div>
+                                    </td>
+                                           
+                                            <!-- /.modal-dialog -->
+                                        </div> 
+
+                                    </td>
+                                    
+                    </tr>`;
+                }
+                document.getElementById('result').innerHTML = result;
+            
+            }
+            ).catch((err)=>console.log(err))
+        }
+        });
+    </script>
+
 
 </section>
 
