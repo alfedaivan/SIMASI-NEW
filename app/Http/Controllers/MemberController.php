@@ -35,6 +35,7 @@ class MemberController extends Controller
             ->leftJoin('roles AS r', 'mr.role_id', '=', 'r.id')
             ->where('users.firstname', 'LIKE', "%{$filter['search']}%")
             ->orWhere('users.lastname', 'LIKE', "%{$filter['search']}%")
+            ->orWhere('users.email', 'LIKE', "%{$filter['search']}%")
             ->orderBy('fullName', 'asc')
             ->get();
 

@@ -69,6 +69,29 @@ class BencanaController extends Controller
         
     }
 
+    public function search()
+    {
+        $filter = request()->query();
+        return $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 
+        'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
+        'bencana.nama as namaBencana', 'lokasi', 'status',  
+        'bencana.updated_at as waktuUpdate', 'p.bencana_id',
+        DB::raw('count(p.bencana_id) as ttlPosko'),
+        //  DB::raw('count(p.id) as ttlPengungsi')
+      )
+            ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
+            // ->join('pengungsi as peng','peng.posko_id','=','p.id')
+            ->distinct()
+            // ->where('peng.posko_id','=','p.id')
+            ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id',
+            'bencana.nama','lokasi','status','bencana.updated_at')
+            ->where('bencana.nama', 'LIKE', "%{$filter['search']}%")
+            ->orWhere('bencana.lokasi', 'LIKE', "%{$filter['search']}%")
+            ->orderBy('bencana.tanggal', 'desc')
+            ->get();
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

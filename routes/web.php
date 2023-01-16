@@ -62,7 +62,9 @@ Route::match(['get', 'post'], 'pengungsi/edit/{id}', [PengungsiController::class
 Route::post('pengungsi/delete/{id}', [PengungsiController::class, 'delete']);
 
 //search
-Route::get("/search",[MemberController::class,'search'])->name('search');
+Route::get("/search",[MemberController::class,'search'])->name('searchAdmin');
+Route::get("/search",[BencanaController::class,'search'])->name('searchBencana');
+
 // Route::resource('search', MemberController::class);
 
 // Route::get("member",[MemberController::class,'index']);

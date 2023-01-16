@@ -120,14 +120,14 @@
 
 
                     <div class="card-body ">
-
-                        <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modal-default">
-                            <h3 class="card-title"><i class="fas fa-plus"></i> Tambah Anggota</h3>
+                        <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modal-default"
+                            style="font-size: 14px;">
+                            <i class="fas fa-plus mr-1"></i> Tambah Anggota
                         </a>
                         
                         <!-- <div id="search_list"></div> -->
                        
-                        <table id="all_data" class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -312,7 +312,7 @@
         form.addEventListener('beforeinput', e => {
             const formdata = new FormData(form);
             let search = formdata.get('search');
-            let url = "{{ route('search', "search=") }}"+search
+            let url = "{{ route('searchAdmin', "search=") }}"+search
 
             if(url === ""){
                 result;
@@ -324,7 +324,7 @@
                 let result = "";
                 if(data.length === 0)
                 {
-                    result+= 'Data kosong'
+                    result+= 'Data tidak ditemukan'
                 }
                 for(i = 0; i < data.length; i++)
                 {
