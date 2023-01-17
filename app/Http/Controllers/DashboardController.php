@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bencana;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -13,7 +15,34 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $getRP = User::select('*')
+            ->leftJoin('model_has_roles as mr', 'users.id', '=', 'mr.model_id')
+            ->leftJoin('roles AS r', 'mr.role_id', '=', 'r.id')
+            ->where('r.id', '=', 1)->get();
+        $getRPTotal = $getRP->count();
+
+        $getRT = User::select('*')
+            ->leftJoin('model_has_roles as mr', 'users.id', '=', 'mr.model_id')
+            ->leftJoin('roles AS r', 'mr.role_id', '=', 'r.id')
+            ->where('r.id', '=', 2)->get();
+        $getRTTotal = $getRT->count();
+
+        // bencana berjalan
+        $getBBerjalan = Bencana::select('*')
+            ->where('status', '=', 1)->get();
+        $getBBTotal = $getBBerjalan->count();
+
+        // bencana selesai
+        $getBSelesai = Bencana::select('*')
+            ->where('status', '=', 0)->get();
+        $getBSTotal = $getBSelesai->count();
+
+        return view('admin.dashboard.index', [
+            'ttlBS' => $getBSTotal,
+            'ttlBB' => $getBBTotal,
+            'ttlRP' => $getRPTotal,
+            'ttlRT' => $getRTTotal
+        ]);
     }
 
     /**
@@ -82,8 +111,8 @@ class DashboardController extends Controller
         //
     }
 
-    function login (Request $req)
+    function login(Request $req)
     {
-        return User::where('email',$req->input('email'));
+        return User::where('email', $req->input('email'));
     }
 }
