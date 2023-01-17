@@ -336,6 +336,7 @@
         let search = formdata.get('search');
         let url = "{{ route('searchBencana', "search=") }}"+search
 
+        
         if(url === ""){
             result;
         }else{

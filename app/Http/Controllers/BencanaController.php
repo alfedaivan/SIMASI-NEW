@@ -11,6 +11,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class BencanaController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
