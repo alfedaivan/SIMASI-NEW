@@ -28,15 +28,15 @@
                         <h3 class="card-title">List Bencana</h3>
                         <div class="card-tools">
                             <form id="search">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="search" class="form-control float-right"
-                                    placeholder="Search">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="search" class="form-control float-right"
+                                        placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
                             </form>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                                 </tr>
                             </thead>
                             <tbody id="result">
-                   
+
                                 @foreach ($data as $key => $bencana)
                                 <tr>
                                     <td>{{ $data->firstItem() + $key }}</td>
@@ -133,7 +133,7 @@
                                     <td>{{ $bencana->lokasi }}</td>
                                     <!-- <td>{{ $bencana->posko }}</td> -->
                                     <td>{{ $bencana->ttlPosko }} tempat</br>
-                                        <a href="{{url('/listPosko')}}/<?php echo $bencana->idBencana;?>"
+                                        <a href="{{url('/listPosko')}}/<?php echo $bencana->idBencana; ?>"
                                             class="btn btn-primary btn-xs" title="Lihat posko"><i
                                                 class="fas fa-eye"></i> Posko </a>
                                     </td>
@@ -183,9 +183,9 @@
                                             Hapus
                                         </a> -->
                                     </td>
-                                @endforeach
+                                    @endforeach
                                 </tr>
-                               
+
                                 @foreach ($data as $detail)
                                 <div class="modal fade" id="modal-edit-{{$detail->idBencana}}">
                                     <div class="modal-dialog">
@@ -234,20 +234,21 @@
 
                                                         <?php
                                                         $value = $detail->status;
-                                                        if ($value == 1) {
-                                                            $value = 'Berjalan';
-                                                        } else if ($value == 0) {
-                                                            $value = 'Selesai';
-                                                        }
-                                                        // if()
-                                                        ?>
+                                        if ($value == 1) {
+                                            $value = 'Berjalan';
+                                        } elseif ($value == 0) {
+                                            $value = 'Selesai';
+                                        }
+                                        // if()
+                                        ?>
 
                                                         <div class="form-group">
                                                             <label for="status">Status</label>
                                                             <select class="form-control" id="status" name="status"
                                                                 required>
                                                                 <option selected value="{{$detail->status}}" hidden>
-                                                                    <?php echo $value;  ?></option>
+                                                                    <?php echo $value; ?>
+                                                                </option>
                                                                 <option value="1">Berjalan</option>
                                                                 <option value="0">Selesai</option>
                                                             </select>
@@ -327,33 +328,34 @@
     }
     </script>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
 
-<script>
+    <script>
     let form = document.getElementById('search');
     form.addEventListener('beforeinput', e => {
         const formdata = new FormData(form);
         let search = formdata.get('search');
-        let url = "{{ route('searchBencana', "search=") }}"+search
+        let url = "{{ route('searchBencana', "
+        search = ") }}" + search
 
-        
-        if(url === ""){
+
+        if (url === "") {
             result;
-        }else{
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let i;
-            let result = "";
-            if(data.length === 0)
-            {
-                result+= 'Data kosong'
-            }
-            for(i = 0; i < data.length; i++)
-            {
-                let bencana = data[i]
-                result +=
-                `<tr>
+        } else {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let i;
+                    let result = "";
+                    if (data.length === 0) {
+                        result += 'Data kosong'
+                    }
+                    for (i = 0; i < data.length; i++) {
+                        let bencana = data[i]
+                        result +=
+                            `<tr>
                 <td>${i+1}</td>
                                     <td>${bencana.namaBencana }</td>
                                     <td>${bencana.waktu}</td>
@@ -404,24 +406,23 @@
                                                 <i class="fas fa-trash mr-1"></i> Hapus
                                             </a>
                                         </div>
-                                    
+
                                     </div>
                                 </td>
-                                       
+
                                         <!-- /.modal-dialog -->
-                                    </div> 
+                                    </div>
 
                                 </td>
-                                
+
                 </tr>`;
-            }
-            document.getElementById('result').innerHTML = result;
-        
+                    }
+                    document.getElementById('result').innerHTML = result;
+
+                }).catch((err) => console.log(err))
         }
-        ).catch((err)=>console.log(err))
-    }
     });
-</script>
+    </script>
 
 </section>
 

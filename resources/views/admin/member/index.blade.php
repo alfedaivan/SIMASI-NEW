@@ -32,7 +32,7 @@
                                 <div class="input-group input-group-sm" style="width: 150px;">
 
                                     <input type="text" name="search" class="form-control float-right"
-                                        placeholder="Search" >
+                                        placeholder="Search">
 
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">
@@ -124,9 +124,9 @@
                             style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Anggota
                         </a>
-                        
+
                         <!-- <div id="search_list"></div> -->
-                       
+
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -159,8 +159,7 @@
                                                 </a>
                                                 <div class="dropdown-divider"></div> -->
                                                 <a href="#" class="dropdown-item " title="Edit Bencana"
-                                                    data-toggle="modal"
-                                                    data-target="#modal-edit-{{$member->idAdmin}}">
+                                                    data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
                                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
                                                         <path fill="currentColor"
                                                             d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
@@ -173,7 +172,7 @@
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
                                             </div>
-                                        
+
                                         </div>
                                     </td>
                                 </tr>
@@ -181,11 +180,11 @@
 
                             </tbody>
                         </table>
-                   
+
 
                         <br />
                         {{ $data->links() }}
-                        <br /> 
+                        <br />
 
                     </div>
 
@@ -255,7 +254,7 @@
                 </div>
                 @endforeach
             </div>
-           
+
         </div>
     </div>
 
@@ -305,32 +304,33 @@
     }
     </script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
 
     <script>
-        let form = document.getElementById('search');
-        form.addEventListener('beforeinput', e => {
-            const formdata = new FormData(form);
-            let search = formdata.get('search');
-            let url = "{{ route('searchAdmin', "search=") }}"+search
+    let form = document.getElementById('search');
+    form.addEventListener('beforeinput', e => {
+        const formdata = new FormData(form);
+        let search = formdata.get('search');
+        let url = "{{ route('searchAdmin', "
+        search = ") }}" + search
 
-            if(url === ""){
-                result;
-            }else{
+        if (url === "") {
+            result;
+        } else {
             fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                let i;
-                let result = "";
-                if(data.length === 0)
-                {
-                    result+= 'Data tidak ditemukan'
-                }
-                for(i = 0; i < data.length; i++)
-                {
-                    let user = data[i]
-                    result +=
-                    `<tr>
+                .then(response => response.json())
+                .then(data => {
+                    let i;
+                    let result = "";
+                    if (data.length === 0) {
+                        result += 'Data tidak ditemukan'
+                    }
+                    for (i = 0; i < data.length; i++) {
+                        let user = data[i]
+                        result +=
+                            `<tr>
                     <td>${i+1}</td>
                                     <td>${user.fullName}</td>
                                     <td>${user.email}</td>
@@ -371,13 +371,12 @@
                                     </td>
                                     
                     </tr>`;
-                }
-                document.getElementById('result').innerHTML = result;
-            
-            }
-            ).catch((err)=>console.log(err))
+                    }
+                    document.getElementById('result').innerHTML = result;
+
+                }).catch((err) => console.log(err))
         }
-        });
+    });
     </script>
 
 

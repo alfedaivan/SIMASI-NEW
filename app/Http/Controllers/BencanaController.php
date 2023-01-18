@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Bencana;
 use App\Models\Posko;
-use App\Models\Pengungsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BencanaController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -19,47 +18,47 @@ class BencanaController extends Controller
      */
     public function index()
     {
-        $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 
-        'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
-        'bencana.nama as namaBencana', 'lokasi', 'status',  
-        'bencana.updated_at as waktuUpdate', 'p.bencana_id',
-        DB::raw('count(p.bencana_id) as ttlPosko'),
-        //  DB::raw('count(p.id) as ttlPengungsi')
-      )
+        $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"),
+            'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana',
+            'bencana.nama as namaBencana', 'lokasi', 'status',
+            'bencana.updated_at as waktuUpdate', 'p.bencana_id',
+            DB::raw('count(p.bencana_id) as ttlPosko'),
+            //  DB::raw('count(p.id) as ttlPengungsi')
+        )
             ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
-            // ->join('pengungsi as peng','peng.posko_id','=','p.id')
+        // ->join('pengungsi as peng','peng.posko_id','=','p.id')
             ->orderBy('bencana.tanggal', 'desc')
             ->distinct()
-            // ->where('peng.posko_id','=','p.id')
+        // ->where('peng.posko_id','=','p.id')
             ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id',
-            'bencana.nama','lokasi','status','bencana.updated_at')
+                'bencana.nama', 'lokasi', 'status', 'bencana.updated_at')
             ->paginate(5);
 
-            // $getIdBencana = Bencana::where('id',$bencana)->value('id');
+        // $getIdBencana = Bencana::where('id',$bencana)->value('id');
 
-            $bencana2 = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 
-        'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
-        'bencana.nama as namaBencana', 'lokasi', 'status',  
-        'bencana.updated_at as waktuUpdate', 'p.bencana_id',
-        DB::raw('count(p.bencana_id) as ttlPosko'),
-        //  DB::raw('count(p.id) as ttlPengungsi')
-      )
+        $bencana2 = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"),
+            'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana',
+            'bencana.nama as namaBencana', 'lokasi', 'status',
+            'bencana.updated_at as waktuUpdate', 'p.bencana_id',
+            DB::raw('count(p.bencana_id) as ttlPosko'),
+            //  DB::raw('count(p.id) as ttlPengungsi')
+        )
             ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
-            // ->join('pengungsi as peng','peng.posko_id','=','p.id')
+        // ->join('pengungsi as peng','peng.posko_id','=','p.id')
             ->orderBy('bencana.tanggal', 'desc')
             ->distinct()
-            ->where('p.bencana_id','=','b.id')
+            ->where('p.bencana_id', '=', 'b.id')
             ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id',
-            'bencana.nama','lokasi','status','bencana.updated_at')
+                'bencana.nama', 'lokasi', 'status', 'bencana.updated_at')
             ->paginate(5);
 
         $getTtlPengungsi = Posko::select('*')
-        ->leftJoin('bencana as b','posko.bencana_id','=','b.id')
-        ->join('pengungsi as p','posko.id','=','p.posko_id')
-        ->where('posko.bencana_id','=','b.id')
-        ->get();
+            ->leftJoin('bencana as b', 'posko.bencana_id', '=', 'b.id')
+            ->join('pengungsi as p', 'posko.id', '=', 'p.posko_id')
+            ->where('posko.bencana_id', '=', 'b.id')
+            ->get();
 
-        $ttlPeng = $getTtlPengungsi->count(); 
+        $ttlPeng = $getTtlPengungsi->count();
 
         // return view('admin.bencana.index', ['data'=>$bencana]);
         return view('admin.bencana.index', [
@@ -67,25 +66,25 @@ class BencanaController extends Controller
             'data' => $bencana,
             'ttlPengungsi' => $ttlPeng,
         ]);
-        
+
     }
 
     public function search()
     {
         $filter = request()->query();
-        return $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"), 
-        'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana', 
-        'bencana.nama as namaBencana', 'lokasi', 'status',  
-        'bencana.updated_at as waktuUpdate', 'p.bencana_id',
-        DB::raw('count(p.bencana_id) as ttlPosko'),
-        //  DB::raw('count(p.id) as ttlPengungsi')
-      )
+        return $bencana = Bencana::select(DB::raw("concat(tanggal,' ',waktu) as waktu"),
+            'tanggal as tgl', 'waktu as time', 'bencana.id as idBencana',
+            'bencana.nama as namaBencana', 'lokasi', 'status',
+            'bencana.updated_at as waktuUpdate', 'p.bencana_id',
+            DB::raw('count(p.bencana_id) as ttlPosko'),
+            //  DB::raw('count(p.id) as ttlPengungsi')
+        )
             ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
-            // ->join('pengungsi as peng','peng.posko_id','=','p.id')
+        // ->join('pengungsi as peng','peng.posko_id','=','p.id')
             ->distinct()
-            // ->where('peng.posko_id','=','p.id')
+        // ->where('peng.posko_id','=','p.id')
             ->groupBy('p.bencana_id', 'bencana.tanggal', 'bencana.waktu', 'bencana.id',
-            'bencana.nama','lokasi','status','bencana.updated_at')
+                'bencana.nama', 'lokasi', 'status', 'bencana.updated_at')
             ->where('bencana.nama', 'LIKE', "%{$filter['search']}%")
             ->orWhere('bencana.lokasi', 'LIKE', "%{$filter['search']}%")
             ->orderBy('bencana.tanggal', 'desc')
@@ -181,18 +180,18 @@ class BencanaController extends Controller
     public function delete($id)
     {
         if (auth()->user()->hasAnyRole(['pusdalop'])) {
-            $getPosko = Posko::where('bencana_id',$id)->value('id');
+            $getPosko = Posko::where('bencana_id', $id)->value('id');
             $delBencana = Bencana::destroy($id);
             $delPosko = Posko::destroy($getPosko);
-            
+
             // check data deleted or not
             if ($delBencana == 1 && $delPosko == 1) {
                 $success = true;
                 $message = "Data berhasil dihapus";
-            } else if($delBencana == 1){
+            } else if ($delBencana == 1) {
                 $success = true;
                 $message = "Data berhasil dihapus";
-            } else{
+            } else {
                 $success = false;
                 $message = "Data gagal dihapus";
             }

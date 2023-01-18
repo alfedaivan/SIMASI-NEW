@@ -41,8 +41,6 @@ Route::resource('member', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
 Route::get('/pengungsi/keluarga', 'App\Http\Controllers\PengungsiController@showKeluarga');
 
-
-
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
 Route::match(['get', 'post'], 'member/edit/{id}', [MemberController::class, 'edit']);
 Route::post('member/delete/{id}', [MemberController::class, 'delete']);
@@ -61,14 +59,9 @@ Route::post('pengungsi/create', [PengungsiController::class, 'createPengungsi'])
 Route::match(['get', 'post'], 'pengungsi/edit/{id}', [PengungsiController::class, 'edit']);
 Route::post('pengungsi/delete/{id}', [PengungsiController::class, 'delete']);
 
-Route::get("/search/bencana",[BencanaController::class,'search'])->name('searchBencana');
-Route::get("/search/member",[MemberController::class,'search'])->name('searchAdmin');
-Route::get("/search/posko",[PoskoController::class,'search'])->name('searchPosko');
-Route::get("/search/pengungsi",[PengungsiController::class,'search'])->name('searchPengungsi');
-Route::get("/search/pengungsi/masuk",[PengungsiController::class,'searchPengMasuk'])->name('searchPengMasuk');
-Route::get("/search/pengungsi/keluar",[PengungsiController::class,'searchPengKeluar'])->name('searchPengKeluar');
-
-
-
-
-
+Route::get("/search/bencana", [BencanaController::class, 'search'])->name('searchBencana');
+Route::get("/search/member", [MemberController::class, 'search'])->name('searchAdmin');
+Route::get("/search/posko", [PoskoController::class, 'search'])->name('searchPosko');
+Route::get("/search/pengungsi", [PengungsiController::class, 'search'])->name('searchPengungsi');
+Route::get("/search/pengungsi/masuk", [PengungsiController::class, 'searchPengMasuk'])->name('searchPengMasuk');
+Route::get("/search/pengungsi/keluar", [PengungsiController::class, 'searchPengKeluar'])->name('searchPengKeluar');

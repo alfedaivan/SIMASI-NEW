@@ -29,14 +29,14 @@
                         <h3 class="card-title">List Posko</h3>
                         <div class="card-tools">
                             <form id="search">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="search" class="form-control float-right" placeholder="Search">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
                             </form>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    
+
                                     <th>Nama</th>
                                     <th>Lokasi</th>
                                     <th>TRC</th>
@@ -159,13 +159,13 @@
                                     <td>{{ $posko->lokasi}}</td>
                                     <td>{{ $posko->fullName}}</td>
                                     <td>
-                                    {{ $posko->ttlPengungsi}} orang
-                                    <!-- @foreach($ttlPengungsi as $ttl)
+                                        {{ $posko->ttlPengungsi}} orang
+                                        <!-- @foreach($ttlPengungsi as $ttl)
                                     {{ $ttl->ttlPengungsi}}
                                     @endforeach -->
-                                        <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko;?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
+                                        <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko; ?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
-                                   
+
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     <td>
@@ -184,8 +184,8 @@
                                                 <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$posko->idPosko}})">
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
-                                            <!-- /.modal-dialog -->
-                                        </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -320,34 +320,33 @@
         }
     </script>
 
-<script>
-    let form = document.getElementById('search');
-    form.addEventListener('beforeinput', e => {
-        const formdata = new FormData(form);
-        let search = formdata.get('search');
-        let url = "{{ route('searchPosko', "search=")   }}"+search
-        
-        // let data = url;
-        // alert(data);
+    <script>
+        let form = document.getElementById('search');
+        form.addEventListener('beforeinput', e => {
+            const formdata = new FormData(form);
+            let search = formdata.get('search');
+            let url = "{{ route('searchPosko', "
+            search = ")   }}" + search
 
-        if(url === ""){
-            result;
-        }else{
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            {
-            let i;
-            let result = "";
-            if(data.length === 0)
-            {
-                result+= 'Data tidak ditemukan'
-            }
-            for(i = 0; i < data.length; i++)
-            {
-                let posko = data[i]
-                result +=
-                `<tr>
+            // let data = url;
+            // alert(data);
+
+            if (url === "") {
+                result;
+            } else {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        {
+                            let i;
+                            let result = "";
+                            if (data.length === 0) {
+                                result += 'Data tidak ditemukan'
+                            }
+                            for (i = 0; i < data.length; i++) {
+                                let posko = data[i]
+                                result +=
+                                    `<tr>
                 <td>${i+1}</td>
                                     <td>${posko.namaPosko }</td>
                                     <td>${posko.lokasi}</td>
@@ -357,8 +356,8 @@
                                             class="btn btn-primary btn-xs" title="Lihat pengungsi"><i
                                                 class="fas fa-eye"></i> Posko </a>
                                     </td>
-                                    <td><?php echo $posko->created_at;?></td>
-                                    <td><?php echo $posko->updated_at;?></td>
+                                    <td><?php echo $posko->created_at; ?></td>
+                                    <td><?php echo $posko->updated_at; ?></td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
@@ -395,15 +394,14 @@
                                 </td>
                                 
                 </tr>`;
+                            }
+                            document.getElementById('result').innerHTML = result;
+
+                        }
+                    }).catch((err) => console.log(err))
             }
-            document.getElementById('result').innerHTML = result;
-        
-        }
-        }
-        ).catch((err)=>console.log(err))
-    }
-    });
-</script>
+        });
+    </script>
 
 
 </section>
