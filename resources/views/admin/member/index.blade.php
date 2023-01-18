@@ -44,8 +44,6 @@
                         </div>
                     </div>
 
-
-                    @role('pusdalop')
                     <div class="modal fade" id="modal-default">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -102,7 +100,7 @@
                         </div>
                         <!-- /.modal-dialog -->
                     </div>
-                    @endrole
+                  
 
                     <!-- List data -->
                     <div class="container mt-2">
@@ -120,10 +118,12 @@
 
 
                     <div class="card-body ">
+                        @role('pusdalop')
                         <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modal-default"
                             style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Anggota
                         </a>
+                        @endrole
 
                         <!-- <div id="search_list"></div> -->
 
@@ -134,7 +134,9 @@
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>Peran</th>
+                                    @role('pusdalop')
                                     <th>Aksi</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody id="result">
@@ -147,6 +149,7 @@
                                     <td>{{$member->email}}</td>
                                     <td>{{$member->namaPeran}}</td>
 
+                                    @role('pusdalop')
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
@@ -175,6 +178,7 @@
 
                                         </div>
                                     </td>
+                                    @endrole
                                 </tr>
                                 @endforeach
 
@@ -313,8 +317,7 @@
     form.addEventListener('beforeinput', e => {
         const formdata = new FormData(form);
         let search = formdata.get('search');
-        let url = "{{ route('searchAdmin', "
-        search = ") }}" + search
+        let url = "{{ route('searchAdmin', "search=") }}" + search
 
         if (url === "") {
             result;
@@ -335,6 +338,7 @@
                                     <td>${user.fullName}</td>
                                     <td>${user.email}</td>
                                     <td>${user.namaPeran}</td>
+                                    @role('pusdalop')
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
@@ -364,6 +368,7 @@
                                         
                                         </div>
                                     </td>
+                                    @endrole
                                            
                                             <!-- /.modal-dialog -->
                                         </div> 

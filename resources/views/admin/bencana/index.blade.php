@@ -27,6 +27,7 @@
                     <div class="card-header justify-content-between">
                         <h3 class="card-title">List Bencana</h3>
                         <div class="card-tools">
+                            @role('pusdalop')
                             <form id="search">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="text" name="search" class="form-control float-right"
@@ -38,6 +39,20 @@
                                     </div>
                                 </div>
                             </form>
+                            @endrole
+                            @role('trc')
+                            <form id="searchForTrc">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="searchForTrc" class="form-control float-right"
+                                        placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            @endrole
                         </div>
                     </div>
 
@@ -104,10 +119,12 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body ">
+                        @role('pusdalop')
                         <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#tambah"
                             style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Bencana
                         </a>
+                        @endrole
 
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
@@ -120,11 +137,14 @@
                                     <!-- <th>Pengungsi</th> -->
                                     <th>Waktu Update</th>
                                     <th>Status</th>
+                                    @role('pusdalop')
                                     <th>Aksi</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody id="result">
 
+                            @role('pusdalop')
                                 @foreach ($data as $key => $bencana)
                                 <tr>
                                     <td>{{ $data->firstItem() + $key }}</td>
@@ -182,9 +202,45 @@
                                         <!-- <a href="#" class="btn btn-danger btn-sm" title="Hapus Pengungsi">
                                             Hapus
                                         </a> -->
-                                    </td>
-                                    @endforeach
+                                    </td>    
                                 </tr>
+                                @endforeach
+                                @endrole
+
+                                @role('trc')
+                                <?php $i=0; ?>
+                                @foreach ($data as $bencana)
+                                <tr>
+                                @if($bencana->trc == auth()->user()->id)
+                                <?php $i++;?>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $bencana->namaBencana }}</td>
+                                    <td>{{ $bencana->waktu }}</td>
+                                    <td>{{ $bencana->lokasi }}</td>
+                                    <!-- <td>{{ $bencana->posko }}</td> -->
+                                    <td>{{ $bencana->ttlPosko }} tempat</br>
+                                        <a href="{{url('/listPosko')}}/<?php echo $bencana->idBencana; ?>"
+                                            class="btn btn-primary btn-xs" title="Lihat posko"><i
+                                                class="fas fa-eye"></i> Posko </a>
+                                    </td>
+                                    <td>{{ $bencana->waktuUpdate }}</td>
+                                    <td>
+                                        @if($bencana->status == 1)
+                                        @php
+                                        $value = 'Berjalan'
+                                        @endphp
+                                        <span class="badge badge-success"><?php echo $value; ?></span>
+                                        @else
+                                        @php
+                                        $value = 'Selesai'
+                                        @endphp
+                                        <span class="badge badge-danger">Selesai</span>
+                                        @endif
+                                    </td> 
+                                </tr>
+                                @endif
+                                @endforeach
+                                @endrole
 
                                 @foreach ($data as $detail)
                                 <div class="modal fade" id="modal-edit-{{$detail->idBencana}}">
@@ -267,6 +323,9 @@
                                     <!-- /.modal-dialog -->
                                 </div>
                     </div>
+                    <div>
+                    <input type="text" class="form-control" id="bencana_id" name="bencana_id" value="{{request()->user()->id}}" hidden required>
+                    </div>
                     @endforeach
                     </tbody>
                     </table>
@@ -327,18 +386,13 @@
         })
     }
     </script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
-    </script>
-
+    
     <script>
     let form = document.getElementById('search');
     form.addEventListener('beforeinput', e => {
         const formdata = new FormData(form);
         let search = formdata.get('search');
-        let url = "{{ route('searchBencana', "
-        search = ") }}" + search
+        let url = "{{ route('searchBencana', "search=") }}" + search
 
 
         if (url === "") {
@@ -409,6 +463,71 @@
 
                                     </div>
                                 </td>
+
+                                        <!-- /.modal-dialog -->
+                                    </div>
+
+                                </td>
+
+                </tr>`;
+                    }
+                    document.getElementById('result').innerHTML = result;
+
+                }).catch((err) => console.log(err))
+        }
+    });
+    </script>
+
+<script>
+    let form2 = document.getElementById('searchForTrc');
+    form2.addEventListener('beforeinput', e => {
+        const formdata = new FormData(form2);
+        let search = formdata.get('searchForTrc');
+        let url2 = document.getElementById('bencana_id').value;
+        let url = "{{url('/search/bencanaTrc')}}/"+url2+"?search="+search
+
+        // let data = url;
+        // alert(data);
+
+        if (url === "") {
+            result;
+        } else {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let i;
+                    let result = "";
+                    if (data.length === 0) {
+                        result += 'Data tidak ditemukan'
+                    }
+                    for (i = 0; i < data.length; i++) {
+                        let bencana = data[i]
+                        result +=
+                            `<tr>
+                <td>${i+1}</td>
+                                    <td>${bencana.namaBencana }</td>
+                                    <td>${bencana.waktu}</td>
+                                    <td>${bencana.lokasi}</td>
+                                    <!-- <td>{{ $bencana->posko }}</td> -->
+                                    <td>${bencana.ttlPosko} tempat</br>
+                                        <a href="{{url('/listPosko')}}/${bencana.idBencana}"
+                                            class="btn btn-primary btn-xs" title="Lihat posko"><i
+                                                class="fas fa-eye"></i> Posko </a>
+                                    </td>
+                                    <td>${bencana.waktuUpdate }</td>
+                                    <td>
+                                        @if($bencana->status == 1)
+                                        @php
+                                        $value = 'Berjalan'
+                                        @endphp
+                                        <span class="badge badge-success"><?php echo $value; ?></span>
+                                        @else
+                                        @php
+                                        $value = 'Selesai'
+                                        @endphp
+                                        <span class="badge badge-danger">Selesai</span>
+                                        @endif
+                                    </td>
 
                                         <!-- /.modal-dialog -->
                                     </div>

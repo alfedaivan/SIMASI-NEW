@@ -133,9 +133,11 @@
 
                     <!-- Tabel Posko -->
                     <div class="card-body ">
+                        @role('pusdalop')
                         <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Posko
                         </a>
+                        @endrole
 
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
@@ -148,7 +150,9 @@
                                     <th>Pengungsi</th>
                                     <th>Waktu Dibuat</th>
                                     <th>Waktu Update</th>
+                                    @role('pusdalop')
                                     <th>Aksi</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody id="result">
@@ -168,6 +172,7 @@
 
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
+                                    @role('pudsalop')
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
@@ -187,6 +192,7 @@
                                                 <!-- /.modal-dialog -->
                                             </div>
                                     </td>
+                                    @endrole
                                 </tr>
                                 @endforeach
                                 @foreach ($data as $detail)
@@ -325,8 +331,7 @@
         form.addEventListener('beforeinput', e => {
             const formdata = new FormData(form);
             let search = formdata.get('search');
-            let url = "{{ route('searchPosko', "
-            search = ")   }}" + search
+            let url = "{{ route('searchPosko', "search=")   }}" + search
 
             // let data = url;
             // alert(data);
