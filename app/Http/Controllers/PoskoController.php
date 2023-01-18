@@ -14,10 +14,11 @@ use Illuminate\Validation\Rule;
 
 class PoskoController extends Controller
 {
-    protected $idBencana = 3;
+    // protected $idBencana;
     // Config::set('idBencana', 3);
 
-
+    //Atur idBencana secara global
+    function _construct() { $this->idBencana;} 
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +28,9 @@ class PoskoController extends Controller
     {
         // $getId = $request->id;
         $getIdBencana = Bencana::where('id',$id)->value('id');
-        $this->idBencana = $id;
+        // $this->idBencana = $getIdBencana;
+        //Memberikan nilai pada idBencana
+        session()->put('idBencana', $id);
         $posko = Posko::select(
             DB::raw("concat('Prov. ',provinsi,', Kota ',kota,', Kec. ',
             kecamatan,', Ds. ',kelurahan,', Daerah ',detail,' ') 
@@ -109,7 +112,7 @@ class PoskoController extends Controller
             ->groupBy('lokasi','provinsi','kota','kecamatan','kelurahan','detail','posko.id'
             ,'posko.nama','posko.bencana_id','b.id','u.firstname','u.lastname','u.id','posko.created_at',
             'posko.updated_at')
-            ->where('posko.bencana_id',$this->idBencana)
+            ->where('posko.bencana_id',session()->get('idBencana'))
             ->where(function($query) use ($filter){
                 $query->where('posko.nama', 'LIKE', "%{$filter['search']}%")
                     ->orWhere('posko.provinsi', 'LIKE', "%{$filter['search']}%")
@@ -143,7 +146,7 @@ class PoskoController extends Controller
             $addPosko->kelurahan = $request->kelurahan;
             $addPosko->detail = $request->detail;
             $addPosko->trc_id = $request->trc_id;
-            $addPosko->bencana_id = $request->idBencana;
+            $addPosko->bencana_id = $request->idPosko;
             $addPosko->save();
 
             // $idPosko = Posko::where('bencana_id', $request->idBencana)->first()->value('id');

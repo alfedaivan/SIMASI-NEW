@@ -325,7 +325,7 @@
     form.addEventListener('beforeinput', e => {
         const formdata = new FormData(form);
         let search = formdata.get('search');
-        let url = "{{ route('searchPosko', "search=")  }}"+search
+        let url = "{{ route('searchPosko', "search=")   }}"+search
         
         // let data = url;
         // alert(data);
@@ -352,9 +352,9 @@
                                     <td>${posko.namaPosko }</td>
                                     <td>${posko.lokasi}</td>
                                     <td>${posko.fullName}</td>
-                                    <td>${posko.ttlPengungsi} tempat</br>
+                                    <td>${posko.ttlPengungsi} orang</br>
                                         <a href="{{url('/listPengungsi')}}/${posko.idPosko}"
-                                            class="btn btn-primary btn-xs" title="Lihat posko"><i
+                                            class="btn btn-primary btn-xs" title="Lihat pengungsi"><i
                                                 class="fas fa-eye"></i> Posko </a>
                                     </td>
                                     <td><?php echo $posko->created_at;?></td>

@@ -64,6 +64,11 @@ Route::post('pengungsi/delete/{id}', [PengungsiController::class, 'delete']);
 Route::get("/search/bencana",[BencanaController::class,'search'])->name('searchBencana');
 Route::get("/search/member",[MemberController::class,'search'])->name('searchAdmin');
 Route::get("/search/posko",[PoskoController::class,'search'])->name('searchPosko');
+Route::get("/search/pengungsi",[PengungsiController::class,'search'])->name('searchPengungsi');
+Route::get("/search/pengungsi/masuk",[PengungsiController::class,'searchPengMasuk'])->name('searchPengMasuk');
+Route::get("/search/pengungsi/keluar",[PengungsiController::class,'searchPengKeluar'])->name('searchPengKeluar');
+
+
 
 
 
