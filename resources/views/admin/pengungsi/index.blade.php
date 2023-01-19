@@ -1,8 +1,8 @@
 @extends('admin.mainIndex')
 @section('content')
 
-<!-- Main Content -->
 
+<!-- Main Content -->
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -549,6 +549,8 @@
         }
     </script>
 
+
+
     <script>
         let form = document.getElementById('search');
         form.addEventListener('beforeinput', e => {
@@ -573,60 +575,49 @@
                             }
                             for (i = 0; i < data.length; i++) {
                                 let pengungsi = data[i]
+                                let statKel = pengungsi.statKel
+                                if (statKel == 0) {
+                                    statKel = 'Kepala Keluarga';
+                                } else if (statKel == 1) {
+                                    statKel = 'Ibu';
+                                } else if (statKel == 2) {
+                                    statKel = 'Anak';
+                                }
+                                let gender = pengungsi.gender
+                                if (gender == 0) {
+                                    gender = "Perempuan";
+                                } else if (gender == 1) {
+                                    gender = "Laki-laki";
+                                }
+                                let kondisi = pengungsi.statKon
+                                if (kondisi == 0) {
+                                    kondisi = "Sehat";
+                                } else if (kondisi == 1) {
+                                    kondisi = "Luka Ringan";
+                                } else if (kondisi == 2) {
+                                    kondisi = "Luka Sedang";
+                                } else if (kondisi == 3) {
+                                    kondisi = "Luka Berat";
+                                }
+                                let statPos = pengungsi.statPos;
+                                if (statPos == 0) {
+                                    statPos = "<span class='badge badge-danger'>Keluar</span>";
+                                } else if (statPos == 1) {
+                                    statPos = "<span class='badge badge-success'>Di Posko</span>";
+                                }
+
                                 result +=
                                     `<tr>
-                <td>${i+1}</td>
+                                    <td>${i+1}</td>
                                     <td>${pengungsi.nama }</td>
-                                    <td>
-                                        <?php
-                                        $statKel = $pengungsi->statKel;
-                                        if ($statKel == 0) {
-                                            echo "Kepala Keluarga";
-                                        } else if ($statKel == 1) {
-                                            echo "Ibu";
-                                        } else if ($statKel == 2) {
-                                            echo "Anak";
-                                        }
-                                        ?>
-                                    </td>
+                                    <td>${statKel}</td>
                                     <td>${pengungsi.namaKepala}</td>
                                     <td>${pengungsi.telpon }</td>
                                     <td>${pengungsi.lokasi }</td>
-                                    <td>
-                                        <?php
-                                        $gender = $pengungsi->gender;
-                                        if ($gender == 0) {
-                                            echo "Perempuan";
-                                        } else if ($gender == 1) {
-                                            echo "Laki-laki";
-                                        }
-                                        ?>
-                                    </td>
+                                    <td>${gender}</td>
                                     <td>${pengungsi.umur }</td>
-                                    <td>
-                                        <?php
-                                        $kondisi = $pengungsi->statKon;
-                                        if ($kondisi == 0) {
-                                            echo "Sehat";
-                                        } else if ($kondisi == 1) {
-                                            echo "Luka Ringan";
-                                        } else if ($kondisi == 2) {
-                                            echo "Luka Sedang";
-                                        } else if ($kondisi == 3) {
-                                            echo "Luka Berat";
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        $statPos = $pengungsi->statPos;
-                                        if ($statPos == 0) {
-                                            echo "<span class='badge badge-danger'>Keluar</span>";
-                                        } else if ($statPos == 1) {
-                                            echo "<span class='badge badge-success'>Di Posko</span>";
-                                        }
-                                        ?>
-                                    </td>
+                                    <td>${kondisi}</td>
+                                    <td>${statPos}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
@@ -660,10 +651,7 @@
                                         </a> -->
                                     </td>
 
-                                        <!-- /.modal-dialog -->
-                                    </div>
-
-                                </td>
+                                    
 
                 </tr>`;
                             }
