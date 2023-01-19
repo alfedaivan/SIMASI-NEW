@@ -151,8 +151,7 @@
     form2.addEventListener('beforeinput', e => {
         const formdata = new FormData(form2);
         let search = formdata.get('searchPengMasuk');
-        let url = "{{ route('searchPengMasuk', "
-        search = ")  }}" + search
+        let url = "{{ route('searchPengMasuk', "search=")  }}" + search
 
 
 
@@ -221,8 +220,7 @@
     form3.addEventListener('beforeinput', e => {
         const formdata = new FormData(form3);
         let search = formdata.get('searchPengKeluar');
-        let url = "{{ route('searchPengKeluar', "
-        search = ")  }}" + search
+        let url = "{{ route('searchPengKeluar', "search=")  }}" + search
 
 
 

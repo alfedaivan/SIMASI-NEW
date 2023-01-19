@@ -63,6 +63,7 @@ Route::get("/search/bencana", [BencanaController::class, 'search'])->name('searc
 Route::get("/search/bencanaTrc/{id}", [BencanaController::class, 'searchForTrc'])->name('searchForTrc');
 Route::get("/search/member", [MemberController::class, 'search'])->name('searchAdmin');
 Route::get("/search/posko", [PoskoController::class, 'search'])->name('searchPosko');
+Route::get("/search/poskoTrc/{id}", [PoskoController::class, 'searchPoskoTrc']);
 Route::get("/search/pengungsi", [PengungsiController::class, 'search'])->name('searchPengungsi');
 Route::get("/search/pengungsi/masuk", [PengungsiController::class, 'searchPengMasuk'])->name('searchPengMasuk');
 Route::get("/search/pengungsi/keluar", [PengungsiController::class, 'searchPengKeluar'])->name('searchPengKeluar');

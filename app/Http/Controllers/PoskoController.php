@@ -38,6 +38,7 @@ class PoskoController extends Controller
             kecamatan,', Ds. ',kelurahan,', Daerah ',detail,' ')
         as lokasi"),
             'posko.id as idPosko',
+            'posko.trc_id as idTrc',
             'posko.nama as namaPosko',
             'provinsi',
             'kota',
@@ -56,7 +57,7 @@ class PoskoController extends Controller
             ->leftJoin('pengungsi as p', 'posko.id', '=', 'p.posko_id')
             ->groupBy('lokasi', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'detail', 'posko.id'
                 , 'posko.nama', 'posko.bencana_id', 'b.id', 'u.firstname', 'u.lastname', 'u.id', 'posko.created_at',
-                'posko.updated_at')
+                'posko.updated_at', 'posko.trc_id')
             ->where('posko.bencana_id', $id)
             ->orderBy('u.id', 'desc')
             ->paginate(5);
@@ -126,6 +127,45 @@ class PoskoController extends Controller
             ->get();
     }
 
+    public function searchPoskoTrc()
+    {
+        // $getIdBencana = Bencana::where('id',$id)->value('id');
+        $filter = request()->query();
+        return $posko = Posko::select(
+            DB::raw("concat('Prov. ',provinsi,', Kota ',kota,', Kec. ',
+            kecamatan,', Ds. ',kelurahan,', Daerah ',detail,' ')
+        as lokasi"),
+            'posko.id as idPosko',
+            'posko.nama as namaPosko',
+            'provinsi',
+            'kota',
+            'kecamatan',
+            'kelurahan',
+            'detail',
+            'bencana_id',
+            'b.id as idBencana',
+            DB::raw("concat(u.firstname,' ',u.lastname) as fullName"), 'u.id as idAdmin',
+            'posko.created_at',
+            'posko.updated_at',
+            DB::raw('count(p.posko_id) as ttlPengungsi'),
+        )
+            ->leftJoin('users AS u', 'posko.trc_id', '=', 'u.id')
+            ->leftJoin('bencana as b', 'posko.bencana_id', '=', 'b.id')
+            ->leftJoin('pengungsi as p', 'posko.id', '=', 'p.posko_id')
+            ->groupBy('lokasi', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'detail', 'posko.id'
+                , 'posko.nama', 'posko.bencana_id', 'b.id', 'u.firstname', 'u.lastname', 'u.id', 'posko.created_at',
+                'posko.updated_at')
+            ->where('posko.trc_id', 4)
+            ->where(function ($query) use ($filter) {
+                $query->where('posko.nama', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('posko.provinsi', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('posko.kota', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('posko.kecamatan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('posko.kelurahan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('posko.detail', 'LIKE', "%{$filter['search']}%");
+            })
+            ->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
