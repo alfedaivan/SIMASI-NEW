@@ -9,7 +9,9 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 @foreach ($getNama as $nm)
-                <h1>Pengungsi Posko ({{ $nm->nama }})</h1>
+                    @foreach ($getNmTrc as $nmTrc)
+                <h1>Pos Pengungsi {{ $nm->nama }} ({{ $nmTrc->fullName }})</h1>
+                    @endforeach
                 @endforeach
             </div>
             <div class="col-sm-6">
@@ -165,6 +167,7 @@
                                                     <option value=1>Luka Ringan</option>
                                                     <option value=2>Luka Sedang</option>
                                                     <option value=3>Luka Berat</option>
+                                                    <option value=4>Difabel</option>
                                                 </select>
                                             </div>
 
@@ -255,6 +258,8 @@
                                             echo "Luka Sedang";
                                         } else if ($kondisi == 3) {
                                             echo "Luka Berat";
+                                        } else if ($kondisi == 4) {
+                                            echo "Difabel";
                                         }
                                         ?>
                                     </td>
@@ -447,6 +452,8 @@
                                                                         $statKon = "Luka Sedang";
                                                                     } else if ($getKon == 3) {
                                                                         $statKon = "Luka Berat";
+                                                                    } else if ($getKon == 4) {
+                                                                        $statKon = "Difabel";
                                                                     }
                                                                     ?>
                                                                     <option selected value="{{$pengungsi->statKon}}" hidden><?php echo $statKon; ?></option>
@@ -454,6 +461,7 @@
                                                                     <option value=1>Luka Ringan</option>
                                                                     <option value=2>Luka Sedang</option>
                                                                     <option value=3>Luka Berat</option>
+                                                                    <option value=4>Difabel</option>
                                                                 </select>
                                                             </div>
 
@@ -598,6 +606,8 @@
                                     kondisi = "Luka Sedang";
                                 } else if (kondisi == 3) {
                                     kondisi = "Luka Berat";
+                                } else if (kondisi == 4) {
+                                    kondisi = "Difabel";
                                 }
                                 let statPos = pengungsi.statPos;
                                 if (statPos == 0) {

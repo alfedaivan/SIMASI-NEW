@@ -127,21 +127,51 @@ class PengungsiController extends Controller
 
         $getSakit = Pengungsi::select('*')
             ->where('statKon', '>', 0)
+            ->where('statKon', '<', 4)
             ->where('pengungsi.posko_id', '=', $id)->get();
 
         $getTtlSakit = $getSakit->count();
+
+        $getDifabel = Pengungsi::select('*')
+            ->where('statKon', '=', 4)
+            ->where('pengungsi.posko_id', '=', $id)->get();
+
+        $getTtlDifabel = $getDifabel->count();
+
+        $getNmTrc = Posko::select(
+        DB::raw("concat(u.firstname,' ',u.lastname) as fullName"))
+        // ->join('posko as p','pengungsi.posko_id','=','p.id')
+        ->leftJoin('users as u','u.id','=','posko.trc_id')
+        ->where('posko.id',$id)
+        ->get();
+
+        $getMasuk = Pengungsi::select('*')
+            ->where('statPos', '=', 1)
+            ->where('pengungsi.posko_id', '=', $id)->get();
+
+        $getMasuk = $getMasuk->count();
+
+        $getKeluar = Pengungsi::select('*')
+            ->where('statPos', '=', 0)
+            ->where('pengungsi.posko_id', '=', $id)->get();
+
+        $getKeluar = $getKeluar->count();
 
         return view('admin.pengungsi.index', [
             'data' => $pengungsi,
             'kpl' => $getKpl,
             'dataKpl' => $dataKpl,
             'getNama' => $getNmPosko,
+            'getNmTrc' => $getNmTrc,
+            'ttlDifabel' => $getTtlDifabel,
             'jmlAnggota' => $getJmlAnggota,
             'getAlamat' => $getAlamat,
             'ttlKpl' => $getTtlKpl,
             'ttlBalita' => $getTtlBalita,
             'ttlLansia' => $getTtlLansia,
             'ttlSakit' => $getTtlSakit,
+            'getMasuk' => $getMasuk,
+            'getKeluar' => $getKeluar,
         ]);
         // return view('admin.pengungsi.index',['data' => $pengungsi],['kpl'=>$getKpl],['datas' => $pengungsi]);
     }
