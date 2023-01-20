@@ -8,7 +8,6 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1>Bencana</h1>
-                card-header justify-content-between">
                 <h3 class="card-title">List Bencana</h3>
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
