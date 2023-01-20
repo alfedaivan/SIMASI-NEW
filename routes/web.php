@@ -39,12 +39,11 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
+// Route::resource('search', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
 Route::resource('cadang', CadangController::class);
 Route::resource('laporan', LaporanController::class);
 Route::get('/pengungsi/keluarga', 'App\Http\Controllers\PengungsiController@showKeluarga');
-
-
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
 Route::match(['get', 'post'], 'member/edit/{id}', [MemberController::class, 'edit']);
@@ -63,3 +62,12 @@ Route::get('/listPengungsi/{id}', [PengungsiController::class, 'index']);
 Route::post('pengungsi/create', [PengungsiController::class, 'createPengungsi'])->name('pengungsi.create');
 Route::match(['get', 'post'], 'pengungsi/edit/{id}', [PengungsiController::class, 'edit']);
 Route::post('pengungsi/delete/{id}', [PengungsiController::class, 'delete']);
+
+Route::get("/search/bencana", [BencanaController::class, 'search'])->name('searchBencana');
+Route::get("/search/bencanaTrc/{id}", [BencanaController::class, 'searchForTrc'])->name('searchForTrc');
+Route::get("/search/member", [MemberController::class, 'search'])->name('searchAdmin');
+Route::get("/search/posko", [PoskoController::class, 'search'])->name('searchPosko');
+Route::get("/search/poskoTrc/{id}", [PoskoController::class, 'searchPoskoTrc']);
+Route::get("/search/pengungsi", [PengungsiController::class, 'search'])->name('searchPengungsi');
+Route::get("/search/pengungsi/masuk", [PengungsiController::class, 'searchPengMasuk'])->name('searchPengMasuk');
+Route::get("/search/pengungsi/keluar", [PengungsiController::class, 'searchPengKeluar'])->name('searchPengKeluar');

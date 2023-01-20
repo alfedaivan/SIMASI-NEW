@@ -1,8 +1,8 @@
 @extends('admin.mainIndex')
 @section('content')
 
-<!-- Main Content -->
 
+<!-- Main Content -->
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -34,14 +34,16 @@
                     <div class="card-header">
                         <h3 class="card-title">List Pengungsi</h3>
                         <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                            <form id="search">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
 
@@ -106,7 +108,10 @@
                                                 <label for="kpl">Kepala Keluarga</label>
                                                 <select class="form-control" id="kpl" name="kpl" required>
                                                     @foreach ($kpl as $kplk)
-                                                    <option value="{{$kplk->id}}">{{$kplk->nama}} (Kec. {{$kplk->kecamatan}}, Kel. {{$kplk->kelurahan}}, {{ $kplk->detail }}) </option>
+                                                    <option value="{{$kplk->id}}">{{$kplk->nama}} (Kec.
+                                                        {{$kplk->kecamatan}}, Kel. {{$kplk->kelurahan}},
+                                                        {{ $kplk->detail }})
+                                                    </option>
                                                     @endforeach
                                                     <!-- <option value="">Kosongkan dahulu</option> -->
                                                 </select>
@@ -208,7 +213,7 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="result">
                                 <tr>
                                     @foreach ($data as $key => $pengungsi)
                                     <td>{{ $data->firstItem() + $key  }}</td>
@@ -346,13 +351,17 @@
                                                                 function showDiv(select) {
                                                                     console.log(select);
                                                                     if (select.value == 0) {
-                                                                        document.getElementById("form_3").style.display = "none";
-                                                                        document.getElementById("form_4").style.display = "block";
+                                                                        document.getElementById("form_3").style.display =
+                                                                            "none";
+                                                                        document.getElementById("form_4").style.display =
+                                                                            "block";
                                                                         // idForm_1.style.display = "block";
                                                                         // idForm_2.style.display = "none";
                                                                     } else if (select.value == 1 || select.value == 2) {
-                                                                        document.getElementById("form_3").style.display = "block";
-                                                                        document.getElementById("form_4").style.display = "none";
+                                                                        document.getElementById("form_3").style.display =
+                                                                            "block";
+                                                                        document.getElementById("form_4").style.display =
+                                                                            "none";
                                                                     }
                                                                 }
                                                             </script>
@@ -362,9 +371,14 @@
                                                             <div class="form-group" id="form_3">
                                                                 <label for="kpl">Kepala Keluarga</label>
                                                                 <select class="form-control" id="kpl" name="kpl" required>
-                                                                    <option selected value="{{$pengungsi->idKepala}}" hidden>{{$pengungsi->namaKepala}} {{ $pengungsi->lokKel}}</option>
+                                                                    <option selected value="{{$pengungsi->idKepala}}" hidden>{{$pengungsi->namaKepala}}
+                                                                        {{ $pengungsi->lokKel}}
+                                                                    </option>
                                                                     @foreach ($kpl as $kplk)
-                                                                    <option value="{{$kplk->id}}">{{$kplk->nama}} (Kec. {{$kplk->kecamatan}}, Kel. {{$kplk->kelurahan}}, {{$kplk->detail}}) </option>
+                                                                    <option value="{{$kplk->id}}">{{$kplk->nama}} (Kec.
+                                                                        {{$kplk->kecamatan}}, Kel. {{$kplk->kelurahan}},
+                                                                        {{$kplk->detail}})
+                                                                    </option>
                                                                     @endforeach
                                                                     <!-- <option value="">Kosongkan dahulu</option> -->
                                                                 </select>
@@ -533,6 +547,121 @@
                 return false;
             })
         }
+    </script>
+
+
+
+    <script>
+        let form = document.getElementById('search');
+        form.addEventListener('beforeinput', e => {
+            const formdata = new FormData(form);
+            let search = formdata.get('search');
+            let url = "{{ route('searchPengungsi', "
+            search = ")  }}" + search
+
+            // let data = url;
+            // alert(data);
+
+            if (url === "") {
+                result;
+            } else {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        {
+                            let i;
+                            let result = "";
+                            if (data.length === 0) {
+                                result += 'Data tidak ditemukan'
+                            }
+                            for (i = 0; i < data.length; i++) {
+                                let pengungsi = data[i]
+                                let statKel = pengungsi.statKel
+                                if (statKel == 0) {
+                                    statKel = 'Kepala Keluarga';
+                                } else if (statKel == 1) {
+                                    statKel = 'Ibu';
+                                } else if (statKel == 2) {
+                                    statKel = 'Anak';
+                                }
+                                let gender = pengungsi.gender
+                                if (gender == 0) {
+                                    gender = "Perempuan";
+                                } else if (gender == 1) {
+                                    gender = "Laki-laki";
+                                }
+                                let kondisi = pengungsi.statKon
+                                if (kondisi == 0) {
+                                    kondisi = "Sehat";
+                                } else if (kondisi == 1) {
+                                    kondisi = "Luka Ringan";
+                                } else if (kondisi == 2) {
+                                    kondisi = "Luka Sedang";
+                                } else if (kondisi == 3) {
+                                    kondisi = "Luka Berat";
+                                }
+                                let statPos = pengungsi.statPos;
+                                if (statPos == 0) {
+                                    statPos = "<span class='badge badge-danger'>Keluar</span>";
+                                } else if (statPos == 1) {
+                                    statPos = "<span class='badge badge-success'>Di Posko</span>";
+                                }
+
+                                result +=
+                                    `<tr>
+                                    <td>${i+1}</td>
+                                    <td>${pengungsi.nama }</td>
+                                    <td>${statKel}</td>
+                                    <td>${pengungsi.namaKepala}</td>
+                                    <td>${pengungsi.telpon }</td>
+                                    <td>${pengungsi.lokasi }</td>
+                                    <td>${gender}</td>
+                                    <td>${pengungsi.umur }</td>
+                                    <td>${kondisi}</td>
+                                    <td>${statPos}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                data-toggle="dropdown" data-offset="-52">
+                                                <i class="fas fa-bars"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-lg" role="menu">
+                                                <!-- <a href="#" class="dropdown-item " data-toggle="modal" data-target="#modal-detail" title="Detail Pengungsi">
+                                                    <i class="fas fa-eye mr-1"></i> Detail
+                                                </a>
+                                                <div class="dropdown-divider"></div> -->
+                                                <a href="#" class="dropdown-item " title="Edit Pengungsi"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-edit-${pengungsi.idPengungsi}">
+                                                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                                                        <path fill="currentColor"
+                                                            d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                                    </svg>
+                                                    Edit
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi"
+                                                    onclick="deleteConfirmation(${pengungsi.idPengungsi})">
+                                                    <i class="fas fa-trash mr-1"></i> Hapus
+                                                </a>
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- <a href="#" class="btn btn-danger btn-sm" title="Hapus Pengungsi">
+                                            Hapus
+                                        </a> -->
+                                    </td>
+
+                                    
+
+                </tr>`;
+                            }
+                            document.getElementById('result').innerHTML = result;
+
+                        }
+                    }).catch((err) => console.log(err))
+            }
+        });
     </script>
 
 </section>

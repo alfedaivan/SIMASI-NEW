@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KepalaKeluarga;
 use App\Models\Pengungsi;
 use App\Models\Posko;
-use App\Models\KepalaKeluarga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PengungsiController extends Controller
 {
+    // protected $idPosko;
+    //Membuat variabel global idPosko
+    public function _construct()
+    {$this->idPosko;}
     /**
      * Display a listing of the resource.
      *
@@ -18,12 +22,15 @@ class PengungsiController extends Controller
      */
     public function index($id)
     {
+        // $this->idPosko = $id;
+        //Memberikan nilai pada idPosko
+        session()->put('idPosko', $id);
         $pengungsi = Pengungsi::select(
             DB::raw("concat('Prov. ',kpl.provinsi,', Kota ',kpl.kota,',
             Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
             Daerah ',kpl.detail,' ')
         as lokasi"),
-        DB::raw("concat('Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            DB::raw("concat('Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
             Daerah ',kpl.detail,' ')
         as lokKel"),
             'pengungsi.nama',
@@ -57,7 +64,7 @@ class PengungsiController extends Controller
         $getKpl = KepalaKeluarga::all();
 
         // $dataKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
-        // DB::raw('count(p.kpl_id) as ttlAnggota'),DB::raw("concat('Prov. ',provinsi,', 
+        // DB::raw('count(p.kpl_id) as ttlAnggota'),DB::raw("concat('Prov. ',provinsi,',
         // Kota ',kota,',Kec. ',kecamatan,', Ds. ',kelurahan,',Daerah ',detail,' ') as lokasi"))
         // ->join('pengungsi as p','kepala_keluarga.id','=','p.kpl_id')
         // ->where('p.statKel','=',0)
@@ -67,36 +74,36 @@ class PengungsiController extends Controller
 
         // $dataKpl = Pengungsi::select('nama')
 
-        $getNmPosko = Posko::select('nama')->where('id',$id)->get();
+        $getNmPosko = Posko::select('nama')->where('id', $id)->get();
 
         $dataKpl = Pengungsi::select('*', DB::raw('count(kpl_id) as ttlAnggota'))
         // ->join('kepala_keluarga as kp','kp.id','=','pengungsi.kpl_id')
-        ->where('pengungsi.posko_id','=',$id)
-        ->where('pengungsi.statKel','=',0)
-        ->groupBy('kpl_id','pengungsi.nama','statKel','telpon','gender','umur',
-        'statPos','posko_id','statKon','pengungsi.created_at'
-        ,'pengungsi.updated_at','pengungsi.id',
-        )
-        ->get();  
+            ->where('pengungsi.posko_id', '=', $id)
+            ->where('pengungsi.statKel', '=', 0)
+            ->groupBy('kpl_id', 'pengungsi.nama', 'statKel', 'telpon', 'gender', 'umur',
+                'statPos', 'posko_id', 'statKon', 'pengungsi.created_at'
+                , 'pengungsi.updated_at', 'pengungsi.id',
+            )
+            ->get();
 
         $getJml = Pengungsi::select('*')
-        ->where('pengungsi.kpl_id','=',$id)
-        ->get();
+            ->where('pengungsi.kpl_id', '=', $id)
+            ->get();
 
-        $getAlamat = KepalaKeluarga::select('*',DB::raw("concat('Prov. ',
+        $getAlamat = KepalaKeluarga::select('*', DB::raw("concat('Prov. ',
         provinsi,', Kota ',kota,',
         Kec. ',kecamatan,', Ds. ',kelurahan,',Daerah ',detail,' ')
         as lokasi"))
-        ->where('kepala_keluarga.id','=',$id)
-        ->get();
+            ->where('kepala_keluarga.id', '=', $id)
+            ->get();
 
         $getJmlAnggota = $getJml->count();
 
         $getTtlKpl = $dataKpl->count();
 
         $getBalita = Pengungsi::select('*')
-        ->where('umur','<',5)
-        ->where('pengungsi.posko_id','=',$id)->get();  
+            ->where('umur', '<', 5)
+            ->where('pengungsi.posko_id', '=', $id)->get();
 
         // $getTtlKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
         // DB::raw('count(peng.kpl_id) as ttlAnggota'))
@@ -107,20 +114,20 @@ class PengungsiController extends Controller
         // ->paginate(5);
 
         $getBalita = Pengungsi::select('*')
-        ->where('umur','<',5)
-        ->where('pengungsi.posko_id','=',$id)->get();
+            ->where('umur', '<', 5)
+            ->where('pengungsi.posko_id', '=', $id)->get();
 
         $getTtlBalita = $getBalita->count();
 
-        $getLansia =  Pengungsi::select('*')
-        ->where('umur','>',60)
-        ->where('pengungsi.posko_id','=',$id)->get();
+        $getLansia = Pengungsi::select('*')
+            ->where('umur', '>', 60)
+            ->where('pengungsi.posko_id', '=', $id)->get();
 
         $getTtlLansia = $getLansia->count();
 
         $getSakit = Pengungsi::select('*')
-        ->where('statKon','>',0)
-        ->where('pengungsi.posko_id','=',$id)->get();
+            ->where('statKon', '>', 0)
+            ->where('pengungsi.posko_id', '=', $id)->get();
 
         $getTtlSakit = $getSakit->count();
 
@@ -139,6 +146,164 @@ class PengungsiController extends Controller
         // return view('admin.pengungsi.index',['data' => $pengungsi],['kpl'=>$getKpl],['datas' => $pengungsi]);
     }
 
+    public function search()
+    {
+
+        $filter = request()->query();
+        return $pengungsi = Pengungsi::select(
+            DB::raw("concat('Prov. ',kpl.provinsi,', Kota ',kpl.kota,',
+            Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokasi"),
+            DB::raw("concat('Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokKel"),
+            'pengungsi.nama',
+            'pengungsi.id as idPengungsi',
+            'kpl_id',
+            'statKel',
+            'telpon',
+            'gender',
+            'umur',
+            'statPos',
+            'pengungsi.posko_id as idPospeng',
+            'statKon',
+            'pengungsi.created_at as tglMasuk',
+            'p.id as idPosko',
+            'p.nama as namaPosko',
+            'kpl.id as idKepala',
+            'kpl.nama as namaKepala',
+            'kpl.provinsi as provinsi',
+            'kpl.kota as kota',
+            'kpl.kecamatan as kecamatan',
+            'kpl.kelurahan as kelurahan',
+            'kpl.detail as detail',
+        )
+            ->leftJoin('posko AS p', 'pengungsi.posko_id', '=', 'p.id')
+            ->leftJoin('kepala_keluarga as kpl', 'pengungsi.kpl_id', '=', 'kpl.id')
+            ->where('pengungsi.posko_id', session()->get('idPosko'))
+            ->where(function ($query) use ($filter) {
+                $query->where('pengungsi.nama', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('pengungsi.telpon', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('pengungsi.umur', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.nama', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.provinsi', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kota', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kecamatan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kelurahan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.detail', 'LIKE', "%{$filter['search']}%");
+            })
+            ->orderBy('pengungsi.nama', 'asc')
+            ->distinct()
+            ->get();
+    }
+
+    public function searchPengMasuk()
+    {
+
+        $filter = request()->query();
+        return $pengungsi = Pengungsi::select(
+            DB::raw("concat('Prov. ',kpl.provinsi,', Kota ',kpl.kota,',
+            Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokasi"),
+            DB::raw("concat('Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokKel"),
+            'pengungsi.nama',
+            'pengungsi.id as idPengungsi',
+            'kpl_id',
+            'statKel',
+            'telpon',
+            'gender',
+            'umur',
+            'statPos',
+            'pengungsi.posko_id as idPospeng',
+            'statKon',
+            'pengungsi.created_at as tglMasuk',
+            'p.id as idPosko',
+            'p.nama as namaPosko',
+            'kpl.id as idKepala',
+            'kpl.nama as namaKepala',
+            'kpl.provinsi as provinsi',
+            'kpl.kota as kota',
+            'kpl.kecamatan as kecamatan',
+            'kpl.kelurahan as kelurahan',
+            'kpl.detail as detail',
+        )
+            ->leftJoin('posko AS p', 'pengungsi.posko_id', '=', 'p.id')
+            ->leftJoin('kepala_keluarga as kpl', 'pengungsi.kpl_id', '=', 'kpl.id')
+            ->where('pengungsi.posko_id', session()->get('idPosko'))
+            ->where('pengungsi.statPos', 1)
+            ->where(function ($query) use ($filter) {
+                $query->where('pengungsi.nama', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('pengungsi.telpon', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('pengungsi.umur', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.nama', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.provinsi', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kota', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kecamatan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kelurahan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.detail', 'LIKE', "%{$filter['search']}%");
+            })
+            ->orderBy('pengungsi.nama', 'asc')
+            ->distinct()
+            ->get();
+    }
+
+    public function searchPengKeluar()
+    {
+
+        $filter = request()->query();
+        return $pengungsi = Pengungsi::select(
+            DB::raw("concat('Prov. ',kpl.provinsi,', Kota ',kpl.kota,',
+            Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokasi"),
+            DB::raw("concat('Kec. ',kpl.kecamatan,', Ds. ',kpl.kelurahan,',
+            Daerah ',kpl.detail,' ')
+        as lokKel"),
+            'pengungsi.nama',
+            'pengungsi.id as idPengungsi',
+            'kpl_id',
+            'statKel',
+            'telpon',
+            'gender',
+            'umur',
+            'statPos',
+            'pengungsi.posko_id as idPospeng',
+            'statKon',
+            'pengungsi.created_at as tglMasuk',
+            'p.id as idPosko',
+            'p.nama as namaPosko',
+            'kpl.id as idKepala',
+            'kpl.nama as namaKepala',
+            'kpl.provinsi as provinsi',
+            'kpl.kota as kota',
+            'kpl.kecamatan as kecamatan',
+            'kpl.kelurahan as kelurahan',
+            'kpl.detail as detail',
+        )
+            ->leftJoin('posko AS p', 'pengungsi.posko_id', '=', 'p.id')
+            ->leftJoin('kepala_keluarga as kpl', 'pengungsi.kpl_id', '=', 'kpl.id')
+            ->where('pengungsi.posko_id', session()->get('idPosko'))
+            ->where('pengungsi.statPos', 0)
+            ->where(function ($query) use ($filter) {
+                $query->where('pengungsi.nama', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('pengungsi.telpon', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('pengungsi.umur', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.nama', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.provinsi', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kota', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kecamatan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.kelurahan', 'LIKE', "%{$filter['search']}%")
+                    ->orWhere('kpl.detail', 'LIKE', "%{$filter['search']}%");
+            })
+            ->orderBy('pengungsi.nama', 'asc')
+            ->distinct()
+            ->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -146,7 +311,7 @@ class PengungsiController extends Controller
      */
     public function createPengungsi(Request $request)
     {
-        // $getDataKpl = 
+        // $getDataKpl =
         if (auth()->user()->hasAnyRole(['pusdalop'])) {
             // $request->validate([
             //     // 'namaBelakang' => ['required', 'max:50'],
@@ -176,7 +341,7 @@ class PengungsiController extends Controller
                     'posko_id' => $request->posko_id,
                     'statKon' => $request->statKon,
                 ]);
-                    // 'kplklg_id' => $request->kpl,
+                // 'kplklg_id' => $request->kpl,
             } else {
                 Pengungsi::create([
                     'nama' => $request->nama,
@@ -191,13 +356,13 @@ class PengungsiController extends Controller
                 ]);
             }
             // $peng = Pengungsi::create($request->all());
-            $getIdKpl = KepalaKeluarga::select('id')->orderBy('id','desc')->value('id');
-            $getIdPeng = Pengungsi::select('id')->orderBy('id','desc')->first();
+            $getIdKpl = KepalaKeluarga::select('id')->orderBy('id', 'desc')->value('id');
+            $getIdPeng = Pengungsi::select('id')->orderBy('id', 'desc')->first();
             $getIdPeng->update([
-                'kpl_id'   => $getIdKpl,
+                'kpl_id' => $getIdKpl,
                 //  'totalmoroso' => $Ingresos->deuda,
             ]);
-        
+
             // return Redirect::to('admin/ingresos');
             Alert::success('Success', 'Data berhasil ditambahkan');
             return back();
@@ -235,8 +400,8 @@ class PengungsiController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $pengungsi= Pengungsi::where('id', $id)->first();
-        $kepalaKeluarga= KepalaKeluarga::where('id', $request->kpl)->first();
+        $pengungsi = Pengungsi::where('id', $id)->first();
+        $kepalaKeluarga = KepalaKeluarga::where('id', $request->kpl)->first();
 
         if (auth()->user()->hasAnyRole(['pusdalop'])) {
             // $request->validate([
@@ -267,7 +432,7 @@ class PengungsiController extends Controller
                     'kelurahan' => $request->kelurahan,
                     'detail' => $request->detail,
                 ]);
-                    // 'kplklg_id' => $request->kpl,
+                // 'kplklg_id' => $request->kpl,
             } else {
                 $pengungsi->update([
                     'nama' => $request->nama,
@@ -302,18 +467,18 @@ class PengungsiController extends Controller
     public function delete($id)
     {
         if (auth()->user()->hasAnyRole(['pusdalop'])) {
-            $getStatkel = Pengungsi::where('id',$id)->value('statKel');
+            $getStatkel = Pengungsi::where('id', $id)->value('statKel');
             // $statKel = $getIdKepala->statKel;
-            $getIdKepala = Pengungsi::where('id',$id)->value('kpl_id');
-            $getKepala = KepalaKeluarga::where('id',$getIdKepala)->value('id');
+            $getIdKepala = Pengungsi::where('id', $id)->value('kpl_id');
+            $getKepala = KepalaKeluarga::where('id', $getIdKepala)->value('id');
 
-            if($getStatkel == 0){
+            if ($getStatkel == 0) {
                 $delPengungsi = Pengungsi::destroy($id);
                 $delKepala = KepalaKeluarga::destroy($getKepala);
-            }else{
+            } else {
                 $delPengungsi = Pengungsi::destroy($id);
             }
-           
+
             // check data deleted or not
             if ($delPengungsi == 1 || $delKepala == 1) {
                 $success = true;

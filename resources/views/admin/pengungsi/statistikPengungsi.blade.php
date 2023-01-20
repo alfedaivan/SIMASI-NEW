@@ -26,8 +26,7 @@
                     <div class="icon">
                         <i class="fas fa-baby"></i>
                     </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-bayi">Tampil Detail <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-bayi">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -41,9 +40,7 @@
                     <div class="icon">
                         <i class="fas fa-wheelchair"></i>
                     </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-lansia"
-                        style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right"
-                            style="color: #ffff;"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-lansia" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right" style="color: #ffff;"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -57,8 +54,7 @@
                     <div class="icon">
                         <i class="fas fa-hospital"></i>
                     </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit">Tampil Detail <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -91,10 +87,10 @@
                             <th>Status</th> -->
                         </tr>
                     </thead>
-                    <?php $k = 0;?>
+                    <?php $k = 0; ?>
                     @foreach($dataKpl as $pengungsi)
                     <tr>
-                        <?php $k++;?>
+                        <?php $k++; ?>
                         <td>{{ $k }}</td>
                         <td>{{ $pengungsi->nama}}</td>
                         <td>{{ $jmlAnggota }}</td>
@@ -140,53 +136,51 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $l = 0;?>
+                        <?php $l = 0; ?>
                         @foreach($data as $balita)
-                        @if ($balita->umur < 5)
-                        <?php $l++;?>
-                        <tr>
+                        @if ($balita->umur < 5) <?php $l++; ?> <tr>
                             <td>{{ $l }}</td>
                             <td>{{ $balita->nama }}</td>
                             <td>{{ $balita->namaKepala }}</td>
                             <td>{{ $balita->lokasi }}</td>
                             <?php
-$getGender = $pengungsi->gender;
-if ($getGender == 0) {
-    $gender = "Perempuan";
-} else if ($getGender == 1) {
-    $gender = "Laki-laki";
-}
-?>
-                            <td><?php echo $gender;?></td>
+                            $getGender = $pengungsi->gender;
+                            if ($getGender == 0) {
+                                $gender = "Perempuan";
+                            } else if ($getGender == 1) {
+                                $gender = "Laki-laki";
+                            }
+                            ?>
+                            <td><?php echo $gender; ?></td>
                             <td>{{ $balita->umur }}</td>
                             <td>
-                            <?php
-$kondisi = $balita->statKon;
-if ($kondisi == 0) {
-    echo "Sehat";
-} else if ($kondisi == 1) {
-    echo "Luka Ringan";
-} else if ($kondisi == 2) {
-    echo "Luka Sedang";
-} else if ($kondisi == 3) {
-    echo "Luka Berat";
-}
-?>
-                                    </td>
-                                    <td>
-                                        <?php
-$statPos = $balita->statPos;
-if ($statPos == 0) {
-    echo "<span class='badge badge-danger'>Keluar</span>";
-} else if ($statPos == 1) {
-    echo "<span class='badge badge-success'>Di Posko</span>";
-}
-?>
-                                    </td>
-                        </tr>
-                        
-                        @endif
-                        @endforeach
+                                <?php
+                                $kondisi = $balita->statKon;
+                                if ($kondisi == 0) {
+                                    echo "Sehat";
+                                } else if ($kondisi == 1) {
+                                    echo "Luka Ringan";
+                                } else if ($kondisi == 2) {
+                                    echo "Luka Sedang";
+                                } else if ($kondisi == 3) {
+                                    echo "Luka Berat";
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                $statPos = $balita->statPos;
+                                if ($statPos == 0) {
+                                    echo "<span class='badge badge-danger'>Keluar</span>";
+                                } else if ($statPos == 1) {
+                                    echo "<span class='badge badge-success'>Di Posko</span>";
+                                }
+                                ?>
+                            </td>
+                            </tr>
+
+                            @endif
+                            @endforeach
                     </tbody>
                 </table>
             </div>
@@ -212,23 +206,23 @@ if ($statPos == 0) {
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Kepala Keluarga</th>
-                        <th>No Telepon</th>
-                        <th>Alamat</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Umur</th>
-                        <th>Kondisi</th>
-                        <th>Status</th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Kepala Keluarga</th>
+                            <th>No Telepon</th>
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur</th>
+                            <th>Kondisi</th>
+                            <th>Status</th>
                         </tr>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $m = 0;?>
+                        <?php $m = 0; ?>
                         @foreach($data as $lansia)
                         @if ($lansia->umur > 60)
-                        <?php $m++;?>
+                        <?php $m++; ?>
                         <tr>
                             <td>{{ $m }}</td>
                             <td>{{ $lansia->nama }}</td>
@@ -236,41 +230,41 @@ if ($statPos == 0) {
                             <td>{{ $lansia->telpon }}</td>
                             <td>{{ $lansia->lokasi }}</td>
                             <?php
-$getGender = $lansia->gender;
-if ($getGender == 0) {
-    $gender = "Perempuan";
-} else if ($getGender == 1) {
-    $gender = "Laki-laki";
-}
-?>
-                            <td><?php echo $gender;?></td>
+                            $getGender = $lansia->gender;
+                            if ($getGender == 0) {
+                                $gender = "Perempuan";
+                            } else if ($getGender == 1) {
+                                $gender = "Laki-laki";
+                            }
+                            ?>
+                            <td><?php echo $gender; ?></td>
                             <td>{{ $lansia->umur }}</td>
                             <td>
-                            <?php
-$kondisi = $lansia->statKon;
-if ($kondisi == 0) {
-    echo "Sehat";
-} else if ($kondisi == 1) {
-    echo "Luka Ringan";
-} else if ($kondisi == 2) {
-    echo "Luka Sedang";
-} else if ($kondisi == 3) {
-    echo "Luka Berat";
-}
-?>
-                                    </td>
-                                    <td>
-                                        <?php
-$statPos = $lansia->statPos;
-if ($statPos == 0) {
-    echo "<span class='badge badge-danger'>Keluar</span>";
-} else if ($statPos == 1) {
-    echo "<span class='badge badge-success'>Di Posko</span>";
-}
-?>
-                                    </td>
+                                <?php
+                                $kondisi = $lansia->statKon;
+                                if ($kondisi == 0) {
+                                    echo "Sehat";
+                                } else if ($kondisi == 1) {
+                                    echo "Luka Ringan";
+                                } else if ($kondisi == 2) {
+                                    echo "Luka Sedang";
+                                } else if ($kondisi == 3) {
+                                    echo "Luka Berat";
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                $statPos = $lansia->statPos;
+                                if ($statPos == 0) {
+                                    echo "<span class='badge badge-danger'>Keluar</span>";
+                                } else if ($statPos == 1) {
+                                    echo "<span class='badge badge-success'>Di Posko</span>";
+                                }
+                                ?>
+                            </td>
                         </tr>
-                        
+
                         @endif
                         @endforeach
                     </tbody>
@@ -298,23 +292,23 @@ if ($statPos == 0) {
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Kepala Keluarga</th>
-                        <th>No Telepon</th>
-                        <th>Alamat</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Umur</th>
-                        <th>Kondisi</th>
-                        <th>Status</th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Kepala Keluarga</th>
+                            <th>No Telepon</th>
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur</th>
+                            <th>Kondisi</th>
+                            <th>Status</th>
                         </tr>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $n = 0;?>
+                        <?php $n = 0; ?>
                         @foreach($data as $sakit)
                         @if ($sakit->statKon > 0)
-                        <?php $n++;?>
+                        <?php $n++; ?>
                         <tr>
                             <td>{{ $n }}</td>
                             <td>{{ $sakit->nama }}</td>
@@ -322,41 +316,41 @@ if ($statPos == 0) {
                             <td>{{ $sakit->telpon }}</td>
                             <td>{{ $sakit->lokasi }}</td>
                             <?php
-$getGender = $sakit->gender;
-if ($getGender == 0) {
-    $gender = "Perempuan";
-} else if ($getGender == 1) {
-    $gender = "Laki-laki";
-}
-?>
-                            <td><?php echo $gender;?></td>
+                            $getGender = $sakit->gender;
+                            if ($getGender == 0) {
+                                $gender = "Perempuan";
+                            } else if ($getGender == 1) {
+                                $gender = "Laki-laki";
+                            }
+                            ?>
+                            <td><?php echo $gender; ?></td>
                             <td>{{ $sakit->umur }}</td>
                             <td>
-                            <?php
-$kondisi = $sakit->statKon;
-if ($kondisi == 0) {
-    echo "Sehat";
-} else if ($kondisi == 1) {
-    echo "Luka Ringan";
-} else if ($kondisi == 2) {
-    echo "Luka Sedang";
-} else if ($kondisi == 3) {
-    echo "Luka Berat";
-}
-?>
-                                    </td>
-                                    <td>
-                                        <?php
-$statPos = $sakit->statPos;
-if ($statPos == 0) {
-    echo "<span class='badge badge-danger'>Keluar</span>";
-} else if ($statPos == 1) {
-    echo "<span class='badge badge-success'>Di Posko</span>";
-}
-?>
-                                    </td>
+                                <?php
+                                $kondisi = $sakit->statKon;
+                                if ($kondisi == 0) {
+                                    echo "Sehat";
+                                } else if ($kondisi == 1) {
+                                    echo "Luka Ringan";
+                                } else if ($kondisi == 2) {
+                                    echo "Luka Sedang";
+                                } else if ($kondisi == 3) {
+                                    echo "Luka Berat";
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                $statPos = $sakit->statPos;
+                                if ($statPos == 0) {
+                                    echo "<span class='badge badge-danger'>Keluar</span>";
+                                } else if ($statPos == 1) {
+                                    echo "<span class='badge badge-success'>Di Posko</span>";
+                                }
+                                ?>
+                            </td>
                         </tr>
-                        
+
                         @endif
                         @endforeach
                     </tbody>
