@@ -9,7 +9,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>1000</h3>
+                        <h3>{{ $ttlRP }}</h3>
                         <p>Total Pusdalop</p>
                     </div>
                     <div class="icon">
@@ -25,7 +25,7 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3 style="color: #ffff;">1000</h3>
+                        <h3 style="color: #ffff;">{{ $ttlRT }}</h3>
                         <p style="color: #ffff;">Total TRC</p>
                     </div>
                     <div class="icon">
@@ -40,7 +40,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>1000</h3>
+                        <h3>{{ $ttlBB }}</h3>
                         <p>Total Bencana Berjalan</p>
                     </div>
                     <div class="icon">
@@ -53,7 +53,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>1000</h3>
+                        <h3>{{ $ttlBS }}</h3>
                         <p>Total Bencana Selesai</p>
                     </div>
                     <div class="icon">

@@ -38,7 +38,6 @@ class MemberController extends Controller
             ->orWhere('users.email', 'LIKE', "%{$filter['search']}%")
             ->orderBy('fullName', 'asc')
             ->get();
-
     }
 
     public function createMember(Request $request)

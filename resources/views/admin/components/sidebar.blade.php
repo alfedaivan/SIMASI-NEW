@@ -45,7 +45,7 @@
                 </li>
                 @role('pusdalop')
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url('/cadang')}}" class="nav-link">
                         <i class="nav-icon fas fa-window-restore"></i>
                         <p>
                             Cadang dan Pulihkan
@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url('/laporan')}}" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Laporan
