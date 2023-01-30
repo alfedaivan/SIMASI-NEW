@@ -53,8 +53,6 @@
                             @endrole
                         </div>
                     </div>
-                </div>
-            </div>
 
             <!-- Tambah bencana -->
             <div class="modal fade" id="tambah">
@@ -443,8 +441,7 @@
         form.addEventListener('beforeinput', e => {
             const formdata = new FormData(form);
             let search = formdata.get('search');
-            let url = "{{ route('searchBencana', "
-            search = ") }}" + search
+            let url = "{{ route('searchBencana', "search=") }}" + search
 
 
             if (url === "") {
@@ -536,7 +533,7 @@
             const formdata = new FormData(form2);
             let search = formdata.get('searchForTrc');
             let url2 = document.getElementById('bencana_id').value;
-            let url = "{{url('/search/bencanaTrc')}}/" + url2 + "?search=" + search
+            let url = "{{url('/search/bencanaTrc')}}/"+url2+"?search="+search
 
             // let data = url;
             // alert(data);

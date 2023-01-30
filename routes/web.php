@@ -41,7 +41,7 @@ Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
 // Route::resource('search', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
-Route::resource('cadang', CadangController::class);
+Route::resource('cadang', CadangController::class)->only(['index', 'store', 'destroy']);
 Route::resource('laporan', LaporanController::class);
 Route::get('/pengungsi/keluarga', 'App\Http\Controllers\PengungsiController@showKeluarga');
 
@@ -71,3 +71,11 @@ Route::get("/search/poskoTrc/{id}", [PoskoController::class, 'searchPoskoTrc']);
 Route::get("/search/pengungsi", [PengungsiController::class, 'search'])->name('searchPengungsi');
 Route::get("/search/pengungsi/masuk", [PengungsiController::class, 'searchPengMasuk'])->name('searchPengMasuk');
 Route::get("/search/pengungsi/keluar", [PengungsiController::class, 'searchPengKeluar'])->name('searchPengKeluar');
+
+Route::post('cadang/create', [CadangController::class, 'create'])->name('cadang.create');
+// Route::get('cadang/download', [PengungsiController::class, 'searchPengKeluar'])->name('cadang.download');
+// Route::get('/cadang/{file_name}', [CadangController::class, 'download']);
+// Route::get("/cadang/download", [CadangControllerss::class, 'downloader']);
+Route::get('cadang/{file_name}',  [CadangController::class, 'download'])->name('cadang.download');
+// Route::post('cadang/delete/{id}', [CadangController::class, 'destroy']);
+
