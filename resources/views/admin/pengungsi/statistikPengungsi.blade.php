@@ -1,9 +1,23 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-6">
+             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{ $jmlAnggota }}</h3>
+                        <p>Total Pengungsi</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-ttlpengungsi">Tampil
+                        Detail <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
                     <div class="inner">
                         <h3>{{ $ttlKpl }}</h3>
                         <p>Total Kepala Keluarga</p>
@@ -18,21 +32,21 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{{ $ttlBalita }}</h3>
-                        <p>Total Balita</p>
+                        <h3 style="color: #ffff;">{{ $ttlBalita }}</h3>
+                        <p style="color: #ffff;">Total Balita</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-baby"></i>
                     </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-bayi">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-bayi" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-warning">
+                <div class="small-box bg-danger">
                     <div class="inner">
                         <h3 style="color: #ffff;">{{ $ttlLansia }}</h3>
                         <p style="color: #ffff;">Total Lansia</p>
@@ -46,13 +60,51 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3 style="color: #ffff;">{{ $ttlDifabel }}</h3>
+                        <p style="color: #ffff;">Total Difabel</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-blind"></i>
+                    </div>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-lansia" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right" style="color: #ffff;"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
                     <div class="inner">
                         <h3>{{ $ttlSakit }}</h3>
                         <p>Total Pengungsi Sakit</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-hospital"></i>
+                    </div>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3 style="color: #ffff;">{{ $getMasuk }}</h3>
+                        <p style="color: #ffff;">Total Pengungsi di Posko</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-building "></i>
+                    </div>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>  <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>{{ $getKeluar}}</h3>
+                        <p>Total Pengungsi Keluar</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-building"></i>
                     </div>
                     <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -61,6 +113,54 @@
         </div>
     </div>
 </section>
+
+<!-- modal anggota keluarga -->
+<div class="modal fade" id="modal-kkeluarga">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Kepala Keluarga</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form start -->
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Jumlah anggota</th>
+                            <th>Alamat</th>
+                            <!-- <th>Jenis Kelamin</th> -->
+                            <!-- <th>Umur</th> -->
+                            <!-- <th>Kondisi</th>
+                            <th>Status</th> -->
+                        </tr>
+                    </thead>
+                    <?php $k = 0; ?>
+                    @foreach($dataKpl as $pengungsi)
+                    <tr>
+                        <?php $k++; ?>
+                        <td>{{ $k }}</td>
+                        <td>{{ $pengungsi->nama}}</td>
+                        <td>{{ $jmlAnggota }}</td>
+                        @foreach($getAlamat as $alamat)
+                        <td>{{ $alamat->lokasi }}</td>
+                        @endforeach
+                    </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- end -->
 
 <!-- modal kepala keluarga -->
 <div class="modal fade" id="modal-kkeluarga">
@@ -164,6 +264,8 @@
                                     echo "Luka Sedang";
                                 } else if ($kondisi == 3) {
                                     echo "Luka Berat";
+                                } else if ($kondisi == 4) {
+                                    echo "Difabel";
                                 }
                                 ?>
                             </td>
@@ -250,6 +352,8 @@
                                     echo "Luka Sedang";
                                 } else if ($kondisi == 3) {
                                     echo "Luka Berat";
+                                } else if ($kondisi == 4) {
+                                    echo "Difabel";
                                 }
                                 ?>
                             </td>
@@ -336,6 +440,8 @@
                                     echo "Luka Sedang";
                                 } else if ($kondisi == 3) {
                                     echo "Luka Berat";
+                                } else if ($kondisi == 4) {
+                                    echo "Difabel";
                                 }
                                 ?>
                             </td>
