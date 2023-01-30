@@ -29,6 +29,9 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{url('/assets/template/plugins/summernote/summernote-bs4.min.css')}}">
 
+    <link rel="stylesheet" href="{{url('/assets/css/style.css')}}">
+
+
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"> -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- SweetAlert2 -->

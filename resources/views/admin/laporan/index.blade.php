@@ -43,11 +43,10 @@
             <!-- ./col -->
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header justify-content-center">
-                        <h3 class="card-title mx-0" style="text-align: center !important;">
+                    <div class="card-header laporan-title">
+                        <h3>
                             Tanah Longsor
                         </h3>
-                        <br>
                         <p>
                             7 Agustus 2022, Desa Sumber Sekar
                         </p>
@@ -64,11 +63,11 @@
                             <dt class="col-sm-4">Total Posko</dt>
                             <dd class="col-sm-7">: 3 Posko
                             <dt class="col-sm-3 offset-1 ">Posko 1</dt>
-                            <dd class="col-sm-8 ">: 50 orang (45 sehat, 5 luka ringan)</dd>
+                            <dd class="col-sm-8 ">: 50 orang (5 Balita, 5 Lansia, 10 Sakit, 25 Sehat, 5 Difabel)</dd>
                             <dt class="col-sm-3 offset-1">Posko 2</dt>
-                            <dd class="col-sm-8">: 50 orang (45 sehat, 5 luka ringan)</dd>
+                            <dd class="col-sm-8">: 50 orang (5 Balita, 5 Lansia, 10 Sakit, 25 Sehat, 5 Difabel)</dd>
                             <dt class="col-sm-3 offset-1">Posko 3</dt>
-                            <dd class="col-sm-8">: 50 orang (45 sehat, 5 luka ringan)</dd>
+                            <dd class="col-sm-8">: 50 orang ((5 Balita, 5 Lansia, 10 Sakit, 25 Sehat, 5 Difabel)</dd>
                         </dl>
 
                         <div class="row justify-content-end">

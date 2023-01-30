@@ -1,0 +1,13 @@
+.laporan-title {
+    text-align: center;
+    display: block;
+    justify-content: center;
+}
+
+.laporan-title h3 {
+    font-size: 18px;
+}
+
+.laporan-title p {
+    font-size: 14px;
+}
