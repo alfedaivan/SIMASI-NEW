@@ -33,13 +33,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout']);
 
-// Route::post('login', 'DashboardController@login');
-
 Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('bencana', BencanaController::class);
 Route::resource('posko', PoskoController::class);
 Route::resource('member', MemberController::class);
-// Route::resource('search', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
 Route::resource('cadang', CadangController::class)->only(['index', 'store', 'destroy']);
 Route::resource('laporan', LaporanController::class);
@@ -78,4 +75,3 @@ Route::post('cadang/create', [CadangController::class, 'create'])->name('cadang.
 // Route::get("/cadang/download", [CadangControllerss::class, 'downloader']);
 Route::get('cadang/{file_name}',  [CadangController::class, 'download'])->name('cadang.download');
 // Route::post('cadang/delete/{id}', [CadangController::class, 'destroy']);
-

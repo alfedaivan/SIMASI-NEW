@@ -1,7 +1,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-             <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
@@ -96,7 +96,8 @@
                     </div>
                     <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-            </div>  <div class="col-lg-3 col-6">
+            </div>
+            <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">

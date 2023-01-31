@@ -11,3 +11,7 @@
 .laporan-title p {
     font-size: 14px;
 }
+
+.bg-infoo {
+    background-color: #1defdb !important;
+}
