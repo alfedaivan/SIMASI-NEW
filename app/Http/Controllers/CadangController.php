@@ -177,4 +177,6 @@ class CadangController extends Controller
         Alert::success('Success', 'Data berhasil dihapus');
         return back();
     }
+
+   
 }

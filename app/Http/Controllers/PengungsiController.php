@@ -101,10 +101,6 @@ class PengungsiController extends Controller
 
         $getTtlKpl = $dataKpl->count();
 
-        $getBalita = Pengungsi::select('*')
-            ->where('umur', '<', 5)
-            ->where('pengungsi.posko_id', '=', $id)->get();
-
         // $getTtlKpl = KepalaKeluarga::select('kepala_keluarga.id','kepala_keluarga.nama',
         // DB::raw('count(peng.kpl_id) as ttlAnggota'))
         // ->join('pengungsi as peng','kepala_keluarga.id','=','peng.kpl_id')
@@ -124,6 +120,12 @@ class PengungsiController extends Controller
             ->where('pengungsi.posko_id', '=', $id)->get();
 
         $getTtlLansia = $getLansia->count();
+        
+        $getSehat = Pengungsi::select('*')
+            ->where('statKon', '=', 0)
+            ->where('pengungsi.posko_id', '=', $id)->get();
+
+        $getTtlSehat = $getSehat->count();
 
         $getSakit = Pengungsi::select('*')
             ->where('statKon', '>', 0)
@@ -172,6 +174,7 @@ class PengungsiController extends Controller
             'ttlSakit' => $getTtlSakit,
             'getMasuk' => $getMasuk,
             'getKeluar' => $getKeluar,
+            'getSehat' => $getTtlSehat
         ]);
         // return view('admin.pengungsi.index',['data' => $pengungsi],['kpl'=>$getKpl],['datas' => $pengungsi]);
     }
