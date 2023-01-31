@@ -42,7 +42,8 @@ Route::resource('member', MemberController::class);
 // Route::resource('search', MemberController::class);
 Route::resource('pengungsi', PengungsiController::class);
 Route::resource('cadang', CadangController::class)->only(['index', 'store', 'destroy']);
-Route::resource('laporan', LaporanController::class);
+Route::resource('laporan', LaporanController::class)->only(['index', 'store', 'destroy']);
+
 Route::get('/pengungsi/keluarga', 'App\Http\Controllers\PengungsiController@showKeluarga');
 
 Route::post('member/create', [MemberController::class, 'createMember'])->name('member.create');
@@ -73,9 +74,11 @@ Route::get("/search/pengungsi/masuk", [PengungsiController::class, 'searchPengMa
 Route::get("/search/pengungsi/keluar", [PengungsiController::class, 'searchPengKeluar'])->name('searchPengKeluar');
 
 Route::post('cadang/create', [CadangController::class, 'create'])->name('cadang.create');
-// Route::get('cadang/download', [PengungsiController::class, 'searchPengKeluar'])->name('cadang.download');
-// Route::get('/cadang/{file_name}', [CadangController::class, 'download']);
-// Route::get("/cadang/download", [CadangControllerss::class, 'downloader']);
 Route::get('cadang/{file_name}',  [CadangController::class, 'download'])->name('cadang.download');
+
+
+// Route::get('laporan/exportPdf/{id}',  [LaporanController::class, 'exportPdf'])->name('laporan.exportPdf');
+Route::get('laporan/exportPdf/{id}', [LaporanController::class, 'exportPdf']);
+
 // Route::post('cadang/delete/{id}', [CadangController::class, 'destroy']);
 
