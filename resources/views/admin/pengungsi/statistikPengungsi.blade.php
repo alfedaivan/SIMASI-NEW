@@ -52,7 +52,12 @@
                         <p style="color: #ffff;">Total Lansia</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-wheelchair"></i>
+                        <svg class="icon-statistik" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path d="M272 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 
+                            48 48 48s48-21.5 48-48zm-8 187.3l47.4 57.1c11.3 13.6 31.5 
+                            15.5 45.1 4.2s15.5-31.5 4.2-45.1l-73.7-88.9c-18.2-22-45.3-34.7-73.9-34.7H177.1c-33.7 0-64.9 17.7-82.3 46.6l-58.3 97c-9.1 15.1-4.2 34.8 10.9 43.9s34.8 4.2 43.9-10.9L120 256.9V480c0 17.7 14.3 32 32 32s32-14.3 32-32V352h16V480c0 17.7 14.3 32 32 32s32-14.3 32-32V235.3zM352 
+                            376c0-4.4 3.6-8 8-8s8 3.6 8 8V488c0 13.3 10.7 24 24 24s24-10.7 24-24V376c0-30.9-25.1-56-56-56s-56 25.1-56 56v8c0 13.3 10.7 24 24 24s24-10.7 24-24v-8z" />
+                        </svg>
                     </div>
                     <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-lansia" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right" style="color: #ffff;"></i></a>
                 </div>
@@ -60,20 +65,20 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-info">
+                <div class="small-box bg-difabel">
                     <div class="inner">
                         <h3 style="color: #ffff;">{{ $ttlDifabel }}</h3>
                         <p style="color: #ffff;">Total Difabel</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-blind"></i>
+                        <i class="fas fa-wheelchair"></i>
                     </div>
                     <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-lansia" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right" style="color: #ffff;"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-Psakit">
                     <div class="inner">
                         <h3>{{ $ttlSakit }}</h3>
                         <p>Total Pengungsi Sakit</p>
@@ -86,28 +91,32 @@
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-warning">
+                <div class="small-box bg-masuk">
                     <div class="inner">
                         <h3 style="color: #ffff;">{{ $getMasuk }}</h3>
                         <p style="color: #ffff;">Total Pengungsi di Posko</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-building "></i>
+                        <svg class="icon-statistik" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path d="M352 96h64c17.7 0 32 14.3 32 32V384c0 17.7-14.3 32-32 32H352c-17.7 0-32 14.3-32 32s14.3 32 32 32h64c53 0 96-43 96-96V128c0-53-43-96-96-96H352c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-7.5 177.4c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22v72H32c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32H160v72c0 9.6 5.7 18.2 14.5 22s19 2 26-4.6l144-136z" />
+                        </svg>
                     </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-masuk" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-keluar">
                     <div class="inner">
                         <h3>{{ $getKeluar}}</h3>
                         <p>Total Pengungsi Keluar</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-building"></i>
+                        <svg class="icon-statistik" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path d="M160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96C43 32 0 75 0 128V384c0 53 43 96 96 96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H96c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32h64zM504.5 273.4c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22v72H192c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32H320v72c0 9.6 5.7 18.2 14.5 22s19 2 26-4.6l144-136z" />
+                        </svg>
                     </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-sakit">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-keluar">Tampil Detail <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -294,7 +303,7 @@
 </div>
 <!-- end -->
 
-<!-- modal bayi -->
+<!-- modal lansia -->
 <div class="modal fade" id="modal-lansia">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -462,6 +471,161 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- end -->
+
+<!-- modal masuk -->
+<div class="modal fade" id="modal-masuk">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Pengungsi Di Posko</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form start -->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Status Keluarga</th>
+                            <th>Kepala Keluarga</th>
+                            <th>No Telepon</th>
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur</th>
+                            <th>Tanggal masuk</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result1">
+                        <tr>
+                            <?php $i = 0; ?>
+                            @foreach ($data as $pengungsi)
+                            @if($pengungsi->statPos == 1)
+                            <?php $i++; ?>
+                            <!-- <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td> -->
+                            <td>{{ $i }}</td>
+                            <td>{{ $pengungsi->nama }}</td>
+                            <td>
+                                <?php
+                                $statKel = $pengungsi->statKel;
+                                if ($statKel == 0) {
+                                    echo "Kepala Keluarga";
+                                } else if ($statKel == 1) {
+                                    echo "Ibu";
+                                } else if ($statKel == 2) {
+                                    echo "Anak";
+                                }
+                                ?>
+                            </td>
+                            <td>{{ $pengungsi->namaKepala}}</td>
+                            <td>{{ $pengungsi->telpon }}</td>
+                            <td>{{ $pengungsi->lokasi }}</td>
+                            <td>
+                                <?php
+                                $gender = $pengungsi->gender;
+                                if ($gender == 0) {
+                                    echo "Perempuan";
+                                } else if ($gender == 1) {
+                                    echo "Laki-laki";
+                                }
+                                ?>
+                            </td>
+                            <td>{{ $pengungsi->umur }}</td>
+                            <td>{{ $pengungsi->tglMasuk }}</td>
+                        </tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                </table>
+                <br />
+                {{ $data->links() }}
+                <br />
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- end -->
+
+<!-- modal masuk -->
+<div class="modal fade" id="modal-keluar">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Pengungsi Keluar Posko</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Status Keluarga</th>
+                            <th>Kepala Keluarga</th>
+                            <th>No Telepon</th>
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur</th>
+                            <!-- <th>Awal masuk</th> -->
+                        </tr>
+                    </thead>
+                    <tbody id="result2">
+                        <tr>
+                            <?php $j = 0 ?>
+                            @foreach ($data as $keys => $pengungsis)
+                            @if($pengungsis->statPos == 0)
+                            <?php $j++; ?>
+                            <td>{{ $j }}</th>
+                            <td>{{ $pengungsis->nama }}</td>
+                            <td>
+                                <?php
+                                $statKel = $pengungsi->statKel;
+                                if ($statKel == 0) {
+                                    echo "Kepala Keluarga";
+                                } else if ($statKel == 1) {
+                                    echo "Ibu";
+                                } else if ($statKel == 2) {
+                                    echo "Anak";
+                                }
+                                ?>
+                            </td>
+                            <td>{{ $pengungsis->namaKepala}}</td>
+                            <td>{{ $pengungsis->telpon }}</td>
+                            <td>{{ $pengungsis->lokasi }}</td>
+                            <td>
+                                <?php
+                                $gender = $pengungsis->gender;
+                                if ($gender == 0) {
+                                    echo "Perempuan";
+                                } else if ($gender == 1) {
+                                    echo "Laki-laki";
+                                }
+                                ?>
+                            </td>
+                            <td>{{ $pengungsis->umur }}</td>
+                            <!-- <td>{{ $pengungsis->tglMasuk }}</td> -->
+                            </td>
+                        </tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                </table>
+                <br />
+                {{ $data->links() }}
+                <br />
             </div>
         </div>
         <!-- /.modal-content -->
