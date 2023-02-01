@@ -34,7 +34,7 @@
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">
                                             <i class="fas fa-search"></i>
-                                        </button>
+                                           </button>
                                     </div>
                                 </div>
                             </form>
