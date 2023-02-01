@@ -76,5 +76,6 @@ Route::get('cadang/{file_name}',  [CadangController::class, 'download'])->name('
 
 // Route::get('laporan/exportPdf/{id}',  [LaporanController::class, 'exportPdf'])->name('laporan.exportPdf');
 Route::get('laporan/exportPdf/{id}', [LaporanController::class, 'exportPdf']);
+Route::get('laporan/exportExcel/{id}', [LaporanController::class, 'exportExcel']);
 
 // Route::post('cadang/delete/{id}', [CadangController::class, 'destroy']);

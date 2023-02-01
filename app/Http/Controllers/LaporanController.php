@@ -7,8 +7,11 @@ use App\Models\KepalaKeluarga;
 use App\Models\Pengungsi;
 use App\Models\Bencana;
 use App\Models\Posko;
+use App\Exports\PengungsiExport;
 use PDF;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class LaporanController extends Controller
 {
@@ -228,5 +231,10 @@ class LaporanController extends Controller
         ]);
         $pdf = PDF::loadview('datapengungsi-pdf');
         return $pdf->download('dataPengungsi.pdf');
+    }
+
+    public function exportExcel(Request $request){
+        // $data = Pengungsi::all();
+        return Excel::download(new PengungsiExport($request->id), 'dataPengungsi.xlsx');
     }
 }
