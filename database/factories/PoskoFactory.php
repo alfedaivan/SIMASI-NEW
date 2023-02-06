@@ -25,6 +25,7 @@ class PoskoFactory extends Factory
             'kecamatan' => $this->faker->citySuffix(),
             'kelurahan' => $this->faker->cityPrefix(),
             'detail' => $this->faker->streetSuffix(),
+            'kapasitas' => $this->faker->numberBetween(0, 100)
         ];
     }
 }

@@ -45,6 +45,7 @@ class PoskoController extends Controller
             'kecamatan',
             'kelurahan',
             'detail',
+            'kapasitas',
             'bencana_id',
             'b.id as idBencana',
             DB::raw("concat(u.firstname,' ',u.lastname) as fullName"), 'u.id as idAdmin',
@@ -57,7 +58,7 @@ class PoskoController extends Controller
             ->leftJoin('pengungsi as p', 'posko.id', '=', 'p.posko_id')
             ->groupBy('lokasi', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'detail', 'posko.id'
                 , 'posko.nama', 'posko.bencana_id', 'b.id', 'u.firstname', 'u.lastname', 'u.id', 'posko.created_at',
-                'posko.updated_at', 'posko.trc_id')
+                'posko.updated_at', 'posko.trc_id','kapasitas')
             ->where('posko.bencana_id', $id)
             ->orderBy('u.id', 'desc')
             ->paginate(5);
@@ -97,6 +98,7 @@ class PoskoController extends Controller
         as lokasi"),
             'posko.id as idPosko',
             'posko.nama as namaPosko',
+            'posko.trc_id',
             'provinsi',
             'kota',
             'kecamatan',
@@ -107,14 +109,14 @@ class PoskoController extends Controller
             DB::raw("concat(u.firstname,' ',u.lastname) as fullName"), 'u.id as idAdmin',
             'posko.created_at',
             'posko.updated_at',
-            DB::raw('count(p.posko_id) as ttlPengungsi'),
+            DB::raw('count(p.posko_id) as ttlPengungsi'), 'kapasitas',
         )
             ->leftJoin('users AS u', 'posko.trc_id', '=', 'u.id')
             ->leftJoin('bencana as b', 'posko.bencana_id', '=', 'b.id')
             ->leftJoin('pengungsi as p', 'posko.id', '=', 'p.posko_id')
             ->groupBy('lokasi', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'detail', 'posko.id'
                 , 'posko.nama', 'posko.bencana_id', 'b.id', 'u.firstname', 'u.lastname', 'u.id', 'posko.created_at',
-                'posko.updated_at')
+                'posko.updated_at','posko.kapasitas', 'posko.trc_id')
             ->where('posko.bencana_id', session()->get('idBencana'))
             ->where(function ($query) use ($filter) {
                 $query->where('posko.nama', 'LIKE', "%{$filter['search']}%")
@@ -127,7 +129,7 @@ class PoskoController extends Controller
             ->get();
     }
 
-    public function searchPoskoTrc()
+    public function searchPoskoTrc($id)
     {
         // $getIdBencana = Bencana::where('id',$id)->value('id');
         $filter = request()->query();
@@ -137,6 +139,7 @@ class PoskoController extends Controller
         as lokasi"),
             'posko.id as idPosko',
             'posko.nama as namaPosko',
+            'posko.kapasitas',
             'provinsi',
             'kota',
             'kecamatan',
@@ -154,8 +157,8 @@ class PoskoController extends Controller
             ->leftJoin('pengungsi as p', 'posko.id', '=', 'p.posko_id')
             ->groupBy('lokasi', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'detail', 'posko.id'
                 , 'posko.nama', 'posko.bencana_id', 'b.id', 'u.firstname', 'u.lastname', 'u.id', 'posko.created_at',
-                'posko.updated_at')
-            ->where('posko.trc_id', 4)
+                'posko.updated_at','posko.kapasitas')
+            ->where('posko.trc_id', $id)
             ->where(function ($query) use ($filter) {
                 $query->where('posko.nama', 'LIKE', "%{$filter['search']}%")
                     ->orWhere('posko.provinsi', 'LIKE', "%{$filter['search']}%")
@@ -186,6 +189,7 @@ class PoskoController extends Controller
             $addPosko->kecamatan = $request->kecamatan;
             $addPosko->kelurahan = $request->kelurahan;
             $addPosko->detail = $request->detail;
+            $addPosko->kapasitas = $request->kapasitass;
             $addPosko->trc_id = $request->trc_id;
             $addPosko->bencana_id = $request->idPosko;
             $addPosko->save();

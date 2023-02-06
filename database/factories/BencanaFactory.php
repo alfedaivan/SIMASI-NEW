@@ -23,7 +23,7 @@ class BencanaFactory extends Factory
             'lokasi' => $this->faker->city(),
             // 'korban' => $this->faker->randomDigit(),
             // 'kerusakan' => $this->faker->sentence(),
-            'status' => $this->faker->numberBetween(0,1),
+            'status' => $this->faker->numberBetween(0,4),
             // 'posko_id' => $this->faker->numberBetween(11, 22)
         ];
     }

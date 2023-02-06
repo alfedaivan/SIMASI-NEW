@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kelurahan');
             $table->string('detail');
+            $table->unsignedBigInteger('kapasitas');
             $table->unsignedBigInteger('trc_id')->nullable();
             $table->unsignedBigInteger('bencana_id')->nullable();
             // $table->unsignedBigInteger('pengungsi_id')->nullable();
