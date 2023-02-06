@@ -87,7 +87,7 @@ class PengungsiController extends Controller
             ->get();
 
         $getJml = Pengungsi::select('*')
-            ->where('pengungsi.kpl_id', '=', $id)
+            ->where('pengungsi.posko_id', '=', $id)
             ->get();
 
         $getAlamat = KepalaKeluarga::select('*', DB::raw("concat('Prov. ',

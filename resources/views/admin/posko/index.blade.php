@@ -76,6 +76,8 @@
                                             <div class="form-group">
                                                 <!-- <label for="exampleInputId">Nama Posko</label> -->
                                                 <input type="text" class="form-control" id="idPosko" name="idPosko" value="{{request()->id}}" hidden required>
+                                                <input type="text" class="form-control" id="idTrc" name="idTrc" value="{{auth()->user()->id}}" hidden required>
+                                                
                                             </div>
 
                                             <div class="form-group">
@@ -106,6 +108,11 @@
                                             <div class="form-group">
                                                 <label for="exampleInputDetail">Detail</label>
                                                 <input type="text" class="form-control" id="exampleInputnama" placeholder="Masukan detail" name="detail" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputKap">Kapasitas</label>
+                                                <input type="number" class="form-control" id="exampleInputnama" placeholder="Masukan kapasitas" name="kapasitas" required>
                                             </div>
 
                                             <div class="form-group">
@@ -164,6 +171,7 @@
                                     <th>Lokasi</th>
                                     <th>TRC</th>
                                     <th>Pengungsi</th>
+                                    <th>Sisa Kapasitas</th>
                                     <th>Waktu Dibuat</th>
                                     <th>Waktu Update</th>
                                     @role('pusdalop')
@@ -186,7 +194,7 @@
                                     @endforeach -->
                                         <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko; ?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
-
+                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi;?> orang</td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     <td>
@@ -229,7 +237,7 @@
                                     @endforeach -->
                                         <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko; ?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
-
+                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi;?> orang</td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     @endif
@@ -378,8 +386,7 @@
         form.addEventListener('beforeinput', e => {
             const formdata = new FormData(form);
             let search = formdata.get('search');
-            let url = "{{ route('searchPosko', "
-            search = ")   }}" + search
+            let url = "{{ route('searchPosko', "search=")   }}" + search
 
             // let data = url;
             // alert(data);
@@ -398,19 +405,30 @@
                             }
                             for (i = 0; i < data.length; i++) {
                                 let posko = data[i]
+                                let trc = posko.fullName;
+                                if (trc == null) {
+                                    trc = ' ';
+                                }else{
+                                    trc = posko.fullName
+                                }
+                                let dateCreate =  new Date(posko.created_at);
+                                dateCreate = dateCreate.toLocaleString();
+                                let dateUpdate =  new Date(posko.updated_at);
+                                dateUpdate = dateUpdate.toLocaleString();
                                 result +=
                                     `<tr>
                 <td>${i+1}</td>
                                     <td>${posko.namaPosko }</td>
                                     <td>${posko.lokasi}</td>
-                                    <td>${posko.fullName}</td>
+                                    <td>${trc}</td>
                                     <td>${posko.ttlPengungsi} orang</br>
                                         <a href="{{url('/listPengungsi')}}/${posko.idPosko}"
                                             class="btn btn-primary btn-xs" title="Lihat pengungsi"><i
                                                 class="fas fa-eye"></i> Posko </a>
                                     </td>
-                                    <td><?php echo $posko->created_at; ?></td>
-                                    <td><?php echo $posko->updated_at; ?></td>
+                                    <td>${posko.kapasitas - posko.ttlPengungsi} orang</td>
+                                    <td>${dateCreate}</td>
+                                    <td>${dateUpdate}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
@@ -463,7 +481,7 @@
             const formdata = new FormData(form2);
 
             let search = formdata.get('searchPoskoTrc');
-            let url2 = document.getElementById('idPosko').value;
+            let url2 = document.getElementById('idTrc').value;
             let url = "{{url('/search/poskoTrc')}}/" + url2 + "?search=" + search
 
             // let data = url;
@@ -483,19 +501,30 @@
                             }
                             for (i = 0; i < data.length; i++) {
                                 let posko = data[i]
+                                let trc = posko.fullName;
+                                if (trc == null) {
+                                    trc = ' ';
+                                }else{
+                                    trc = posko.fullName
+                                }
+                                let dateCreate =  new Date(posko.created_at);
+                                dateCreate = dateCreate.toLocaleString();
+                                let dateUpdate =  new Date(posko.updated_at);
+                                dateUpdate = dateUpdate.toLocaleString();
                                 result +=
                                     `<tr>
                 <td>${i+1}</td>
                                     <td>${posko.namaPosko }</td>
                                     <td>${posko.lokasi}</td>
-                                    <td>${posko.fullName}</td>
+                                    <td>${trc}</td>
                                     <td>${posko.ttlPengungsi} orang</br>
                                         <a href="{{url('/listPengungsi')}}/${posko.idPosko}"
                                             class="btn btn-primary btn-xs" title="Lihat pengungsi"><i
                                                 class="fas fa-eye"></i> Posko </a>
                                     </td>
-                                    <td><?php echo $posko->created_at; ?></td>
-                                    <td><?php echo $posko->updated_at; ?></td>
+                                    <td>${posko.kapasitas - posko.ttlPengungsi} orang</td>
+                                    <td>${dateCreate}</td>
+                                    <td>${dateUpdate}</td>
                                 
 
                                         <!-- /.modal-dialog -->
