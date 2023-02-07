@@ -18,13 +18,59 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-        <form id="form1" action="/logout" method="post">
-                @csrf
-                <a href="javascript:;" onclick="document.getElementById('form1').submit();" class="nav-link">
+                <a href="javascript:;"   onclick="logoutConfirmation()" class="nav-link">
                     <i class="nav-icon fas fa-power-off"></i>
                 </a>
-            </form>        
         </li>
     </ul>
 </nav>
 <!-- /.navbar -->
+
+<script type="text/javascript">
+        function logoutConfirmation() {
+            swal.fire({
+                title: "Keluar?",
+                icon: 'question',
+                text: "Apakah Anda yakin?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Iya, keluar!",
+                cancelButtonText: "Batal!",
+                reverseButtons: !0
+            }).then(function(e) {
+
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{url('/logout')}}",
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        // success: function(results) {
+                        //     if (results.success === true) {
+                        //         swal.fire("Berhasil!", results.message, "success");
+                        //         // refresh page after 2 seconds
+                        //         setTimeout(function() {
+                        //             location.reload();
+                        //         }, 1000);
+                        //     } else {
+                        //         // swal.fire("Gagal!", results.message, "error");
+                        //     }
+                        // }
+                    });
+
+                    // location.reload();
+                    location.href = "{{'/login'}}";
+
+                } else {
+                    e.dismiss;
+                }
+
+            }, function(dismiss) {
+                return false;
+            })
+        }
+    </script>
