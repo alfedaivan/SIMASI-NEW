@@ -83,6 +83,7 @@
                                                     <option value=0>Kepala Keluarga</option>
                                                     <option value=1>Ibu</option>
                                                     <option value=2 selected>Anak</option>
+                                                    <option value=3 selected>Lainnya</option>
                                                 </select>
                                             </div>
                                             <!-- script form status keluarga -->
@@ -230,6 +231,8 @@
                                             echo "Ibu";
                                         } else if ($statKel == 2) {
                                             echo "Anak";
+                                        }else if ($statKel == 3) {
+                                            echo "Lainnya";
                                         }
                                         ?>
                                     </td>
@@ -340,12 +343,16 @@
                                                                         $status = "Ibu";
                                                                     } else if ($getStatKel == 2) {
                                                                         $status = "Anak";
+                                                                    } else if ($getStatKel == 3) {
+                                                                        $status = "Lainnya";
                                                                     }
+                                                                    
                                                                     ?>
                                                                     <option selected value="{{ $pengungsi->statKel }}" hidden><?php echo $status; ?></option>
                                                                     <option value=0>Kepala Keluarga</option>
                                                                     <option value=1>Ibu</option>
                                                                     <option value=2>Anak</option>
+                                                                    <option value=3>Lainnya</option>
                                                                 </select>
                                                             </div>
                                                             <!-- script form status keluarga -->
@@ -591,6 +598,8 @@
                                     statKel = 'Ibu';
                                 } else if (statKel == 2) {
                                     statKel = 'Anak';
+                                } else if (statKel == 3) {
+                                    statKel = 'Lainnya';
                                 }
                                 let gender = pengungsi.gender
                                 if (gender == 0) {
