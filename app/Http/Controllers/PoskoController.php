@@ -66,7 +66,10 @@ class PoskoController extends Controller
         $trc = User::select(DB::raw("concat(firstname,' ',lastname) as fullName"), 'users.id as idAdmin', 'lastname')
             ->join('model_has_roles as mr', 'mr.model_id', '=', 'users.id')
             ->join('roles as r', 'r.id', '=', 'mr.role_id')
-            ->where('r.id', 5)
+            ->where(function ($query) {
+                $query->where('r.id', 2)
+                    ->orWhere('r.id', 3);
+                }) //memilih role yang akan ditampilkan (p,trc,r)
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('posko')

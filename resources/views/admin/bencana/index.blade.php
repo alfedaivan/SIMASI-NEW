@@ -226,6 +226,40 @@
                         @endforeach
                         @endrole
 
+                        
+                        @role('relawan')
+                        <?php $i = 0; ?>
+                        @foreach ($data2 as $bencana)
+                        <tr>
+                            @if($bencana->trc == auth()->user()->id)
+                            <?php $i++; ?>
+                            <td>{{ $i }}</td>
+                            <td>{{ $bencana->namaBencana }}</td>
+                            <td>{{ $bencana->waktu }}</td>
+                            <td>{{ $bencana->lokasi }}</td>
+                            <!-- <td>{{ $bencana->posko }}</td> -->
+                            <td>{{ $bencana->ttlPosko }} tempat</br>
+                                <a href="{{url('/listPosko')}}/<?php echo $bencana->idBencana; ?>" class="btn btn-primary btn-xs" title="Lihat posko"><i class="fas fa-eye"></i> Posko </a>
+                            </td>
+                            <td>{{ $bencana->waktuUpdate }}</td>
+                            <td>
+                                @if($bencana->status == 1)
+                                @php
+                                $value = 'Berjalan'
+                                @endphp
+                                <span class="badge badge-success"><?php echo $value; ?></span>
+                                @else
+                                @php
+                                $value = 'Selesai'
+                                @endphp
+                                <span class="badge badge-danger">Selesai</span>
+                                @endif
+                            </td>
+                        </tr>
+                        @endif
+                        @endforeach
+                        @endrole
+
                         @foreach ($data as $detail)
                         <div class="modal fade" id="modal-edit-{{$detail->idBencana}}">
                             <div class="modal-dialog">

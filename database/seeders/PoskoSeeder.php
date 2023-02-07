@@ -50,7 +50,7 @@ class PoskoSeeder extends Seeder
                 'kecamatan' => 'Junrejo',
                 'kelurahan' => 'Mojorejo',
                 'detail' => 'Jln. Merpati, RT. 05, RW. 01',
-                'trc_id' => 2,
+                'trc_id' => 5,
                 'bencana_id' => 3,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

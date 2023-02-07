@@ -21,7 +21,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{auth()->user()->lastname}}</a>
+                        <a href="#" class="d-block">{{auth()->user()->firstname}} {{ auth()->user()->lastname }}</a>
                     </div>
                 </div>
                 <!-- Dahsboard -->
