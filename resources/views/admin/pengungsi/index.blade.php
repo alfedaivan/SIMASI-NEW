@@ -9,9 +9,9 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 @foreach ($getNama as $nm)
-                    @foreach ($getNmTrc as $nmTrc)
+                @foreach ($getNmTrc as $nmTrc)
                 <h1>Pos Pengungsi {{ $nm->nama }} ({{ $nmTrc->fullName }})</h1>
-                    @endforeach
+                @endforeach
                 @endforeach
             </div>
             <div class="col-sm-6">
@@ -564,7 +564,8 @@
         form.addEventListener('beforeinput', e => {
             const formdata = new FormData(form);
             let search = formdata.get('search');
-            let url = "{{ route('searchPengungsi', "search=")  }}"+search
+            let url = "{{ route('searchPengungsi', "
+            search = ")  }}" + search
 
             // let data = url;
             // alert(data);
@@ -675,6 +676,5 @@
 
 </section>
 
-@include('admin.pengungsi.logKeluarMasuk')
 
 @endsection()
