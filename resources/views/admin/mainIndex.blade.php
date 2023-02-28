@@ -10,6 +10,8 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://cdnjs.com/libraries/Chart.js">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{url('/assets/template/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->

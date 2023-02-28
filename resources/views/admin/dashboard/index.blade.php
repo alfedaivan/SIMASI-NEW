@@ -71,5 +71,99 @@
     </div>
 </section>
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- AREA CHART -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Grafik Pengungsi Berdasarkan Bulan per Tahun</h3>
+
+                        <div class="card-tools">
+                            <select class="form-control">
+                                <option>2010</option>
+                                <option>2011</option>
+                                <option>2012</option>
+                                <option>2013</option>
+                                <option>2014</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="areaChart" style="min-height: 250px; height: 250px;
+                             max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(function() {
+        var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+        var areaChartData = {
+            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'November', 'Desember'],
+            datasets: [{
+                    label: 'Digital Goods',
+                    backgroundColor: 'rgba(60,141,188,0.9)',
+                    borderColor: 'rgba(60,141,188,0.8)',
+                    pointRadius: false,
+                    pointColor: '#3b8bba',
+                    pointStrokeColor: 'rgba(60,141,188,1)',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    data: [28, 48, 40, 19, 86, 27, 90, 40, 33, 45, 66, 78]
+                },
+                // {
+                //     label: 'Electronics',
+                //     backgroundColor: 'rgba(210, 214, 222, 1)',
+                //     borderColor: 'rgba(210, 214, 222, 1)',
+                //     pointRadius: false,
+                //     pointColor: 'rgba(210, 214, 222, 1)',
+                //     pointStrokeColor: '#c1c7d1',
+                //     pointHighlightFill: '#fff',
+                //     pointHighlightStroke: 'rgba(220,220,220,1)',
+                //     data: [65, 59, 80, 81, 56, 55, 40]
+                // },
+            ]
+        }
+
+        var areaChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false,
+                    }
+                }]
+            }
+        }
+
+        new Chart(areaChartCanvas, {
+            type: 'line',
+            data: areaChartData,
+            options: areaChartOptions
+        })
+    });
+</script>
+
+
 
 @endsection()
