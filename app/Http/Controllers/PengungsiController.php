@@ -14,7 +14,9 @@ class PengungsiController extends Controller
     // protected $idPosko;
     //Membuat variabel global idPosko
     public function _construct()
-    {$this->idPosko;}
+    {
+        $this->idPosko;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -77,12 +79,22 @@ class PengungsiController extends Controller
         $getNmPosko = Posko::select('nama')->where('id', $id)->get();
 
         $dataKpl = Pengungsi::select('*', DB::raw('count(kpl_id) as ttlAnggota'))
-        // ->join('kepala_keluarga as kp','kp.id','=','pengungsi.kpl_id')
+            // ->join('kepala_keluarga as kp','kp.id','=','pengungsi.kpl_id')
             ->where('pengungsi.posko_id', '=', $id)
             ->where('pengungsi.statKel', '=', 0)
-            ->groupBy('kpl_id', 'pengungsi.nama', 'statKel', 'telpon', 'gender', 'umur',
-                'statPos', 'posko_id', 'statKon', 'pengungsi.created_at'
-                , 'pengungsi.updated_at', 'pengungsi.id',
+            ->groupBy(
+                'kpl_id',
+                'pengungsi.nama',
+                'statKel',
+                'telpon',
+                'gender',
+                'umur',
+                'statPos',
+                'posko_id',
+                'statKon',
+                'pengungsi.created_at',
+                'pengungsi.updated_at',
+                'pengungsi.id',
             )
             ->get();
 
@@ -120,7 +132,7 @@ class PengungsiController extends Controller
             ->where('pengungsi.posko_id', '=', $id)->get();
 
         $getTtlLansia = $getLansia->count();
-        
+
         $getSehat = Pengungsi::select('*')
             ->where('statKon', '=', 0)
             ->where('pengungsi.posko_id', '=', $id)->get();
@@ -129,7 +141,7 @@ class PengungsiController extends Controller
 
         $getSakit = Pengungsi::select('*')
             ->where('statKon', '>', 0)
-            ->where('statKon', '<', 4)
+            ->where('statKon', '!=', 4)
             ->where('pengungsi.posko_id', '=', $id)->get();
 
         $getTtlSakit = $getSakit->count();
@@ -141,11 +153,12 @@ class PengungsiController extends Controller
         $getTtlDifabel = $getDifabel->count();
 
         $getNmTrc = Posko::select(
-        DB::raw("concat(u.firstname,' ',u.lastname) as fullName"))
-        // ->join('posko as p','pengungsi.posko_id','=','p.id')
-        ->leftJoin('users as u','u.id','=','posko.trc_id')
-        ->where('posko.id',$id)
-        ->get();
+            DB::raw("concat(u.firstname,' ',u.lastname) as fullName")
+        )
+            // ->join('posko as p','pengungsi.posko_id','=','p.id')
+            ->leftJoin('users as u', 'u.id', '=', 'posko.trc_id')
+            ->where('posko.id', $id)
+            ->get();
 
         $getMasuk = Pengungsi::select('*')
             ->where('statPos', '=', 1)

@@ -196,7 +196,7 @@
                     </div>
 
                     <!-- /.card-header -->
-                    <div class="card-body ">
+                    <div class="card-body table-responsive">
                         <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Pengungsi
                         </a>
@@ -231,7 +231,7 @@
                                             echo "Ibu";
                                         } else if ($statKel == 2) {
                                             echo "Anak";
-                                        }else if ($statKel == 3) {
+                                        } else if ($statKel == 3) {
                                             echo "Lainnya";
                                         }
                                         ?>
@@ -346,7 +346,7 @@
                                                                     } else if ($getStatKel == 3) {
                                                                         $status = "Lainnya";
                                                                     }
-                                                                    
+
                                                                     ?>
                                                                     <option selected value="{{ $pengungsi->statKel }}" hidden><?php echo $status; ?></option>
                                                                     <option value=0>Kepala Keluarga</option>

@@ -77,7 +77,7 @@
                                                 <!-- <label for="exampleInputId">Nama Posko</label> -->
                                                 <input type="text" class="form-control" id="idPosko" name="idPosko" value="{{request()->id}}" hidden required>
                                                 <input type="text" class="form-control" id="idTrc" name="idTrc" value="{{auth()->user()->id}}" hidden required>
-                                                
+
                                             </div>
 
                                             <div class="form-group">
@@ -155,7 +155,7 @@
                     </div>
 
                     <!-- Tabel Posko -->
-                    <div class="card-body ">
+                    <div class="card-body table-responsive">
                         @role('pusdalop')
                         <a href="#" class="btn btn-success mb-2 " data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
                             <i class="fas fa-plus mr-1"></i> Tambah Posko
@@ -194,7 +194,7 @@
                                     @endforeach -->
                                         <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko; ?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
-                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi;?> orang</td>
+                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi; ?> orang</td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     <td>
@@ -237,7 +237,7 @@
                                     @endforeach -->
                                         <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko; ?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
-                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi;?> orang</td>
+                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi; ?> orang</td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     @endif
@@ -262,7 +262,7 @@
                                     @endforeach -->
                                         <a href="{{url('/listPengungsi')}}/<?php echo $posko->idPosko; ?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Pengungsi </a>
                                     </td>
-                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi;?> orang</td>
+                                    <td><?php echo $posko->kapasitas - $posko->ttlPengungsi; ?> orang</td>
                                     <td>{{ $posko->created_at}}</td>
                                     <td>{{ $posko->updated_at}}</td>
                                     @endif
@@ -411,7 +411,8 @@
         form.addEventListener('beforeinput', e => {
             const formdata = new FormData(form);
             let search = formdata.get('search');
-            let url = "{{ route('searchPosko', "search=")   }}" + search
+            let url = "{{ route('searchPosko', "
+            search = ")   }}" + search
 
             // let data = url;
             // alert(data);
@@ -433,12 +434,12 @@
                                 let trc = posko.fullName;
                                 if (trc == null) {
                                     trc = ' ';
-                                }else{
+                                } else {
                                     trc = posko.fullName
                                 }
-                                let dateCreate =  new Date(posko.created_at);
+                                let dateCreate = new Date(posko.created_at);
                                 dateCreate = dateCreate.toLocaleString();
-                                let dateUpdate =  new Date(posko.updated_at);
+                                let dateUpdate = new Date(posko.updated_at);
                                 dateUpdate = dateUpdate.toLocaleString();
                                 result +=
                                     `<tr>
@@ -529,12 +530,12 @@
                                 let trc = posko.fullName;
                                 if (trc == null) {
                                     trc = ' ';
-                                }else{
+                                } else {
                                     trc = posko.fullName
                                 }
-                                let dateCreate =  new Date(posko.created_at);
+                                let dateCreate = new Date(posko.created_at);
                                 dateCreate = dateCreate.toLocaleString();
-                                let dateUpdate =  new Date(posko.updated_at);
+                                let dateUpdate = new Date(posko.updated_at);
                                 dateUpdate = dateUpdate.toLocaleString();
                                 result +=
                                     `<tr>

@@ -73,7 +73,7 @@
                     <div class="icon">
                         <i class="fas fa-wheelchair"></i>
                     </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-lansia" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right" style="color: #ffff;"></i></a>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#modal-difabel" style="color: #ffff !important;">Tampil Detail <i class="fas fa-arrow-circle-right" style="color: #ffff;"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
@@ -136,34 +136,37 @@
             </div>
             <div class="modal-body">
                 <!-- form start -->
-                <table id="example2" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Jumlah anggota</th>
-                            <th>Alamat</th>
-                            <!-- <th>Jenis Kelamin</th> -->
-                            <!-- <th>Umur</th> -->
-                            <!-- <th>Kondisi</th>
+                <div class="table-responsive">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Jumlah anggota</th>
+                                <th>Alamat</th>
+                                <!-- <th>Jenis Kelamin</th> -->
+                                <!-- <th>Umur</th> -->
+                                <!-- <th>Kondisi</th>
                             <th>Status</th> -->
+                            </tr>
+                        </thead>
+                        <?php $k = 0; ?>
+                        @foreach($dataKpl as $pengungsi)
+                        <tr>
+                            <?php $k++; ?>
+                            <td>{{ $k }}</td>
+                            <td>{{ $pengungsi->nama}}</td>
+                            <td>{{ $jmlAnggota }}</td>
+                            @foreach($getAlamat as $alamat)
+                            <td>{{ $alamat->lokasi }}</td>
+                            @endforeach
                         </tr>
-                    </thead>
-                    <?php $k = 0; ?>
-                    @foreach($dataKpl as $pengungsi)
-                    <tr>
-                        <?php $k++; ?>
-                        <td>{{ $k }}</td>
-                        <td>{{ $pengungsi->nama}}</td>
-                        <td>{{ $jmlAnggota }}</td>
-                        @foreach($getAlamat as $alamat)
-                        <td>{{ $alamat->lokasi }}</td>
                         @endforeach
-                    </tr>
-                    @endforeach
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
         <!-- /.modal-content -->
@@ -232,69 +235,72 @@
             </div>
             <div class="modal-body">
                 <!-- form start -->
-                <table id="example2" class="table table-bordered table-hover">
-                    <thead>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Kepala Keluarga</th>
-                        <!-- <th>No Telepon</th> -->
-                        <th>Alamat</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Umur</th>
-                        <th>Kondisi</th>
-                        <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $l = 0; ?>
-                        @foreach($data as $balita)
-                        @if ($balita->umur < 5) <?php $l++; ?> <tr>
-                            <td>{{ $l }}</td>
-                            <td>{{ $balita->nama }}</td>
-                            <td>{{ $balita->namaKepala }}</td>
-                            <td>{{ $balita->lokasi }}</td>
-                            <?php
-                            $getGender = $pengungsi->gender;
-                            if ($getGender == 0) {
-                                $gender = "Perempuan";
-                            } else if ($getGender == 1) {
-                                $gender = "Laki-laki";
-                            }
-                            ?>
-                            <td><?php echo $gender; ?></td>
-                            <td>{{ $balita->umur }}</td>
-                            <td>
-                                <?php
-                                $kondisi = $balita->statKon;
-                                if ($kondisi == 0) {
-                                    echo "Sehat";
-                                } else if ($kondisi == 1) {
-                                    echo "Luka Ringan";
-                                } else if ($kondisi == 2) {
-                                    echo "Luka Sedang";
-                                } else if ($kondisi == 3) {
-                                    echo "Luka Berat";
-                                } else if ($kondisi == 4) {
-                                    echo "Difabel";
-                                }
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                $statPos = $balita->statPos;
-                                if ($statPos == 0) {
-                                    echo "<span class='badge badge-danger'>Keluar</span>";
-                                } else if ($statPos == 1) {
-                                    echo "<span class='badge badge-success'>Di Posko</span>";
-                                }
-                                ?>
-                            </td>
+                <div class="table-responsive">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Kepala Keluarga</th>
+                            <!-- <th>No Telepon</th> -->
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur</th>
+                            <th>Kondisi</th>
+                            <th>Status</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            <?php $l = 0; ?>
+                            @foreach($data as $balita)
+                            @if ($balita->umur < 5) <?php $l++; ?> <tr>
+                                <td>{{ $l }}</td>
+                                <td>{{ $balita->nama }}</td>
+                                <td>{{ $balita->namaKepala }}</td>
+                                <td>{{ $balita->lokasi }}</td>
+                                <?php
+                                $getGender = $pengungsi->gender;
+                                if ($getGender == 0) {
+                                    $gender = "Perempuan";
+                                } else if ($getGender == 1) {
+                                    $gender = "Laki-laki";
+                                }
+                                ?>
+                                <td><?php echo $gender; ?></td>
+                                <td>{{ $balita->umur }}</td>
+                                <td>
+                                    <?php
+                                    $kondisi = $balita->statKon;
+                                    if ($kondisi == 0) {
+                                        echo "Sehat";
+                                    } else if ($kondisi == 1) {
+                                        echo "Luka Ringan";
+                                    } else if ($kondisi == 2) {
+                                        echo "Luka Sedang";
+                                    } else if ($kondisi == 3) {
+                                        echo "Luka Berat";
+                                    } else if ($kondisi == 4) {
+                                        echo "Difabel";
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $statPos = $balita->statPos;
+                                    if ($statPos == 0) {
+                                        echo "<span class='badge badge-danger'>Keluar</span>";
+                                    } else if ($statPos == 1) {
+                                        echo "<span class='badge badge-success'>Di Posko</span>";
+                                    }
+                                    ?>
+                                </td>
+                                </tr>
 
-                            @endif
-                            @endforeach
-                    </tbody>
-                </table>
+                                @endif
+                                @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
         <!-- /.modal-content -->
@@ -309,6 +315,97 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">List Pengungsi Lansia</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form start -->
+                <div class="table-responsive">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Kepala Keluarga</th>
+                                <th>No Telepon</th>
+                                <th>Alamat</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Umur</th>
+                                <th>Kondisi</th>
+                                <th>Status</th>
+                            </tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $m = 0; ?>
+                            @foreach($data as $lansia)
+                            @if ($lansia->umur > 60)
+                            <?php $m++; ?>
+                            <tr>
+                                <td>{{ $m }}</td>
+                                <td>{{ $lansia->nama }}</td>
+                                <td>{{ $lansia->namaKepala }}</td>
+                                <td>{{ $lansia->telpon }}</td>
+                                <td>{{ $lansia->lokasi }}</td>
+                                <?php
+                                $getGender = $lansia->gender;
+                                if ($getGender == 0) {
+                                    $gender = "Perempuan";
+                                } else if ($getGender == 1) {
+                                    $gender = "Laki-laki";
+                                }
+                                ?>
+                                <td><?php echo $gender; ?></td>
+                                <td>{{ $lansia->umur }}</td>
+                                <td>
+                                    <?php
+                                    $kondisi = $lansia->statKon;
+                                    if ($kondisi == 0) {
+                                        echo "Sehat";
+                                    } else if ($kondisi == 1) {
+                                        echo "Luka Ringan";
+                                    } else if ($kondisi == 2) {
+                                        echo "Luka Sedang";
+                                    } else if ($kondisi == 3) {
+                                        echo "Luka Berat";
+                                    } else if ($kondisi == 4) {
+                                        echo "Difabel";
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $statPos = $lansia->statPos;
+                                    if ($statPos == 0) {
+                                        echo "<span class='badge badge-danger'>Keluar</span>";
+                                    } else if ($statPos == 1) {
+                                        echo "<span class='badge badge-success'>Di Posko</span>";
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- end -->
+
+<!-- modal difabel -->
+<div class="modal fade" id="modal-difabel">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Difabel</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -331,18 +428,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $m = 0; ?>
-                        @foreach($data as $lansia)
-                        @if ($lansia->umur > 60)
-                        <?php $m++; ?>
+                        <?php $n = 0; ?>
+                        @foreach($data as $sakit)
+                        @if ($sakit->statKon == 4)
+                        <?php $n++; ?>
                         <tr>
-                            <td>{{ $m }}</td>
-                            <td>{{ $lansia->nama }}</td>
-                            <td>{{ $lansia->namaKepala }}</td>
-                            <td>{{ $lansia->telpon }}</td>
-                            <td>{{ $lansia->lokasi }}</td>
+                            <td>{{ $n }}</td>
+                            <td>{{ $sakit->nama }}</td>
+                            <td>{{ $sakit->namaKepala }}</td>
+                            <td>{{ $sakit->telpon }}</td>
+                            <td>{{ $sakit->lokasi }}</td>
                             <?php
-                            $getGender = $lansia->gender;
+                            $getGender = $sakit->gender;
                             if ($getGender == 0) {
                                 $gender = "Perempuan";
                             } else if ($getGender == 1) {
@@ -350,10 +447,10 @@
                             }
                             ?>
                             <td><?php echo $gender; ?></td>
-                            <td>{{ $lansia->umur }}</td>
+                            <td>{{ $sakit->umur }}</td>
                             <td>
                                 <?php
-                                $kondisi = $lansia->statKon;
+                                $kondisi = $sakit->statKon;
                                 if ($kondisi == 0) {
                                     echo "Sehat";
                                 } else if ($kondisi == 1) {
@@ -369,7 +466,7 @@
                             </td>
                             <td>
                                 <?php
-                                $statPos = $lansia->statPos;
+                                $statPos = $sakit->statPos;
                                 if ($statPos == 0) {
                                     echo "<span class='badge badge-danger'>Keluar</span>";
                                 } else if ($statPos == 1) {
@@ -421,7 +518,7 @@
                     <tbody>
                         <?php $n = 0; ?>
                         @foreach($data as $sakit)
-                        @if ($sakit->statKon > 0)
+                        @if ($sakit->statKon > 0 && $sakit->statKon != 4)
                         <?php $n++; ?>
                         <tr>
                             <td>{{ $n }}</td>
@@ -491,61 +588,64 @@
             </div>
             <div class="modal-body">
                 <!-- form start -->
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Status Keluarga</th>
-                            <th>Kepala Keluarga</th>
-                            <th>No Telepon</th>
-                            <th>Alamat</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Umur</th>
-                            <th>Tanggal masuk</th>
-                        </tr>
-                    </thead>
-                    <tbody id="result1">
-                        <tr>
-                            <?php $i = 0; ?>
-                            @foreach ($data as $pengungsi)
-                            @if($pengungsi->statPos == 1)
-                            <?php $i++; ?>
-                            <!-- <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td> -->
-                            <td>{{ $i }}</td>
-                            <td>{{ $pengungsi->nama }}</td>
-                            <td>
-                                <?php
-                                $statKel = $pengungsi->statKel;
-                                if ($statKel == 0) {
-                                    echo "Kepala Keluarga";
-                                } else if ($statKel == 1) {
-                                    echo "Ibu";
-                                } else if ($statKel == 2) {
-                                    echo "Anak";
-                                }
-                                ?>
-                            </td>
-                            <td>{{ $pengungsi->namaKepala}}</td>
-                            <td>{{ $pengungsi->telpon }}</td>
-                            <td>{{ $pengungsi->lokasi }}</td>
-                            <td>
-                                <?php
-                                $gender = $pengungsi->gender;
-                                if ($gender == 0) {
-                                    echo "Perempuan";
-                                } else if ($gender == 1) {
-                                    echo "Laki-laki";
-                                }
-                                ?>
-                            </td>
-                            <td>{{ $pengungsi->umur }}</td>
-                            <td>{{ $pengungsi->tglMasuk }}</td>
-                        </tr>
-                        @endif
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Status Keluarga</th>
+                                <th>Kepala Keluarga</th>
+                                <th>No Telepon</th>
+                                <th>Alamat</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Umur</th>
+                                <th>Tanggal masuk</th>
+                            </tr>
+                        </thead>
+                        <tbody id="result1">
+                            <tr>
+                                <?php $i = 0; ?>
+                                @foreach ($data as $pengungsi)
+                                @if($pengungsi->statPos == 1)
+                                <?php $i++; ?>
+                                <!-- <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td> -->
+                                <td>{{ $i }}</td>
+                                <td>{{ $pengungsi->nama }}</td>
+                                <td>
+                                    <?php
+                                    $statKel = $pengungsi->statKel;
+                                    if ($statKel == 0) {
+                                        echo "Kepala Keluarga";
+                                    } else if ($statKel == 1) {
+                                        echo "Ibu";
+                                    } else if ($statKel == 2) {
+                                        echo "Anak";
+                                    }
+                                    ?>
+                                </td>
+                                <td>{{ $pengungsi->namaKepala}}</td>
+                                <td>{{ $pengungsi->telpon }}</td>
+                                <td>{{ $pengungsi->lokasi }}</td>
+                                <td>
+                                    <?php
+                                    $gender = $pengungsi->gender;
+                                    if ($gender == 0) {
+                                        echo "Perempuan";
+                                    } else if ($gender == 1) {
+                                        echo "Laki-laki";
+                                    }
+                                    ?>
+                                </td>
+                                <td>{{ $pengungsi->umur }}</td>
+                                <td>{{ $pengungsi->tglMasuk }}</td>
+                            </tr>
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
                 <br />
                 {{ $data->links() }}
                 <br />
@@ -568,61 +668,64 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Status Keluarga</th>
-                            <th>Kepala Keluarga</th>
-                            <th>No Telepon</th>
-                            <th>Alamat</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Umur</th>
-                            <!-- <th>Awal masuk</th> -->
-                        </tr>
-                    </thead>
-                    <tbody id="result2">
-                        <tr>
-                            <?php $j = 0 ?>
-                            @foreach ($data as $keys => $pengungsis)
-                            @if($pengungsis->statPos == 0)
-                            <?php $j++; ?>
-                            <td>{{ $j }}</th>
-                            <td>{{ $pengungsis->nama }}</td>
-                            <td>
-                                <?php
-                                $statKel = $pengungsi->statKel;
-                                if ($statKel == 0) {
-                                    echo "Kepala Keluarga";
-                                } else if ($statKel == 1) {
-                                    echo "Ibu";
-                                } else if ($statKel == 2) {
-                                    echo "Anak";
-                                }
-                                ?>
-                            </td>
-                            <td>{{ $pengungsis->namaKepala}}</td>
-                            <td>{{ $pengungsis->telpon }}</td>
-                            <td>{{ $pengungsis->lokasi }}</td>
-                            <td>
-                                <?php
-                                $gender = $pengungsis->gender;
-                                if ($gender == 0) {
-                                    echo "Perempuan";
-                                } else if ($gender == 1) {
-                                    echo "Laki-laki";
-                                }
-                                ?>
-                            </td>
-                            <td>{{ $pengungsis->umur }}</td>
-                            <!-- <td>{{ $pengungsis->tglMasuk }}</td> -->
-                            </td>
-                        </tr>
-                        @endif
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Status Keluarga</th>
+                                <th>Kepala Keluarga</th>
+                                <th>No Telepon</th>
+                                <th>Alamat</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Umur</th>
+                                <!-- <th>Awal masuk</th> -->
+                            </tr>
+                        </thead>
+                        <tbody id="result2">
+                            <tr>
+                                <?php $j = 0 ?>
+                                @foreach ($data as $keys => $pengungsis)
+                                @if($pengungsis->statPos == 0)
+                                <?php $j++; ?>
+                                <td>{{ $j }}</th>
+                                <td>{{ $pengungsis->nama }}</td>
+                                <td>
+                                    <?php
+                                    $statKel = $pengungsi->statKel;
+                                    if ($statKel == 0) {
+                                        echo "Kepala Keluarga";
+                                    } else if ($statKel == 1) {
+                                        echo "Ibu";
+                                    } else if ($statKel == 2) {
+                                        echo "Anak";
+                                    }
+                                    ?>
+                                </td>
+                                <td>{{ $pengungsis->namaKepala}}</td>
+                                <td>{{ $pengungsis->telpon }}</td>
+                                <td>{{ $pengungsis->lokasi }}</td>
+                                <td>
+                                    <?php
+                                    $gender = $pengungsis->gender;
+                                    if ($gender == 0) {
+                                        echo "Perempuan";
+                                    } else if ($gender == 1) {
+                                        echo "Laki-laki";
+                                    }
+                                    ?>
+                                </td>
+                                <td>{{ $pengungsis->umur }}</td>
+                                <!-- <td>{{ $pengungsis->tglMasuk }}</td> -->
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
                 <br />
                 {{ $data->links() }}
                 <br />
