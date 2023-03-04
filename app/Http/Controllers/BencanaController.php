@@ -25,7 +25,7 @@ class BencanaController extends Controller
             DB::raw('count(p.bencana_id) as ttlPosko'),
             //  DB::raw('count(p.id) as ttlPengungsi')
         )
-            ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
+            ->leftJoin('posko AS p', 'bencana.id', '=', 'p.bencana_id')
         // ->join('pengungsi as peng','peng.posko_id','=','p.id')
             ->orderBy('bencana.tanggal', 'desc')
             ->distinct()
@@ -42,6 +42,7 @@ class BencanaController extends Controller
             'bencana.nama as namaBencana', 'lokasi', 'status',
             'bencana.updated_at as waktuUpdate', 'p.bencana_id', 'p.trc_id as trc',
             DB::raw('count(p.bencana_id) as ttlPosko'),
+            
             //  DB::raw('count(p.id) as ttlPengungsi')
         )
             ->join('posko AS p', 'bencana.id', '=', 'p.bencana_id')
@@ -54,9 +55,9 @@ class BencanaController extends Controller
             ->paginate(5);
 
         $getTtlPengungsi = Posko::select('*')
-            ->leftJoin('bencana as b', 'posko.bencana_id', '=', 'b.id')
-            ->join('pengungsi as p', 'posko.id', '=', 'p.posko_id')
-            ->where('posko.bencana_id', '=', 'b.id')
+            ->join('bencana as b', 'posko.bencana_id', '=', 'b.id')
+            // ->join('pengungsi as p', 'posko.id', '=', 'p.posko_id')
+            ->where('posko.bencana_id', '=', 3)
             ->get();
 
         $ttlPeng = $getTtlPengungsi->count();

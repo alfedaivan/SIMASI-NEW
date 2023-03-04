@@ -493,7 +493,7 @@
                             let bencana = data[i]
                             result +=
                                 `<tr>
-                <td>${i+1}</td>
+                                   <td>${i+1}</td>
                                     <td>${bencana.namaBencana }</td>
                                     <td>${bencana.waktu}</td>
                                     <td>${bencana.lokasi}</td>
