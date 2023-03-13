@@ -28,17 +28,15 @@
                         <h3 class="card-title">Cadangan & pulihkan data</h3>
                     </div>
 
-                    <div class="card-body ">
+                    <div class="card-body table-responsive">
                         <button onclick="event.preventDefault();
-                          document.getElementById('new-backup-form').submit();" class="btn btn-success mb-2"
-                            style="font-size: 14px;">
+                          document.getElementById('new-backup-form').submit();" class="btn btn-success mb-2" style="font-size: 14px;">
                             <span class="btn-icon-wrapper pr-2 opacity-7">
                                 <i class="fas fa-plus"></i>
                             </span>
                             {{ __('Cadangkan') }}
                         </button>
-                        <form id="new-backup-form" action="{{ route('cadang.create') }}" method="POST"
-                            style="display: none;">
+                        <form id="new-backup-form" action="{{ route('cadang.create') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
 
@@ -62,19 +60,14 @@
                                     <td class="text-center">{{ $backup['file_size'] }}</td>
                                     <td class="text-center">{{ $backup['created_at'] }}</td>
                                     <td class="text-center">
-                                        <a class="btn btn-info btn-sm"
-                                            href="{{ route('cadang.download',$backup['file_name']) }}"><i
-                                                class="fas fa-download"></i>
+                                        <a class="btn btn-info btn-sm" href="{{ route('cadang.download',$backup['file_name']) }}"><i class="fas fa-download"></i>
                                             <span>Download</span>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            onclick="deleteData({{ $key }})">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $key }})">
                                             <i class="fas fa-trash-alt"></i>
                                             <span>Delete</span>
                                         </button>
-                                        <form id="delete-form-{{ $key }}"
-                                            action="{{ route('cadang.destroy',$backup['file_name']) }}" method="POST"
-                                            style="display: none;">
+                                        <form id="delete-form-{{ $key }}" action="{{ route('cadang.destroy',$backup['file_name']) }}" method="POST" style="display: none;">
                                             @csrf()
                                             @method('DELETE')
                                         </form>
@@ -98,22 +91,22 @@
         </div>
     </div>
     <script>
-    function deleteData(id) {
-        Swal.fire({
-            title: "Hapus?",
-            icon: 'question',
-            text: "Apakah Anda yakin?",
-            type: "warning",
-            showCancelButton: !0,
-            cancelButtonText: "Batal!",
-            confirmButtonText: "Iya, hapus!",
-            reverseButtons: !0
-        }).then((result) => {
-            if (result.value) {
-                document.getElementById('delete-form-' + id).submit();
-            }
-        })
-    }
+        function deleteData(id) {
+            Swal.fire({
+                title: "Hapus?",
+                icon: 'question',
+                text: "Apakah Anda yakin?",
+                type: "warning",
+                showCancelButton: !0,
+                cancelButtonText: "Batal!",
+                confirmButtonText: "Iya, hapus!",
+                reverseButtons: !0
+            }).then((result) => {
+                if (result.value) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
     </script>
 </section>
 

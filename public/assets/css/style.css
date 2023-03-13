@@ -38,3 +38,11 @@
     height: 70px;
     fill: #343a40 !important;
 }
+
+.login-page {
+    background-image: url("/assets/img/background.png") !important;
+}
+
+.login-box .login-logo img.lgn-logo {
+    width: 80% !important;
+}
